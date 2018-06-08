@@ -1,0 +1,57 @@
+<modal #modal>
+    <modal-header>
+        Your Deal
+    </modal-header>
+    <modal-body>
+      <div>What is the offer?</div>
+      <input type="text" 
+        placeholder="15% off Chicken tacos"
+        [(ngModel)]="deal.dealTitle">
+      <div>How many offers do you want give?</div>
+      <input type="number" 
+        [(ngModel)]="deal.dealAmount"
+        placeholder="10">
+      
+      <!-- <div>Optional Comment with the post</div>
+      <textarea type="text" 
+      [(ngModel)]="deal.comment"
+        placeholder="What a great company! I love their stuff!">
+      </textarea> -->
+      <div>User can post To:</div>
+        <div class="row">
+          <div class="col">
+              <div class="insta"
+                (click)="instaOn=!instaOn"
+                [ngClass]="{instaOn:instaOn}">
+              </div>
+          </div>
+          <div class="col">
+              <div class="fb"
+                (click)="fbOn=!fbOn"
+                [ngClass]="{fbOn:fbOn}">
+              </div>
+          </div>
+        </div>
+      <!-- <div class="insta"
+        (click)="instaOn=!instaOn"
+        [ngClass]="{instaOn:instaOn}">
+      </div>
+      <div class="fb"
+        (click)="fbOn=!fbOn"
+        [ngClass]="{fbOn:fbOn}">
+      </div> -->
+    </modal-body>
+    <modal-footer>
+        <button (click)="saveDeal()" 
+          class="button"
+          *ngIf="!edit">
+          Save
+        </button>
+        <button 
+          (click)="editDeal()" 
+          class="button"
+          *ngIf="edit">
+          Save Edit
+        </button>
+    </modal-footer>
+</modal>

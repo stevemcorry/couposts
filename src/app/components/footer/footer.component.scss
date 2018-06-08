@@ -1,0 +1,11 @@
+@import '../../colors.scss';
+
+.footer{
+    height: 30px;
+    font: 20px Poppins;
+    color: white;
+    background: $grey;
+    width: 100%;
+    text-align: right;
+    padding-right: 15px;
+}

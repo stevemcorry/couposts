@@ -1,0 +1,34 @@
+<div class="close" (click)="closeModal()">X</div>
+<div class="header">
+  <div class="leftHeader">
+    <div class="companyPhoto" 
+      [ngStyle]="{'background-image':'url(' + deal.business.photo + ')'}">
+    </div>
+    <div class="remainderWarn"      
+      *ngIf="deal.deal.dealsLeft < 20 && !profile">
+        {{deal.deal.dealsLeft}} remaining
+    </div>
+    <div class="remainderWarn"      
+      *ngIf="expiration">
+        Expires: {{expiration}}
+    </div>
+  </div>
+  <div class="rightHeader">
+    <div class="infoHeader">
+      {{deal.business.name}}
+    </div>
+    <div class="infoDetails">
+      {{deal.deal.dealTitle}}
+    </div>
+    <button class="good-button" 
+      *ngIf="deal.business.website"
+      (click)="websiteClick(deal.business)">
+      Visit website
+    </button>
+    <button class="good-button" 
+      *ngIf="deal.business.insta"
+      (click)="instaClick(deal.business)">
+      Visit Intstagram
+    </button>
+  </div>
+</div>

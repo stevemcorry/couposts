@@ -1,0 +1,73 @@
+<div class="business-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-7 text-center">
+        <div class="videoTitle">Video</div>
+        <iframe 
+          src="https://www.youtube.com/embed/qOm5BgVw_a4?autoplay=1&rel=0"
+          class="video">
+        </iframe>
+        <ol>
+          <li class="bulletText">Sign up and let your customers advertise for you!</li>
+          <li class="bulletText">Select the pictures you want to post</li>
+          <li class="bulletText">Free sign up!</li>
+        </ol>
+      </div>
+      <div class=""></div>
+      <div class="col-lg-5 rightCol text-center">
+        <div class="inputDiv">
+          <div class="inputHeader">Company Name</div>
+          <input type="text" 
+          [(ngModel)]="business.name"
+          placeholder="I.E. CouPosts">
+        </div>
+        <!-- <div class="inputDiv">
+          <div class="inputHeader">Website</div>
+          <input type="text" 
+          [(ngModel)]="business.website"
+          placeholder="Website">
+        </div> -->
+        <!-- <div class="inputDiv">
+          <div class="inputHeader">Business Address</div>
+          <input type="text" 
+          [(ngModel)]="business.address"
+          placeholder="Address">
+        </div> -->
+        <div class="inputDiv">
+          <div class="inputHeader">Instagram Username</div>
+          <input type="text" 
+          [(ngModel)]="business.insta"
+          placeholder="Address">
+        </div>
+        <!-- <div class="inputDiv">
+          <div class="inputHeader">Phone</div>
+          <input type="text" 
+          [textMask]="{mask: mask}"
+          placeholder="1(800)000-0000"
+          [(ngModel)]="business.phone">
+        </div> -->
+        <div class="inputDiv">
+          <div class="inputHeader">Email</div>
+          <input type="email" 
+          [(ngModel)]="business.email"
+          placeholder="email@email.com">
+        </div>
+        <div class="inputDiv">
+          <div class="inputHeader">Your Coupost Password</div>
+          <input type="password"
+          [(ngModel)]="password"
+          placeholder="At least 6 digits">
+        </div>
+        <div class="inputDiv">
+          <div class="inputHeader">Re-enter Password</div>
+          <input type="password"
+          [(ngModel)]="repassword"
+          placeholder="Passwords must match">
+        </div>
+        <div class="inputDiv">
+          <button (click)="signUp()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

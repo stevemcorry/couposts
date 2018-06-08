@@ -1,0 +1,320 @@
+@import '../../colors.scss';
+
+//Add Modal
+
+.addModal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    transition: all .5s ease;
+}
+.addModalOn{
+    overflow: scroll;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+.cancelButton{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 2;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url('../../../assets/Images/arrow-icon.png');
+    transform: rotate(-90deg);
+    height: 40px;
+    width: 40px;
+}
+.userSees{
+    font: 18px Poppins;
+    color: $grey;
+    margin: 20px auto;
+    border-bottom: 1px solid grey;
+}
+.addLabel{
+    font: 18px sans-serif;
+    margin: 65px 0;
+    cursor: pointer;
+}
+
+.rightBorder{
+    padding-top: 45px;
+    border-right: 2px solid $grey;
+}
+
+.leftCol{
+    min-height: 100vh;
+}
+//Deals Section
+.stepLabel{
+    font: 20px Poppins;
+    margin: 10px 0;
+    text-align: left;
+}
+.stepOne{
+    height: 0px;
+    overflow: hidden;
+}
+.stepOn{
+    height: auto;
+}
+.dealWrap{
+    margin: auto;
+    width: 630px;
+    min-width: 630px;
+    border: 1px solid black;
+    position: relative;
+    box-shadow: 0px 0px 10px lightgrey;
+}
+.topDeal{
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+.businessInfo{
+    display: inline-block;
+    width: 375px;
+    text-align: center;
+    padding-top: 15px;
+}
+.businessName{
+    font: 20px Poppins;
+}
+.dealName{
+    font: 18px Poppins;
+    color: rgb(252, 93, 93);
+    height: 33px;
+}
+.dealButton{
+    height: 40px;
+    background-color: $darkblue;
+    color: white;
+    font: 18px Poppins;
+    padding: 5px 10px;
+    border: none;
+}
+.businessImage{
+    position: relative;
+    height: 200px;
+    width: 200px;
+    display: inline-block;
+    margin: 15px;
+    background-image: url('../../../assets/Images/sweet-ice-cream.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.aboutDeal{
+    text-align: left;
+    font: 16px Poppins;
+    padding: 10px;
+    border-bottom: 1px solid $lightgrey;
+}
+.selectImage{
+    font: 18px Poppins;
+    color: $grey;
+    text-align: left;
+    padding-left: 30px;
+}
+input{
+    width: 80%;
+    border: 2px solid $grey;
+    border-radius: 5px;
+    margin: 10px auto;
+    display: inline-block;
+}
+textarea{
+    border-radius: 5px;
+    margin: 10px auto;
+    resize: none;
+    width: 80%;
+    border: 2px solid $grey;
+}
+.dealHeader{
+    font: 20px sans-serif;
+    color: $darkblue;
+    margin: 20px 0;
+    position: relative;
+}
+.codeHeader{
+    font: 16px sans-serif;
+    color: $darkblue;
+    margin: 10px;
+    display: inline-block;
+}
+.dealColumn{
+    overflow-y: scroll; 
+    height: 100vh;
+}
+.dealContainer{
+    width: 375px;
+    height: 375px;
+    margin: 15px auto;
+    border-radius: 3px;
+    border: 1px solid white;
+    position: relative;
+    overflow: hidden;
+}
+.dealTitle{
+    font: 18px sans-serif;
+    left: 10px;
+    bottom: 10px;
+    color: grey;
+    background-color: rgba(0,0,0,0);
+    transition: all .2s ease;
+}
+.location{
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+.locationName{
+    display: inline-block;
+}
+.checkbox{
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid $darkblue;
+    transition: all .2s ease;
+    margin: 0;
+    margin-right: 10px;
+}
+.checkOn{
+    background-color: $darkblue;
+}
+
+.editLabel:hover{
+    border: 1px solid $grey;
+}
+.dealCarosel{
+    height: 375px;
+    transition: all .5s ease;
+}
+.dealImg{
+    width: 375px;
+    height: 375px;
+    //background-image: url('../../../assets/Images/team.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    display: inline-block;
+}
+.arrow{
+    background-image: url('../../../assets/Images/arrow-icon.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    cursor: pointer;
+}
+.leftArrow{
+    left: 5px;
+    top: calc(50% - 20px);
+    transform: rotate(-90deg)
+}
+.rightArrow{
+    right: 5px;
+    top: calc(50% - 20px);
+    transform: rotate(90deg)
+}
+.editLabel{
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+.redeem{
+    display: inline-block;
+    font: 20px sans-serif;
+    color: $darkblue;
+    background-color: rgba(0,0,0,0);
+    transition: all .5s ease;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    margin: 5px 0;
+    transform: translateY(-7px);
+}
+// .redeemOn{
+//     background-color: $darkblue;
+//     color: white;
+// }
+.buttons{
+    margin-top: 20px;
+    div{
+        display: inline-block;
+    }
+}
+.redeemButtons{
+    font-size: 20px;
+    height: 40px;
+    border-radius: 5px;
+    width: fit-content;
+    padding: 5px 10px;
+    color: black;
+    margin: 10px 5%;
+    transition: all .3s ease;
+    border: 1px solid black;
+    min-width: 75px;
+}
+.redeemButtonOn{
+    border: none;
+    color: white;
+    background-color: $darkblue;
+}
+.cancelDeal{
+    font-size: 20px;
+    height: 40px;
+    border-radius: 5px;
+    width: fit-content;
+    padding: 5px 10px;
+    background-color: lightgrey;
+    color: white;
+    margin: 10px 5%;
+}
+.saveDeal{
+    font-size: 20px;
+    height: 40px;
+    border-radius: 5px;
+    width: fit-content;
+    padding: 5px 10px;
+    background-color: $darkblue;
+    color: white;
+    margin: 10px 5%;
+}
+.deleteDeal{
+    font-size: 20px;
+    height: 40px;
+    border-radius: 5px;
+    width: fit-content;
+    padding: 5px 10px;
+    background-color: rgb(255, 115, 0);
+    color: white;
+    margin: 10px 5%;
+}
+
+@media screen and (max-width: 700px){
+    .smallHeader{
+        display: block;
+        .logo{
+            display: inline-block;
+        }
+        .menu{
+            display: inline-block;
+            float: right;
+        }
+    }
+    .bigHeader{
+        display: none;
+    }
+}

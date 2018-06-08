@@ -1,0 +1,41 @@
+<modal #modal>
+    <modal-header>
+      <div class="modal-header">
+        Let's get more info:
+      </div>
+    </modal-header>
+    <modal-body>
+      <div class="info-header">Do you have a website?</div>
+      <input type="text" 
+        placeholder="website"
+        class="textInput" 
+        [(ngModel)]="website">
+      <div class="info-header">What Industry are you in?</div>
+      <input type="checkbox" 
+        name="ecommerce"
+        value="ecommerce"
+        class="checkboxInput"
+        [(ngModel)]="industry.ecommerce"> E-Commerce <br>
+      <input type="checkbox" 
+          name="retail"
+          value="retail"
+          class="checkboxInput"
+          [(ngModel)]="industry.retail"> Retail <br>
+      <input type="checkbox" 
+          name="food"
+          value="food"
+          class="checkboxInput"
+          [(ngModel)]="industry.food"> Food <br>
+      <input type="checkbox" 
+          name="service"
+          value="service"
+          class="checkboxInput"
+          [(ngModel)]="industry.service"> Service <br>
+      <input type="checkbox" 
+          name="activity"
+          value="activity"
+          class="checkboxInput"
+          [(ngModel)]="industry.activity"> Activity <br>
+      <button class="good-button" (click)="save()">Save and Continue</button>
+    </modal-body>
+  </modal>

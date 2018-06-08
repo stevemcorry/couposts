@@ -1,0 +1,52 @@
+.dealContainer{
+    width: 375px;
+    height: 375px;
+    margin: 15px auto;
+    border-radius: 3px;
+    border: 1px solid white;
+    position: relative;
+    overflow: hidden;
+}
+.dealCarosel{
+    height: 375px;
+    transition: all .5s ease;
+}
+.modalDealImg{
+    width: 375px;
+    height: 375px;
+    //background-image: url('../../../assets/Images/team.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    display: inline-block;
+    object-fit: contain;
+}
+.arrow{
+    background-image: url('../../../assets/Images/arrow-icon.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    cursor: pointer;
+}
+.leftArrow{
+    left: 5px;
+    top: calc(50% - 20px);
+    transform: rotate(-90deg)
+}
+.rightArrow{
+    right: 5px;
+    top: calc(50% - 20px);
+    transform: rotate(90deg)
+}
+@media screen and (max-width: 575px){
+    .dealContainer{
+        width: 325px;
+    }
+    .dealImg{
+        height: 325px;
+        width: 325px;
+    }
+}

@@ -1,0 +1,13 @@
+<modal #modal>
+    <modal-header>
+        Login
+    </modal-header>
+    <modal-body>
+        <input type="email" placeholder="Email Address" [(ngModel)]="user.email">
+        <input type="password" 
+            placeholder="Password" 
+            (keyup.enter)="login()"
+            [(ngModel)]="user.pass">
+        <button (click)="login()">Log In</button>
+    </modal-body>
+</modal>

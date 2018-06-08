@@ -1,0 +1,18 @@
+<modal #modal>
+  <modal-header>
+    <div class="modal-header">
+      Welcome to Couposts!
+    </div>
+  </modal-header>
+  <modal-body>
+    <div class="info-header">Tell us about your company:</div>
+    <div class="info">
+      This is what users will see when they see your deals. 
+    </div>
+    <textarea type="text" 
+      placeholder="About your company" 
+      [(ngModel)]="about">
+    </textarea>
+      <button class="good-button" (click)="aboutSave()">Save and Continue</button>
+  </modal-body>
+</modal>

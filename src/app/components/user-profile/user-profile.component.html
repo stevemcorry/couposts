@@ -1,0 +1,220 @@
+<app-header></app-header>
+<div class="userWrap">
+
+  <div (click)="verifyInsta()" *ngIf="needsVerify" class="verifyInsta">Click to verify your instagram!</div>
+  <div *ngIf="!allDeals[0] && !needsVerify" class="dealsLoading">{{dealsLoading}}</div>
+
+  <div class="dealHeader" *ngIf="confirmed != 'confirmed'" (click)="log()">
+    Confirmed Deals!
+  </div>
+  <app-deal *ngFor="let deal of allDeals | userDeals : confirmed"
+    [deal]="deal"
+    (click)="openConfirm(deal)"
+    [time]="getExpiration(deal.dealStatus.timeConfirmed)">
+  </app-deal>
+  <div class="lineSeparator" *ngIf="waiting != 'waiting' && confirmed != 'confirmed'"></div>
+
+  <div class="dealHeader" *ngIf="waiting != 'waiting'">
+    Waiting Confirmation
+  </div>
+  <app-deal *ngFor="let deal of allDeals | userDeals : waiting"
+    [deal]="deal"
+    (click)="open(deal)">
+  </app-deal>
+  <div class="lineSeparator" *ngIf="waiting != 'waiting' && denied != 'denied'"></div>
+
+  <div class="lineSeparator" *ngIf="denied != 'denied' && confirmed != 'confirmed'"></div>
+
+  <div class="dealHeader" *ngIf="denied != 'denied'">
+    Denied Deals
+  </div>
+  <app-deal *ngFor="let deal of allDeals | userDeals : denied"
+    [deal]="deal"
+    (click)="openDenied(deal)"
+    [time]="getDeniedExpiration(deal.dealStatus.timeDenied)">
+  </app-deal>
+
+</div>
+
+
+<modal #acceptModal id="userModal">
+    <modal-header>
+      <app-deal-header (close)="confirmedModal.close()" 
+        [deal]="deal"
+        [profile]="true"
+        [expiration]="getExpiration(deal.dealStatus.timeConfirmed)">
+      </app-deal-header>
+    </modal-header>
+
+    <modal-body *ngIf="deal.deal.codes ? !deal.deal.codes.type : ''">
+      <div class="acceptDesc">
+        Show this to an employee at the front desk and they’ll take care of you!
+      </div>
+      <div class="approveWarn">
+        *Coupost will disappear after "Approve" button is clicked*
+      </div> 
+    </modal-body>
+
+    <modal-body *ngIf="deal.deal.codes ? deal.deal.codes.type : ''">
+      <div class="acceptDesc">
+        Email the coupont to your email or copy to clipboard.
+      </div>
+      <div class="approveWarn">
+        *Coupost will disappear after one of the buttons are clicked*
+      </div> 
+    </modal-body>
+  
+    <modal-footer *ngIf="deal.deal.codes ? !deal.deal.codes.type : ''">
+      <button (click)="acceptModal.close()" 
+        class="cancel-button">
+        Close
+      </button>
+      <button (click)="accept()" 
+        class="good-button">
+        Approve
+      </button>
+    </modal-footer>
+
+    <modal-footer *ngIf="deal.deal.codes ? deal.deal.codes.type : ''">
+      <!-- <button (click)="copyCode(deal.deal)" 
+        class="cancel-button">
+        Copy Code
+      </button> -->
+      <button (click)="acceptModal.close()" 
+        class="cancel-button">
+        Close
+      </button>
+      <button (click)="emailCode(deal.deal, deal.dealStatus.key); accept()" 
+        class="good-button">
+        Email Code
+      </button>
+    </modal-footer>
+  
+  </modal>
+
+<modal #confirmedModal id="userModal">
+  <modal-header>
+    <app-deal-header (close)="confirmedModal.close()" 
+      [deal]="deal"
+      [profile]="true"
+      [expiration]="getExpiration(deal.dealStatus.timeConfirmed)">
+    </app-deal-header>
+  </modal-header>
+
+  <div class="aboutHeader">
+    {{deal.business.about}}
+  </div>
+
+  <modal-body>
+    <div>
+      {{deal.deal.comment}}
+    </div>
+    <div>
+      {{deal.deal.redeem}}
+    </div> 
+  </modal-body>
+
+  <modal-footer>
+    <button (click)="confirmedModal.close()" 
+      class="cancel-button">
+      Close
+    </button>
+    <button (click)="redeem()" 
+      class="good-button">
+      Redeem
+    </button>
+  </modal-footer>
+
+</modal>
+
+<modal #modal id="userModal">
+  <modal-header>
+    <app-deal-header (close)="modal.close()" 
+      [deal]="deal"
+      [profile]="true">
+    </app-deal-header>
+  </modal-header>
+
+  <div class="aboutHeader">
+    {{deal.business.about}}
+  </div>
+
+  <modal-body>
+
+    <app-carousel [dealImages]="dealImages"></app-carousel>
+      
+  </modal-body>
+
+  <div class="aboutHeader denyHeader">
+    “Coupost is still under review, please allow up to 12 hours. Thank you for your patience”
+  </div>
+
+  <modal-footer>
+    <button (click)="modal.close()"
+      class="cancel-button">
+      Close
+    </button>
+    <!-- <button (click)="modal.close()" 
+      class="good-button">
+      Redeem
+    </button> -->
+  </modal-footer>
+
+</modal>
+
+<modal #deniedModal id="userModal">
+  <modal-header>
+    <app-deal-header (close)="modal.close()" 
+      [deal]="deal"
+      [profile]="true"
+      [expiration]="getDeniedExpiration(deal.dealStatus.timeDenied)">
+    </app-deal-header>
+  </modal-header>
+
+  <div class="aboutHeader denyHeader">
+    Your post did not meet the required criteria:
+  </div>
+  <div class="aboutHeader">
+    {{deal.dealStatus.deny_message}}
+  </div>
+
+  <modal-body>
+
+    <app-carousel [dealImages]="dealImages"></app-carousel> 
+     
+    <div class="stepHeader">
+      Step one:
+    </div>
+    <div class="stepInfo">
+      Click and hold the image and save to your phone.
+    </div>
+    <div class="stepHeader">
+      Step two:
+    </div>
+    <div class="stepInfo">
+      You can write your own caption but must include <span>@couposts</span> and <span>{{deal.business.insta ? '@'+deal.business.insta : deal.business.name}}</span>.
+    </div>
+    <div class="stepWarn">
+      *Both must be included, spelled correctly, and link to the accounts in order to qualify
+    </div>
+    <div class="stepHeader">
+      Step three:
+    </div>
+    <div class="stepInfo">
+        Click redeem to go to your instagram. Once your post/story is verified (may take up to 12 hours), your Coupost will be available on your profile page.
+    </div>
+      
+  </modal-body>
+
+  <modal-footer>
+    <button (click)="modal.close()"
+      class="cancel-button">
+      Close
+    </button>
+    <button (click)="repost(deal)" 
+      class="good-button">
+      Repost
+    </button>
+  </modal-footer>
+
+</modal>

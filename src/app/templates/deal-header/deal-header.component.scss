@@ -1,0 +1,50 @@
+
+.close{
+    position: absolute;
+    right: 25px;
+    top: 25px;
+}
+.header{
+    width: 100%;
+    display: flex;
+}
+.leftHeader{
+    display: inline-block;
+    width: 215px;
+    position: relative;
+}
+.rightHeader{
+    text-align: center;
+    padding-top: 25px;
+    display: inline-block;
+    width: calc(100% - 225px);
+}
+.companyPhoto{
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 200px;
+    height: 200px;
+}
+.infoHeader{
+    font: 30px sans-serif;
+    text-align: center;
+    margin: 5px 0 15px;
+}
+.infoDetails{
+    font: 25px sans-serif;
+    width: 100%;
+    margin: 0 5px;
+}
+.remainderWarn{
+    position: absolute;
+    bottom: 0px;
+    right: 0;
+    font: 15px sans-serif;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0 3px;
+}
+.good-button{
+    margin: 5px 0;
+}

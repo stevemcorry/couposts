@@ -1,0 +1,246 @@
+@import '../../colors.scss';
+
+.businessWrap{
+    margin-top: 65px;
+}
+input{
+    width: 80%;
+    border: 2px solid $grey;
+    border-radius: 5px;
+    margin: 10px auto;
+    display: inline-block;
+}
+textarea{
+    border-radius: 5px;
+    margin: 10px auto;
+    resize: none;
+    width: 80%;
+    border: 2px solid $grey;
+}
+.leftCol{
+    min-height: calc(100vh - 65px);
+}
+.userName{
+    font: 36px sans-serif;
+    width: fit-content;
+    color: $darkblue;
+    padding: 10px;
+    margin: auto;
+    margin-bottom: 15px;
+}
+.rightBorder{
+    border-right: 2px solid $grey;
+}
+.businessInfoTitle{
+    position: relative;
+    font: 24px sans-serif;
+    margin-top: 35px;
+    margin-bottom: 25px;
+    color: $dark;
+}
+.edit{
+    display: inline-block;
+    font: 15px sans-serif;
+}
+.editIcon{
+    position: absolute;
+    left: 100%;
+    top: 3px;
+    height: 20px;
+    width: 50px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('../../../assets/Images/edit.png');
+    cursor: pointer;
+}
+.borderBottom{
+    background-color: $lightgrey;
+    padding-left: 20px;
+    padding-top: 15px;
+}
+.profilePic{
+    position: relative;
+    height: 300px;
+    width: 300px;
+    background-image: url('../../../assets/Images/sweet-ice-cream.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.info{
+    font: 16px sans-serif;
+    color: $dark;
+    margin: 15px 0;
+}
+.infoLabel{
+    display: inline-block;
+    transform: translateY(10px);
+    margin-right: 10px;
+    height: 30px;
+    width: 30px;
+}
+.infoData{
+    display: inline-block;
+}
+.phone{
+    background-image: url('../../../assets/Images/icon_phone.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.email{
+    background-image: url('../../../assets/Images/icon_mail.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.link{
+    height: 30px;
+    width: 30px;
+    background-image: url('../../../assets/Images/link_icon_blue.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.home{
+    height: 30px;
+    width: 30px;
+    background-image: url('../../../assets/Images/home.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.aboutRow{
+    min-height: 200px;
+    border-bottom: 1px solid $grey;
+    margin: 10px 0;
+    position: relative;
+}
+.editAbout{
+    font: 14px sans-serif;
+    color: $grey;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.hoverTag{
+    color: rgba(0,0,0,0);
+    position: absolute;
+    font-size: 16px;
+    bottom: 0px;
+    left: 0px;
+    padding: 2px 5px;
+    border-radius: 2px;
+    transition: all .5s ease;
+    cursor: auto;
+}
+.hoverOn{
+    cursor: pointer;
+    background-color: grey;
+    color: white;
+}
+.addDeals{
+    height: 40px;
+    width: 40px;
+    background-image: url('../../../assets/Images/add.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin: auto;
+}
+.aboutHeader{
+    font: 20px sans-serif;
+    color: $darkblue;
+    margin: 15px;
+    position: relative;
+}
+.about{
+    width: 90%;
+    margin: auto;
+    resize: none;
+}
+
+//Deals Section
+.yourDeals{
+    font: 20px sans-serif;
+    color: grey;
+}
+.dealHeader{
+    font: 20px sans-serif;
+    color: $darkblue;
+    margin: 10px 0;
+    position: relative;
+}
+.codeHeader{
+    font: 16px sans-serif;
+    color: $darkblue;
+    margin: 10px;
+    display: inline-block;
+}
+.dealColumn{
+    overflow-y: scroll;
+    min-height: calc(100vh - 65px);
+}
+.dealContainer{
+    height: 200px;
+    width: 200px;
+    margin: 15px auto;
+    border-radius: 3px;
+    border: 1px solid white;
+    position: relative;
+    overflow: hidden;
+}
+.dealTitle{
+    font: 18px sans-serif;
+    left: 10px;
+    bottom: 10px;
+    color: grey;
+    background-color: rgba(0,0,0,0);
+    transition: all .2s ease;
+}
+.editLabel:hover{
+    border: 1px solid $grey;
+}
+.dealImg{
+    width: 200px;
+    height: 200px;
+    //background-image: url('../../../assets/Images/team.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    display: inline-block;
+}
+
+
+
+
+//Add Modal
+
+.addModal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    transition: all .5s ease;
+}
+.addModalOn{
+    overflow: scroll;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+.cancelButton{
+    position: absolute;
+    z-index: 2;
+}
+.userSees{
+    margin: 20px 0;
+    border-bottom: 1px solid grey;
+}
+.addLabel{
+    font: 18px sans-serif;
+    margin: 25px 0;
+}

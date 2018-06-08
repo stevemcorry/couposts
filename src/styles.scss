@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+@import './app/colors.scss';
+
+app-deal-header{
+    width: 100%;
+}
+.modal-header, .modal-footer {
+    border: none;
+}
+.good-button{
+    padding: 8px 10px;
+    background-color: $darkblue;
+    color: white;
+    font: 20px sans-serif;
+    border: none;
+}
+.bad-button{
+    padding: 8px 10px;
+    background-color: red;
+    color: white;
+    font: 20px sans-serif;
+    border: none;
+}
+.cancel-button{
+    padding: 8px 10px;
+    background-color: lightgrey;
+    color: white;
+    font: 20px sans-serif;
+    border: none;
+}
+.modal{
+    overflow: scroll;
+}
+.noflexrow{
+    display: block;
+}
+
+.pac-container { 
+    z-index: 100000; 
+}

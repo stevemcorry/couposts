@@ -1,0 +1,52 @@
+.adminWrap{
+    margin-top: 80px;
+    width: 100%;
+    position: relative;
+}
+.user{
+    margin: 20px;
+}
+.inline{
+    display: inline-block;
+}
+.userInfo{
+    display: inline-block;
+    border: 1px solid darkgrey;
+    border-bottom: none;
+    padding: 5px;
+    .inline{
+        font: 18px sans-serif;
+    }
+}
+.deal{
+    position: relative;
+    width: 100%;
+    border: 1px solid darkgrey;
+    height: 60px;
+    .buttons{
+        float: right;
+        margin: 10px;
+        margin-left: 20px;
+    }
+}
+.denialMessageHeader{
+    font: 20px sans-serif;
+    margin: 0 0 25px 0;
+}
+.denialMessage{
+    font: 20px sans-serif;
+    margin: 15px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+}
+.denialMessageOn{
+    color: red;
+}
+//Modals
+/deep/ #userModal .modal-footer{
+    display: block;
+  }
+  .cancel-button{
+      float: left;
+  }

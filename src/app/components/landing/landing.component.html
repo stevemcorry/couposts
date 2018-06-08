@@ -1,0 +1,21 @@
+<app-business-signup (loginOpen)="openLogin()"></app-business-signup>
+<app-user-signup></app-user-signup>
+<app-login></app-login>
+<div class="landing-wrapper">
+  <div class="login" (click)="openLogin()">Log In</div>
+  <div class="container middle">
+    <div class="row text-center midTop"></div>
+    <div class="row">
+      <div class="col-sm-6 text-center midMid">
+        <button class="button" (click)="openBis()">
+          I'm a Business
+        </button>
+      </div>
+      <div class="col-sm-6 text-center midMid">
+        <button class="button" (click)="openUser()">
+          I'm a User
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

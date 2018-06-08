@@ -1,0 +1,40 @@
+<modal #modal>
+    <modal-header>
+        User Sign-Up!
+    </modal-header>
+    <modal-body>
+        <!-- <div *ngIf="!currentUser"> -->
+        <div>
+            <input type="text" 
+                placeholder="Your Name" 
+                [(ngModel)]="user.name"
+                *ngIf="!currentUser">
+            <input type="email" placeholder="Email Address" [(ngModel)]="user.email">
+            <input type="password" placeholder="Password" [(ngModel)]="pass">
+            <input type="password" 
+                placeholder="Re-enter your password" 
+                [(ngModel)]="repass"
+                *ngIf="!currentUser">
+        </div>
+        <!-- <div *ngIf="currentUser">
+            <input type="email" placeholder="Email Address" [(ngModel)]="email">
+            <input type="password" placeholder="Password" [(ngModel)]="pass">
+        </div> -->
+        <div (click)="currentUser = !currentUser" class="userSwitch">Already have an account?</div>
+        <!-- <button (click)="facebookLogin()">FB Login</button> -->
+        <!-- <button (click)="instaLogin()">Insta Login</button> -->
+    </modal-body>
+    <modal-footer>
+        <button style="float: left" class="good-button" (click)="close()">Close</button>
+        <button class="good-button" 
+            (click)="signup()" 
+            *ngIf="!currentUser">
+            Sign Up
+        </button>
+        <button class="good-button" 
+            (click)="login()" 
+            *ngIf="currentUser">
+            Login
+        </button>
+    </modal-footer>
+</modal>

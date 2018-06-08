@@ -1,0 +1,66 @@
+<app-header></app-header>
+<div class="adminWrap">
+  <div *ngFor="let user of usersWith"
+    class="user">
+    <div class="userInfo">
+      <div class="inline name">{{user.name}}:</div>
+      <div class="inline email">{{user.email}}</div>
+    </div>
+    <div *ngFor="let deal of user.formatDeals"
+      class="deal">
+      <div class="inline">
+        {{deal.business.name}} {{deal.deal.dealTitle}}
+      </div>
+      <div class="inline buttons">
+        <button class="good-button" 
+          (click)="confirmPost(deal, user.$key)">
+          Confirm Post
+        </button>
+        <button class="bad-button" 
+          (click)="denyOpen(deal, user.$key)">
+          Deny Post
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<modal #modal id="userModal">
+    <modal-header>
+        Deny Post
+    </modal-header>
+    <modal-body>
+      <div class="denialMessageHeader">Denial Message:</div>
+      <div class="denialMessage" 
+        [ngClass]="{denialMessageOn: one}"
+        (click)="setMessage(1)">
+        We couldn't find your post
+      </div>
+      <div class="denialMessage" 
+        [ngClass]="{denialMessageOn: two}"
+        (click)="setMessage(2)">
+        You must use the photos provided by the company
+      </div>
+      <div class="denialMessage" 
+        [ngClass]="{denialMessageOn: three}"
+        (click)="setMessage(3)">
+        You must correctly link the business and Couposts
+      </div>
+      <div class="denialMessage" 
+        [ngClass]="{denialMessageOn: four}"
+        (click)="setMessage(4)">
+        Please allow Couposts to follow you to verify your deal
+      </div>
+    </modal-body>
+    <modal-footer>
+        <button (click)="modal.close()" 
+          class="cancel-button">
+          Cancel
+        </button>
+        <button 
+          (click)="denyPost(denyDeal, denyKey)" 
+          class="bad-button">
+          Deny
+        </button>
+    </modal-footer>
+</modal>

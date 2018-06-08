@@ -1,0 +1,22 @@
+<modal #modal>
+    <modal-header>
+      <div class="modal-header">
+        Upload your company photo!
+      </div>
+    </modal-header>
+    <modal-body>
+      <div class="info-header">This can be your Logo or anything else you want to represent your business</div>
+        <div *ngIf="currentUpload">
+          <div class="progress">
+            <div class="progress-bar progress-bar-animated" 
+              [ngStyle]="{ 'width': currentUpload?.progress + '%' }">
+            </div>
+          </div>
+          Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete
+        </div>
+        <label>
+          <input type="file" (change)="detectFiles($event)">
+        </label>
+        <button class="good-button" [disabled]="!selectedFiles" (click)="save()">Save and Continue</button>
+    </modal-body>
+  </modal>

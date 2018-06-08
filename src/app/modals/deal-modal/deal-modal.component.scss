@@ -1,0 +1,40 @@
+@import '../../colors.scss';
+
+
+.aboutHeader{
+    font: 20px sans-serif;
+    text-align: left;
+    padding-left: 15px;
+}
+.stepInfo{
+    font: 14px sans-serif;
+    span{
+        color: $darkblue;
+    }
+}
+.stepWarn{
+    font: 12px sans-serif;
+    margin-top: 3px;
+}
+.stepHeader{
+    font: 18px sans-serif;
+    font-weight: 900;
+    margin: 10px 0 5px;
+}
+.checkbox{
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid $darkblue;
+    transition: all .5s ease;
+    margin: 0;
+    margin-right: 10px;
+}
+.checkOn{
+    background-color: $darkblue;
+}
+.editLabel:hover{
+    border: 1px solid $grey;
+}

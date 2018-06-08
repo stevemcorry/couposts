@@ -1,0 +1,30 @@
+<app-header></app-header>
+<app-deal-modal></app-deal-modal>
+<div class="container-fluid homeWrap">
+  <div class="mainImage">
+    <div class="coverMain"></div>
+    <div class="mainDisplay" id="mainDisplay">
+      <div class="logo"></div>
+      <div class="underTitle">Find the perfect deal for you!</div>
+      <!-- <input type="text" 
+        placeholder="Business Name"
+        class="inputSearch"> -->
+      <div class="underLine" (click)="goToSignup()">I'm a business</div>
+    </div>
+  </div>
+  <div class="row featuredBox">
+    
+    <div *ngIf="!deals[0]" 
+      class="businessTitle">
+      {{dealsLoading}}
+    </div>
+
+    <app-deal *ngFor="let deal of deals"
+      [deal]="deal"
+      (click)="open(deal)"
+      [home]="true">
+    </app-deal>
+
+  </div>
+</div>
+<app-footer></app-footer>

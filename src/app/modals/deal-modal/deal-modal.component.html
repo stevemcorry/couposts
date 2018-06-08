@@ -1,0 +1,60 @@
+<modal #modal>
+  <modal-header>
+    <app-deal-header (close)="modal.close()" 
+      [deal]="deal">
+    </app-deal-header>
+  </modal-header>
+  <div class="aboutHeader">
+    {{deal.business.about}}
+  </div>
+  <modal-body>
+    <app-carousel [dealImages]="dealImages"></app-carousel>
+  </modal-body>
+  <modal-footer>
+    <button (click)="next()" class="good-button">Next</button>
+  </modal-footer>
+</modal>
+
+<modal #redeemModal>
+    <modal-header>
+      <app-deal-header (close)="modal.close" 
+        [deal]="deal">
+      </app-deal-header>
+    </modal-header>
+    <div class="aboutHeader">
+      {{deal.business.about}}
+    </div>
+    <modal-body>
+      <app-carousel [dealImages]="dealImages"></app-carousel>
+      
+      <div class="stepHeader">
+        Step one:
+      </div>
+      <div class="stepInfo">
+        Click and hold the image and save to your phone.
+      </div>
+      <div class="stepHeader">
+        Step two:
+      </div>
+      <div class="stepInfo">
+        You can write your own caption but must include <span>@couposts</span> and <span>{{deal.business.insta ? '@'+deal.business.insta : deal.business.name}}</span>.
+      </div>
+      <div class="stepWarn">
+        *Both must be included, spelled correctly, and link to the accounts in order to qualify
+      </div>
+      <div class="stepHeader">
+        Step three:
+      </div>
+      <div class="stepInfo">
+          Click redeem to go to your instagram. Once your post/story is verified (may take up to 12 hours), your Coupost will be available on your profile page.
+      </div>
+        
+    </modal-body>
+    <modal-footer>
+      <div (click)="redeem()" class="good-button">
+        Redeem
+      </div>
+    </modal-footer>
+</modal>
+
+<app-user-signup (loggedIn)="loggedIn()" [fromRedeem]="true"></app-user-signup>

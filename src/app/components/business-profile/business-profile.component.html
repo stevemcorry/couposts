@@ -1,0 +1,175 @@
+<app-header></app-header>
+
+
+<app-welcome-business-modal (saved)="aboutSaved($event)"
+  [next]="websiteModalOn">
+</app-welcome-business-modal>
+<app-business-website-modal (saved)="websiteSaved($event)"
+  [next]="locationModalOn">
+</app-business-website-modal>
+<app-business-locations-modal (saved)="locationSaved($event)"
+  [next]="uploadModalOn">
+</app-business-locations-modal>
+<app-business-upload-modal [uid]="uid" 
+  (saved)="uploadSaved($event)">
+</app-business-upload-modal>
+<app-business-finish-modal (saved)="finish()"></app-business-finish-modal>
+
+<app-upload [uid]="uid? uid:''"
+  [key]="newDealKey? newDealKey : ''">
+</app-upload>
+
+<app-edit-deals 
+  [uid]="uid? uid:''"
+  [business]="business"
+  [image]="image">
+</app-edit-deals>
+
+<!-- <app-deal-edit 
+  [uid]="user? user.$key:''">
+</app-deal-edit> -->
+<div class="container-fluid businessWrap">
+  <div class="row">
+    <div class="col-lg-8 text-center rightBorder leftCol">
+      <!-- <div class="row">
+        <div class="col-md-12 text-left">
+          <div class="userName">
+            {{user? user.name:''}}
+          </div>
+        </div>
+      </div> -->
+      <div class="row borderBottom">
+        <div class="col-md-auto text-align">
+          <div class="profilePic"
+            [style.background-image]="image?'url('+image+')':''"
+            (mouseenter)="imgHoverCheck(true)"
+            (mouseleave)="imgHoverCheck(false)"
+            >
+            <div class="hoverTag"
+            (click)="openUpload()"
+            [ngClass]="{hoverOn: imgHover}"
+            *ngIf="editOn"
+            >
+            Upload Your Picture
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <div class="userName">
+                {{business? business.name:''}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-auto text-left">
+          <div class="businessInfoTitle">
+            Business Information
+            <div class="editIcon"
+              (click)="edit = !edit"
+              *ngIf="editOn && !edit">
+            </div>
+            <div class="edit" *ngIf="edit" (click)="saveEdit()">Save</div>
+            <div class="edit" *ngIf="edit" (click)="edit = false; getProfile()">Cancel</div>
+          </div>
+          <div class="info">
+            <div class="infoLabel phone"></div>
+            <div class="infoData" 
+              *ngIf="!edit">
+              {{business? business.phone:''}}
+            </div>
+            <input type="text" 
+              [(ngModel)]="business.phone"
+              [textMask]="{mask: mask}"
+              *ngIf="edit">
+          </div>
+          <div class="info">
+            <div class="infoLabel email"></div>
+            <div class="infoData" 
+              *ngIf="!edit">
+              {{business? business.email:''}}
+            </div>
+            <input type="text" 
+              [(ngModel)]="business.email"
+              *ngIf="edit">
+          </div>
+          <div class="info">
+            <div class="infoLabel link"></div>
+            <div class="infoData" 
+              *ngIf="!edit">
+              {{business? business.website:''}}
+            </div>
+            <input type="text" 
+              [(ngModel)]="business.website"
+              *ngIf="edit">
+          </div>
+          <div class="info">
+              <div class="infoLabel home"></div>
+              <div class="infoData" 
+                *ngIf="!edit">
+                {{business? business.address:''}}
+              </div>
+              <input type="text" 
+                [(ngModel)]="business.address"
+                *ngIf="edit">
+            </div>
+        </div>
+      </div>
+      <div class="row aboutRow">
+        <div class="col text-left">
+          <div class="aboutHeader">
+            About:
+            <div class="editIcon"
+              (click)="edit = !edit"
+              *ngIf="editOn && !edit">
+            </div>
+            <div class="edit" *ngIf="edit" (click)="saveEdit()">Save</div>
+            <div class="edit" *ngIf="edit" (click)="edit = false; getProfile()">Cancel</div>
+          </div>
+          <div *ngIf="!edit">
+            {{business ? business.about: ''}}
+          </div>
+          <textarea placeholder="About"
+            *ngIf="edit"
+            placeholder="Tell people about your company!"
+            [(ngModel)]="business.about"
+            class="about">
+          </textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-left">
+          <div class="aboutHeader">Analytics</div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
+
+  <!-- DEALS -->
+
+
+    <div class="col-lg-4 dealColumn">
+      <div class="yourDeals">Your Deals:</div>
+      <div class="dealContainer"
+        *ngFor="let deal of deals"
+        (click)="openDeal(deal)">
+        <div class="dealImg"
+          [ngStyle]="{'background-image':'url(' + deal.imgs[0] + ')'}">
+          <div class="dealTitle">
+            {{deal.dealTitle}}
+          </div>
+        </div>
+      </div>
+      <div class="addDeals"
+        *ngIf="editOn"
+        (click)="openDeal('')">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+</div>
+
+
+<!-- ADD MODAL -->

@@ -1,0 +1,122 @@
+@import '../../colors.scss';
+.deal{
+    position: relative;
+    display: inline-block;
+    width: 27vw;
+    min-width: 325px;
+    height: 21vw;
+    background-color: white;
+    margin: 3% 1% 0;
+}
+.dealImg{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: url('../../../assets/Images/mountains.jpg');
+    height: calc(100% - 60px);
+    width: 100%;
+    background-color: white;
+    transition: all .3s ease;
+    object-fit: contain;
+    position: relative;
+}
+.timeWarn{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(1, 1, 1,.8);
+    color: rgb(187, 54, 1);
+    padding: 3px;
+    font: 18px sans-serif;
+}
+.dealLabel{
+    width: 100%;
+    height: 60px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+}
+.timeWarn{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(1, 1, 1,.8);
+    color: rgb(187, 54, 1);
+    padding: 3px;
+    font: 18px sans-serif;
+}
+.remainderWarn{
+    position: absolute;
+    top: -21px;
+    right: 0;
+    font: 18px sans-serif;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0 3px;
+}
+.dealLabel{
+    width: 100%;
+    height: 60px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+}
+.businessTitle{
+    font: 25px sans-serif;
+    color: grey;
+}
+.dealTitle{
+    font-size: 18px;
+    color: grey;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.hoverOverDiv{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    box-shadow: 5px 5px 5px $grey !important;
+    transition: all .4s ease;
+    cursor: pointer;
+}
+.hoverOverDiv:hover{
+    //background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(3, 123, 184, 0.8);
+}
+.addDeals{
+    z-index: 1;
+    height: 50px;
+    width: 50px;
+    background-image: url('../../../assets/Images/Couposts_$_Icon_LightBlue.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    margin: auto;
+    position: absolute;
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
+}
+
+@media screen and (max-width: 1038px){
+    .deal{
+        width: 40vw;
+        height: 28vw;
+    }
+}
+@media screen and (max-width: 678px){
+    .deal{
+        width: 65vw;
+        height: 40vw;
+    }
+}
+@media screen and (max-width: 575px){
+    .deal{
+        width: 70vw;
+        height: 50vw;
+    }
+}

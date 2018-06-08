@@ -1,0 +1,24 @@
+<modal #modal>
+    <modal-header>
+        Let us help you advertise!
+    </modal-header>
+    <modal-body>
+        <input type="text" 
+            placeholder="Company Name" 
+            [(ngModel)]="comp.name">
+        <input type="text" 
+            placeholder="Your first and last name" 
+            (keydown.enter)="save()"
+            [(ngModel)]="comp.signupName">
+        <!-- <input type="text" 
+            placeholder="Your company title" 
+            (keydown.enter)="save()"
+            [(ngModel)]="comp.title"> -->
+    </modal-body>
+    <modal-footer>
+        <div class="footer">
+            <button (click)="login()" class="button">Log In</button>
+            <button (click)="save()" class="button">Continue</button>
+        </div>
+    </modal-footer>
+</modal>

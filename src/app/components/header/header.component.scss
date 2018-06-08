@@ -1,0 +1,116 @@
+@import '../../colors.scss';
+#header{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    transition: all .5s ease;
+    background-color: $darkblue;
+    z-index: 1;
+}
+.logo{
+    height: 45px;
+    width: 115px;
+    background-image: url('../../../assets/Images/Couposts_Logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transition: all .2s ease;
+}
+.row{
+    padding: 10px;
+}
+.profile{
+    height: 45px;
+    width: 35px;
+    margin-left: calc(100% - 35px);
+    background-image: url('../../../assets/Images/whitemenu.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    position: relative;
+    transition: all .2s ease;
+}
+.dealWarn{
+    position: absolute;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    top: -10px;
+    right: 5px;
+    padding: 0 5px;
+}
+.dealWarnSmall{
+    position: absolute;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    top: 5px;
+    right: 5px;
+    padding: 0 5px;
+}
+.drop{
+    position: absolute;
+    right: 0px;
+    top: 100%;
+    text-align: left;
+    //border: 1px solid black;
+    width: 100%;
+    height: 0px;
+    overflow: hidden;
+    z-index: -5;
+    transition: all .4s cubic-bezier(0, 0.99, 0.58, 1);
+    .menuitem{
+        width: 100%;
+        background-color: $grey;
+        cursor: pointer;
+    }
+}
+.profileOn{
+    transform: rotate(180deg);
+}
+.dropdown{
+    height: 100vh;
+    z-index: 5;
+    transition: all .4s ease-in !important;
+}
+.menuitem{
+    color: white;
+    font: 18px sans-serif;
+    padding: 10px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+.logout:hover{
+    background-color: $grey;
+}
+.smallHead{
+    //background-color: #638cc2 !important;
+    .logo{
+        height: 35px;
+        width: 100px;
+    }
+    .profile{
+        height: 35px;
+        width: 25px;
+    }
+}
+.smallHeader{
+    display: none;
+    padding: 10px;
+}
+@media screen and (max-width: 700px){
+    .smallHeader{
+        display: block;
+        .logo{
+            display: inline-block;
+        }
+        .menu{
+            display: inline-block;
+            float: right;
+        }
+    }
+    .bigHeader{
+        display: none;
+    }
+}

@@ -1,0 +1,18 @@
+<div class="dealContainer">
+  <div class="dealCarosel"
+    [style.transform]="carouselPos"
+    [style.width.px]="dealImages.length * 375">
+    <img [src]="img" 
+      alt="" 
+      class="modalDealImg" 
+      *ngFor="let img of dealImages;">
+  </div>
+  <div class="leftArrow arrow"
+    (click)="carouselLeft()"
+    *ngIf="dealImages[1]">
+  </div>
+  <div class="rightArrow arrow"
+    (click)="carousel()"
+    *ngIf="dealImages[1]">
+  </div>
+</div>

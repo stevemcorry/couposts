@@ -1,0 +1,77 @@
+<div class="container-fluid" id="header">
+  <div class="row bigHeader">
+    <div class="col-sm-4">
+      <div class="logo" (click)="home()"></div>
+    </div>
+    <div class="col-sm-8 text-right">
+      <div class="menuitem" 
+      (click)="goSignup()">
+        Business Signup
+      </div>
+      <div class="menuitem" 
+        (click)="goAbout()">
+        About/FAQs
+      </div>
+      <div class="menuitem"
+        *ngIf="loggedIn"
+        (click)="goProfile()">
+        Profile
+        <div class="dealWarn" *ngIf="userDealCount">{{userDealCount}}</div>
+      </div>
+      <div class="menuitem">
+        <div *ngIf="loggedIn" 
+          (click)="logOut()" 
+          class="logout">
+          LogOut
+        </div>
+        <div *ngIf="!loggedIn" 
+          (click)="logIn()" 
+          class="logout">
+          Login
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="smallHeader">
+    <div class="logo" (click)="home()"></div>
+    <div class="menu">
+      <div class="profile" 
+        (click)="drop = !drop"
+        [ngClass]="{profileOn: drop}">
+      </div>
+      <div class="dealWarnSmall" 
+        *ngIf="userDealCount">
+        {{userDealCount}}
+      </div>
+      <div class="drop"
+        (click)="drop = !drop"
+        [ngClass]="{dropdown:drop}">
+        <div class="menuitem">
+          Business Signup
+        </div>
+        <div class="menuitem">
+          About/FAQs
+        </div>
+        <div class="menuitem"
+          *ngIf="loggedIn"
+          (click)="goProfile()">
+          Profile
+          <div class="dealWarnSmall" 
+            *ngIf="userDealCount">
+            {{userDealCount}}
+          </div>
+        </div>
+        <div *ngIf="loggedIn" 
+          (click)="logOut()" 
+          class="menuitem">
+          LogOut
+        </div>
+        <div *ngIf="!loggedIn" 
+          (click)="logIn()" 
+          class="menuitem">
+          Login
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="deal">
+  <div [ngStyle]="{'background-image':'url(' + deal.firstImage + ')'}" 
+    class="dealImg" 
+    *ngIf="deal.firstImage">
+    <div class="timeWarn" *ngIf="time">
+      Expires: {{time}}
+    </div>
+  </div>
+  <div class="dealImg" 
+    *ngIf="!deal.firstImage">
+    <div class="timeWarn" *ngIf="time">
+      Expires: {{time}}
+    </div>
+  </div>
+  <div class="dealLabel">
+    <div class="remainderWarn" *ngIf="home && deal.deal.dealsLeft < 20">
+      {{deal.deal.dealsLeft}} remaining
+    </div>
+    <div class="businessTitle">
+      {{deal.business.name}}
+    </div>
+    <div class="dealTitle">
+      {{deal.deal.dealTitle}}
+    </div>
+  </div>
+  <div class="hoverOverDiv">
+    <div class="addDeals" 
+      *ngIf="deal.hover">
+    </div>
+    <!-- <div class="addDealsBack" *ngIf="deal.hover"></div> -->
+  </div>
+</div>

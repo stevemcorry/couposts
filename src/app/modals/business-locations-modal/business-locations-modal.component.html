@@ -1,0 +1,33 @@
+<modal #modal>
+    <modal-header>
+      <div class="modal-header">
+        Lets get your locations!
+      </div>
+    </modal-header>
+    <modal-body>
+      <div class="info-header">Where will you be offering your deals?</div>
+      <div class="location" 
+        *ngFor="let location of allLocations; let i = index">
+        <div class="locationName">
+          {{location}}
+        </div>
+        <div class="removeLocation" (click)="remove(i,location)">
+          X
+        </div>
+      </div>
+        <input type="text" 
+          placeholder="Search for Location" 
+          autocorrect="off" 
+          autocapitalize="off" 
+          spellcheck="off" 
+          class="form-control" 
+          #search>
+      <button class="cancel-button" 
+        (click)="addLocation()"
+        [ngClass]="{'active-button': searchElement.nativeElement.value}">
+        Add Location
+      </button>
+      <div class="info-warn">*You can always add locations later</div>
+      <button class="good-button" (click)="save()">Save and Continue</button>
+    </modal-body>
+  </modal>
