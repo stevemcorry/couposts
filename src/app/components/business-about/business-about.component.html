@@ -1,73 +1,350 @@
+<div class="container-fluid" id="header">
+  <div class="row noflexrow bigHeader">
+    <div class="col-sm-4">
+      <div class="logo" (click)="home()"></div>
+    </div>
+    <div class="col-sm-8 smallButton" style="text-align: right">
+      <button class="good-button" 
+        (click)="scrollTop()">
+        Create FREE account
+      </button>
+    </div>
+  </div>
+</div>
 <div class="business-wrapper">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-7 text-center">
-        <div class="videoTitle">Video</div>
-        <iframe 
-          src="https://www.youtube.com/embed/qOm5BgVw_a4?autoplay=1&rel=0"
-          class="video">
-        </iframe>
-        <ol>
-          <li class="bulletText">Sign up and let your customers advertise for you!</li>
-          <li class="bulletText">Select the pictures you want to post</li>
-          <li class="bulletText">Free sign up!</li>
-        </ol>
+      <div class="col-lg-12 rightCol text-center greyBack">
+        <h1>Create an account for FREE! <br> You only pay for results!</h1>
+        <h5 class="smallWidth">Couposts is a <span>cheaper, faster,</span> and <span>automated</span> alternative to using influencers, giveaways and ads to promote businesses on social media. Our users (who are regular people) post about businesses in return for a special deal or coupon to your store or website.  <span>Couposts</span> allows businesses to market to friends and family...not followers!</h5>
+        <div class="inputWrapper"
+        [ngClass]="{inputOn: inputOn}">
+          <div class="inputHeader">
+            Create an account for <span>FREE!</span> <br><span>You only pay for results!</span>
+          </div>
+          <div class="inputDiv">
+            <input type="text" 
+            [(ngModel)]="business.name"
+            placeholder="Company Name">
+          </div>
+          <div class="inputDiv">
+            <!-- <div class="inputHeader">Instagram Username</div> -->
+            <input type="text" 
+            [(ngModel)]="business.insta"
+            placeholder="Instagram Username">
+            <!-- set up warning for @ -->
+          </div>
+          <div class="inputDiv">
+            <!-- <div class="inputHeader">Email</div> -->
+            <input type="email" 
+            [(ngModel)]="business.email"
+            placeholder="Business Email">
+          </div>
+          <div class="inputDiv">
+            <!-- <div class="inputHeader">Your Coupost Password</div> -->
+            <input type="password"
+            [(ngModel)]="password"
+            placeholder="At least 6 digits">
+          </div>
+          <div class="inputDiv">
+            <!-- <div class="inputHeader">Re-enter Password</div> -->
+            <input type="password"
+            [(ngModel)]="repassword"
+            placeholder="Passwords must match">
+          </div>
+          <div class="inputDiv">
+            <button (click)="signUp()">Next</button>
+          </div>
+        </div>
+        <h1 class="notSure">
+          Not sure if Couposts is for you? <br>It's really a no-brainer. Keep reading to learn why!
+        </h1>
       </div>
-      <div class=""></div>
-      <div class="col-lg-5 rightCol text-center">
-        <div class="inputDiv">
-          <div class="inputHeader">Company Name</div>
-          <input type="text" 
-          [(ngModel)]="business.name"
-          placeholder="I.E. CouPosts">
-        </div>
-        <!-- <div class="inputDiv">
-          <div class="inputHeader">Website</div>
-          <input type="text" 
-          [(ngModel)]="business.website"
-          placeholder="Website">
+    </div>
+
+    <div class="row whiteBack sidePadding" style="padding-top: 40px; padding-bottom: 50px;">
+      <h2 class="medWidth"><span>What the heck is a Coupost?</span></h2>
+      <h5 class="medWidth">A coupost is a coupon in return for a post...pretty clever name right? <br> Our patent-pending process allows users to post about businesses on their accounts in return for a special deal or coupon to the business's store/website</h5>
+    </div>
+
+    <div class="row greyBack sidePadding">
+        <h2 class="medWidth marginBottom"><span>How does it work?</span></h2>
+
+        <!-- <div class="stepWrapper">
+          <div class="stepLabel">
+            <div>
+              Business creates a coupost
+            </div>
+          </div>
+          <div class="stepCircle">1<div class="downLine"></div></div>
+          <div class="stepInfo">
+            You create a coupost by offering a discount to a specified amount of users in return for posting a picture that you supply.
+          </div>
         </div> -->
-        <!-- <div class="inputDiv">
-          <div class="inputHeader">Business Address</div>
-          <input type="text" 
-          [(ngModel)]="business.address"
-          placeholder="Address">
+
+        <!-- <div class="stepWrapper">
+          <div class="stepInfo">Users are regular people that have a minimum of 200 followers. Users will select a business to post about, choose an image to post and then post on their Instagram Feed or Instagram Story and tag the business's account.</div>
+          <div class="stepCircle">2<div class="downLine"></div></div>
+          <div class="stepLabel">
+              <div>
+                User posts about business
+              </div>
+          </div>
         </div> -->
-        <div class="inputDiv">
-          <div class="inputHeader">Instagram Username</div>
-          <input type="text" 
-          [(ngModel)]="business.insta"
-          placeholder="Address">
+
+        <div class="photoSteps sidePadding">
+          <div class="photo crustClub"></div>
+          <div class="photoLabel right">
+            <h2>
+              <span>
+                1. Business creates a coupost
+              </span>
+            </h2>
+            <h5>
+              You create a coupost by offering a discount to a specified amount of users in return for posting a picture that you supply.
+              <br>
+              <br>
+              Ex: 40% OFF Online Order
+            </h5>
+          </div>
         </div>
-        <!-- <div class="inputDiv">
-          <div class="inputHeader">Phone</div>
-          <input type="text" 
-          [textMask]="{mask: mask}"
-          placeholder="1(800)000-0000"
-          [(ngModel)]="business.phone">
+
+        <!-- <div class="stepWrapper">
+          <div class="stepLabel">
+            <div>
+              Verification Process
+            </div>
+          </div>
+          <div class="stepCircle">3<div class="downLine"></div></div>
+          <div class="stepInfo">
+            Our team verifies that the user has posted and that they've complied with all the rules.
+          </div>
         </div> -->
-        <div class="inputDiv">
-          <div class="inputHeader">Email</div>
-          <input type="email" 
-          [(ngModel)]="business.email"
-          placeholder="email@email.com">
+
+        <div class="photoSteps sidePadding">
+          <div class="photo sanDiablo right"></div>
+          <div class="photoLabel left">
+            <h2>
+              <span>
+                2. User posts about business
+              </span>
+            </h2>
+            <h5>
+              A user must have a minimum of 200 followers. Users will select a business's coupost, choose an image to post on their Instagram Feed or Instagram Story and tag the business's Instagram account.
+            </h5>
+          </div>
         </div>
-        <div class="inputDiv">
-          <div class="inputHeader">Your Coupost Password</div>
-          <input type="password"
-          [(ngModel)]="password"
-          placeholder="At least 6 digits">
+
+        <!-- <div class="stepWrapper">
+            <div class="stepInfo">We help bring new customers to you. Now make sure your product/service keeps them coming back!</div>
+            <div class="stepCircle">4</div>
+            <div class="stepLabel">
+                <div>
+                  User Redeems
+                </div>
+            </div>
+          </div> -->
+
+        <div class="photoSteps sidePadding">
+          <div class="photo crustClub"></div>
+          <div class="photoLabel right">
+            <h2>
+              <span>
+                3. User Redeems
+              </span>
+            </h2>
+            <h5>
+              After our team has verified that the user has posted & complied with all the rules, we activate their coupost. Once activated, they're able to redeem the coupost through their profile on couposts.com.
+              <br>
+              <br>
+              The user can redeem using a promo code that is supplied by the business at the time the coupost was created or if it's an in-store redemption it can be a redeem button.
+            </h5>
+          </div>
         </div>
-        <div class="inputDiv">
-          <div class="inputHeader">Re-enter Password</div>
-          <input type="password"
-          [(ngModel)]="repassword"
-          placeholder="Passwords must match">
+
+    </div>
+
+    <div class="row whiteBack sidePadding">
+        <h2 class="medWidth" style="width: 100%;">
+          <span>Story Time</span>
+        </h2> 
+        <br>
+        <h6 class="medWidth">*The following are true stories about real companies. Reader discretion is not advised cause these same things can happen to you!</h6>
+
+        <div class="storyWrap sidePadding">
+          <div class="storyStep">
+            <div class="storyLabel">Company:</div>
+            <div class="storyInfo">Vybe Socks</div>
+          </div>
+          <div class="storyStep">
+            <div class="storyLabel">Offer:</div>
+            <div class="storyInfo">Vybe Socks offered 20 couposts at 50% OFF.</div>
+          </div>
+          <div class="storyStep">
+            <div class="storyLabel">Results:</div>
+            <ul class="storyInfo alignLeft">
+              <li>
+                20 users posted for Vybe Socks.
+              </li>
+              <li>
+                Those posts received 6,427 engagements (likes, views, comments). The impressions were obviously much higher than that!
+              </li>
+              <li>
+                95% of those who posted had never heard of Vybe Socks before Couposts.
+              </li>
+              <li>
+                0 of the users had ever made a purchase from Vybe Socks.
+              </li>
+              <li>
+                From those 20 people, Vybe Socks generated over $180 in sales.
+              </li>
+            </ul>
+          </div>
+          <div class="blueText">
+            How much do you think it would cost to get this kind of engagement from ads or influencers in 2018? If you guessed somewhere between $1,600 - $7,000 then you'd be right on target. By using Couposts, Vybe paid a tiny fraction of that. And those engagements weren't by random followers of an influencer. The engagement was from the friends and family of our users who know and have an actual relationship with them!
+          </div>
+          <h2 class="storyFooter">
+            <span>But wait...there's more!</span>
+          </h2>
+          <h5 class="alignLeft">
+            A Vybe Sock's customer reached out and told the following story:
+            <br>
+            "I saw one of my friends post about Vybe Socks and I had never heard of them, so I clicked on their profile to see who they were and I thought they looked like a cool company. A few weeks later I was looking for a Christmas present for my husband and brother. I remembered Vybe and so I got on and purchased a pack of socks for each of them (1 pack = 3 pairs). Then I told my sister and sister-in-law and they each bought a pack for their husbands. 
+            <br>
+            Tell more companies to use you guys! I would have never heard of Vybe and now my husband loves his socks and tells all his friends about them!"
+          </h5>
+          <h5 class="alignLeft">
+            <span>
+              Bottom Line: 1 person's post led to 12 additional pairs of socks being purchased + 3 new customers + 4 new users + at least 1 evangelist who is telling all his friends about Vybe.
+            </span>
+          </h5>
+          <div class="createAccount">
+            <button class="good-button" 
+              (click)="scrollTop()">
+              Create FREE account
+            </button>
+          </div>
+          <div class="photoSteps">
+            <div class="photo sanDiablo"></div>
+            <div class="photoLabel right">
+              <h2>
+                <span>
+                  San Diablo Artisan Churros | Customer
+                </span>
+              </h2>
+              <h5>
+                "I had no idea this place even existed even though it was right down the street from my house! I took all my kids with me when I redeemed the coupost and I bought all of them their own churro to try. They all loved it so much that we've made it a tradition to go there every Friday night as a family!"
+              </h5>
+            </div>
+          </div>
+          <div class="photoSteps">
+            <div class="photo right crustClub"></div>
+            <div class="photoLabel left">
+              <h2>
+                <span>
+                  Crust Club | Customer
+                </span>
+              </h2>
+              <h5>
+                "I had seen so many ads for Crust Club pop up on my Instagram and all the pies looked so yummy! I always wanted to try them but never did. But when I saw them on Couposts I jumped at the opportunity. I don't know why I never made a purchase before redeeming my coupost. I guess I just never had an incentive to do so. But now, I've bought 1 dinner pie for my family and I've taken a thing of babies* to 2 different parties."
+                <br>
+                *babies in this sense are mini dessert pies. Not real babies. #saynotocannibalism
+              </h5>
+            </div>
+          </div>
         </div>
-        <div class="inputDiv">
-          <button (click)="signUp()">Save</button>
+    </div>
+
+    <div class="row greyBack sidePadding">
+      <h2 class="medWidth" style="width: 100%;">
+        <span>How much does it cost to run a Coupost?</span>
+      </h2>
+      <h6>
+        Currently, you can run 2 types of coupost campaings. You can do a either a Pay Per Post or a Pay Per Engagement.
+      </h6>
+      <div class="box">
+        <div class="boxHeader">Pay Per Post</div>
+        <div class="boxBody">
+          <h6>
+            The user might have 200 followers, or they might have 1,500+. But you pay the same price per person. If 12 people post, you pay for the 12 posts. If 0 post then you don't owe anything. 
+            <br>
+            You also have the option to "Pay as you go" or "Pay & Save". If you pay upfront then you save on the cost per post.
+          </h6>
         </div>
       </div>
+      <div class="box">
+        <div class="boxHeader">
+          Pay Per Engagement
+        </div>
+        <div class="boxBody">
+          <h6>
+            You sick of influencers with a million followers but only get 100 likes? With Pay per engagement, you only pay for the engagement (likes, views, comments) on the user's posts.
+            <br>
+            You also have the option to "Pay as you go" or "Pay & Save". If you pay upfront then you save on the cost per engagement.
+          </h6>
+        </div>
+      </div>
+      <div class="createAccount">
+        <button class="good-button" 
+          (click)="scrollTop()">
+          Create FREE account
+        </button>
+      </div>
+    </div>
+
+
+    <div class="row whiteBack sidePadding" 
+      style="padding-top: 40px; 
+      padding-bottom: 50px;">
+      <h2 class="medWidth">
+        <span>Couposts is a cheaper, faster and automated alternative to using:</span>
+      </h2>
+      <div class="clearBox">
+        <h3>
+          <span>
+            Influencers
+          </span>
+        </h3>
+        <h6>
+          You don't need influencers if you have Couposts! We eliminate and automate the process of working with influencers. So, instead of paying influencers in cash and product, exchange a coupon for a post!
+        </h6>
+      </div>
+      <div class="blueBox">
+        <h3>
+          <span>
+            Giveaways & Collaborations
+          </span>
+        </h3>
+        <h6>
+          Giveaways and collaborating takes time and effort as you work to grow your following. But are those followers actually interested in your business or just the giveaway?
+          <br>
+          <br>
+          With Couposts, our users only post on their personal accounts if they're interested in the business's product. This eliminates those people looking for a freebie.
+        </h6>
+      </div>
+      <div class="clearBox">
+        <h3>
+          <span>
+            Social Media Ads
+          </span>
+        </h3>
+        <h6>
+          Why do you run ads? Are you getting more followers? More likes? More sales? Or simply more impressions?
+          <br>
+          <br>
+          By using Couposts, each user who posts is telling their social circle about your company and if your product is good enough, the user can become a lifelong customer.
+        </h6>
+      </div>
+    </div>
+    <h2 style="text-align: center">
+      <span>And Hello...everything is automated!</span>
+    </h2>
+
+    <div class="createAccount">
+      <button class="good-button" 
+        (click)="scrollTop()">
+        Create FREE account
+      </button>
     </div>
   </div>
 </div>

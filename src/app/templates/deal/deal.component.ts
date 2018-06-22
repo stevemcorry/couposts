@@ -10,6 +10,10 @@ export class DealComponent implements OnInit {
   @Input()deal;
   @Input()home;
   @Input()time;
+  @Input()previewImage;
+  @Input()businessName;
+  @Input()percentage;
+  @Input()dealTitle;
 
   constructor() { }
 

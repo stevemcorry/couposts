@@ -45,6 +45,7 @@ export class BusinessLocationsModalComponent implements OnInit {
     this.modal.open();
   }
   save(){
+    this.addLocation();
     this.modal.close();
     this.saved.emit(JSON.stringify(this.allLocations));
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
 //import { MainService } from 'app/services/main.service';
 import { UploadComponent } from 'app/modals/upload/upload.component';
 import { DealsService } from 'app/services/deals.service';
@@ -6,6 +6,8 @@ import { DealsService } from 'app/services/deals.service';
 import { UploadService } from '../../services/upload.service';
 import { Upload } from '../../services/upload';
 import * as _ from "lodash";
+import { environment } from '../../../environments/environment';
+import { PaymentService } from '../../payments/payment.service';
 
 @Component({
   selector: 'app-edit-deals',
@@ -20,6 +22,11 @@ import * as _ from "lodash";
 export class EditDealsComponent implements OnInit {
 
   //@ViewChild(UploadComponent)uploadComponent;
+  @HostListener('window:popstate')
+  onPopstate() {
+    this.handler.close()
+  }
+  @Output()closeDeal: EventEmitter<string> = new EventEmitter();
   @Input()deal:any = {
     // dealTitle: '',
     // dealAmount: 0,
@@ -36,47 +43,74 @@ export class EditDealsComponent implements OnInit {
   @Input()uid =  "";
   @Input()image =  "";
   selectedFiles: FileList;
+  selectedFile: FileList;
   currentUpload: Upload;
+
+  today = new Date().toDateString();
 
   addModal;
   dealImages: any = [];
   newDealKey;
   carouselPos;
   carouselCheck = 0;
-  stepCount = 3;
+  stepCount = 1;
   selectAll = true;
   codes = [{value:'', used: false}];
   locationArr = [];
+
+  payOptionType;
+  customAmount;
+  customAmountOn;
+  savePlan;
+  displayText = "Choose a file";
+  displayTexts = "Choose your files";
 
   constructor(
     //public mainService: MainService,
     public dealsService: DealsService,
     public upSvc: UploadService,
+    private paymentSvc: PaymentService
   ) { }
 
   ngOnInit() {
+    this.handler = StripeCheckout.configure({
+      key: environment.stripeKey,
+      image: '../../../assets/Images/Couposts_$_Icon_LightBlue.png',
+      locale: 'auto',
+      token: token => {
+        this.paymentSvc.processPayment(token, this.amount)
+      }
+    });
   }
   alert(x){
     alert(x);
   }
   nextStep(x){
-    if(x == 2){
-      if(this.deal.dealTitle){
-        this.stepCount = 2;
-      } else {
+    if(x == 1){
+      this.stepCount = 1;
+    }
+    if(x >= 2){
+      if(!this.deal.dealTitle){
         alert('Please enter what you are discounting');
+        this.stepCount = 1;
+        return;
       }
-    } else if(x == 3){
+    }
+    if(x >= 3){
       if(this.selectedFiles || this.dealImages[0]){
         if(this.selectedFiles){
-          if(this.selectedFiles.length){
-              this.stepCount = 3;
-          } else {
+          if(!this.selectedFiles.length){
             alert('Please select your pictures');
+            this.stepCount = 2;
+            return;
           }
+        } else if(this.dealImages[0]){
+          //this.stepCount = 3;
         }
       } else {
         alert('Please select your pictures');
+        this.stepCount = 2;
+        return;
       }
     } else if(x == 4){
       if(this.locationArr.length){
@@ -90,6 +124,162 @@ export class EditDealsComponent implements OnInit {
       } else{
         this.stepCount = 4;
       }
+    } else if(x == 5){
+      //Check payment and # of deals
+      if(this.payOptionType == 'go'){
+        if(this.deal.dealAmount){
+
+        }else{
+          alert('Please enter the number of deals you want to give');
+          return;
+        }
+      } else if(this.payOptionType == 'save') {
+        //check to see if plan is selected of custom ammount entered
+        if(this.savePlan){
+          if(this.savePlan == 4){
+            if(!this.deal.dealAmount){
+              alert('Please enter the amount of deals you want to give');
+              return;
+            }
+          } else {
+            this.stepCount = 5;
+          }
+        } else{
+          alert('Please choose a plan');
+          return;
+        }
+      }
+      this.stepCount = 5;
+    } else if(x == 6){
+      //check the codes
+      this.stepCount = 6;
+    } else if(x == 7){
+      //check to see if contract and info was entered
+      this.stepCount = 7;
+    }
+    this.stepCount = x;
+  }
+
+
+  //Step One
+
+  previewImage:any;
+  detectFile(event) {
+    this.previewImage = '';
+    this.previewImage = event.target.files[0];
+    let reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.previewImage = e.target.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+    
+    let file = event.target.files[0];
+    if(file.name){ 
+      this.displayText = file.name;
+    } else {
+
+      this.displayText = "Choose your file";
+    }
+    this.selectedFile = event.target.files;
+  }
+
+  //Step Two
+  previewImages: any = [];
+  detectFiles(event) {
+    this.previewImages = [];
+    for(let i = 0; i <  event.target.files.length; i++){
+      let x = event.target.files[i];
+      this.previewImages.push(x);
+      let reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.previewImages[i] = e.target.result;
+      }
+      reader.readAsDataURL(event.target.files[i]);
+    }
+
+    let files = event.target.files;
+    if(files.length > 1){
+      this.displayTexts = files.length + " Files selected";
+    } else if(files[0]) {
+      this.displayTexts = files[0].name;
+    } else {
+      this.displayTexts = "Choose your files";
+    }
+    this.selectedFiles = event.target.files;
+  }
+
+
+  //step 5
+
+  codeSet(x){
+    this.codeType = x;
+  }
+  setCodes(){
+    this.codes = [];
+    if(this.codeType == 'unique'){
+      for(let i = 0; i < this.deal.dealAmount; i++){
+        this.codes.push({value:"", used: false});
+      }
+    } else {
+      this.codes = [{value:"", used: false}]
+    }
+  }
+
+  redeemType = false;
+  codeType = 'universal';
+  redeemCode(x){
+    this.redeemType = x;
+    this.codeSet(x);
+    this.setCodes();
+  }
+
+  dealExpires;
+  expirationDate;
+  checkStepFive(){
+    if(this.redeemType === false || (this.codes[0] && this.codes[0].value ) ){
+      if((!this.dealExpires || this.expirationDate)){
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+
+  //step 7
+
+  handler: any;
+  amount = 500;
+  handlePayment() {
+    this.handler.open({
+      name: 'FireStarter',
+      excerpt: 'Deposit Funds to Account',
+      amount: this.amount
+    });
+  }
+
+
+
+  payOption(x){
+    this.payOptionType = x;
+  }
+  setSavePlan(x){
+    this.customAmountOn = false;
+    this.savePlan = x;
+    switch(x){
+      case 1:
+        this.deal.dealAmount = 20;
+        break;
+      case 2:
+        this.deal.dealAmount = 50;
+        break;
+      case 3:
+        this.deal.dealAmount = 100;
+        break;
+      case 4:
+        this.customAmountOn = true;
     }
   }
 
@@ -128,7 +318,8 @@ export class EditDealsComponent implements OnInit {
       dealAmount: 0,
       redeemOnline: false,
       redeemInStore: false,
-      comment: ''
+      comment: '',
+      dealPercentage: 50
     };
     this.dealImages = [];
     this.stepCount = 1;
@@ -137,10 +328,14 @@ export class EditDealsComponent implements OnInit {
     this.codeType = 'universal';
     this.codes = [{value: '', used: false}];
     this.newDealKey = '';
+    this.closeDeal.emit();
   }
   getImages(){
     this.dealsService.getBusinessDealImages(this.newDealKey).subscribe(res=>{
-      this.dealImages = res;
+      this.dealImages = [];
+      for(let img of res){
+        this.dealImages.push(img.$value);
+      }
     })
   }
   selectAllFunction(){
@@ -177,9 +372,15 @@ export class EditDealsComponent implements OnInit {
   }
 
   //upload Images
-
-  detectFiles(event) {
-    this.selectedFiles = event.target.files;
+  uploadDisplay(key) {
+    this.upSvc.resetDealImages(this.uid, key);
+    let files = this.selectedFile
+    let filesIndex = _.range(files.length)
+    _.each(filesIndex, (idx) => {
+      this.currentUpload = new Upload(files[idx]);
+      this.upSvc.pushUploadDeal(this.currentUpload, key)}
+    )
+    this.checkDone();
   }
   uploadMulti(key) {
     this.upSvc.resetDealImages(this.uid, key);
@@ -204,26 +405,6 @@ export class EditDealsComponent implements OnInit {
   }
 
   //images
-
-  carousel(){
-    if(this.carouselCheck == this.dealImages.length - 1 || this.carouselCheck >= this.dealImages.length - 1){
-      this.carouselPos = '';
-      this.carouselCheck = 0
-      return
-    }
-    this.carouselCheck += 1;
-    this.carouselPos = 'translateX(' + -375 * this.carouselCheck + 'px)';
-  }
-  carouselLeft(){
-    if(this.carouselCheck == 0){
-      this.carouselPos = '';
-      this.carouselCheck = this.dealImages.length
-      this.carouselPos = 'translateX(' + -375 * (this.carouselCheck - 1) + 'px)';
-      return
-    }
-    this.carouselCheck -= 1;
-    this.carouselPos = 'translateX(' + -375 * this.carouselCheck + 'px)';
-  }
   // enterCodes;
   // setCoupons(){
   //   this.enterCodes = true;
@@ -231,23 +412,16 @@ export class EditDealsComponent implements OnInit {
   //   //   this.deal.coupons.push({})
   //   // }
   // }
-  redeemType = false;
-  codeType = 'universal';
-  redeemCode(x){
-    this.redeemType = x;
-    this.setCodes();
-  }
-  codeSet(x){
-    this.codeType = x;
-  }
-  setCodes(){
-    this.codes = [];
-    if(this.codeType == 'unique'){
-      for(let i = 0; i < this.deal.dealAmount; i++){
-        this.codes.push({value:"", used: false});
-      }
-    } else {
-      this.codes = [{value:"", used: false}]
+
+  calcSavePrice(x){
+    if(x < 20){
+      this.customAmount = x * 5;
+    } else if(x >= 20 && x < 50){
+      this.customAmount = x * 4.5;
+    } else if(x >= 50 && x < 100){
+      this.customAmount = x * 4;
+    } else if(x >= 100){
+      this.customAmount = x * 3;
     }
   }
   saveDeal(){
@@ -269,8 +443,6 @@ export class EditDealsComponent implements OnInit {
       dealTitle: this.deal.dealTitle,
       dealAmount: this.deal.dealAmount,
       dealsLeft: this.deal.dealsLeft,
-      redeem: this.deal.redeem,
-      comment: this.deal.comment,
       codes: codes,
       redeemType: this.redeemType
     };

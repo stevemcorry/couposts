@@ -1,128 +1,52 @@
 @import '../../colors.scss';
 
+
 .businessWrap{
     margin-top: 65px;
+    background-color: $lightgrey;
 }
-input{
-    width: 80%;
-    border: 2px solid $grey;
-    border-radius: 5px;
-    margin: 10px auto;
-    display: inline-block;
+.businessWrapOff{
+    overflow: hidden;
+    height: calc(100vh - 70px);
 }
-textarea{
-    border-radius: 5px;
-    margin: 10px auto;
-    resize: none;
-    width: 80%;
-    border: 2px solid $grey;
+.center{
+    justify-content: center;
 }
-.leftCol{
-    min-height: calc(100vh - 65px);
-}
-.userName{
-    font: 36px sans-serif;
-    width: fit-content;
-    color: $darkblue;
-    padding: 10px;
-    margin: auto;
-    margin-bottom: 15px;
-}
-.rightBorder{
-    border-right: 2px solid $grey;
+.businessInfo{
+    background-color: white;
+    position: relative;
+    min-height: 600px;
+    width: 500px;
+    margin: 20px 10px;
+    text-align: center;
 }
 .businessInfoTitle{
-    position: relative;
-    font: 24px sans-serif;
-    margin-top: 35px;
-    margin-bottom: 25px;
-    color: $dark;
-}
-.edit{
-    display: inline-block;
-    font: 15px sans-serif;
-}
-.editIcon{
     position: absolute;
-    left: 100%;
     top: 3px;
-    height: 20px;
-    width: 50px;
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-image: url('../../../assets/Images/edit.png');
-    cursor: pointer;
+    left: 5px;
+    font: 16px sans-serif;
+    color: $grey;
 }
-.borderBottom{
-    background-color: $lightgrey;
-    padding-left: 20px;
-    padding-top: 15px;
+.editBusinessInfo{
+    border: none;
+    border-radius: 5px;
+    background-color: $grey;
+    font: 16px sans-serif;
+    color: white;
+    padding: 2px 20px;
+    position: absolute;
+    top: 3px;
+    right: 5px;
 }
 .profilePic{
     position: relative;
-    height: 300px;
-    width: 300px;
-    background-image: url('../../../assets/Images/sweet-ice-cream.jpg');
+    height: 200px;
+    width: 200px;
+    background-image: url('../../../assets/Images/blankUser.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-}
-.info{
-    font: 16px sans-serif;
-    color: $dark;
-    margin: 15px 0;
-}
-.infoLabel{
-    display: inline-block;
-    transform: translateY(10px);
-    margin-right: 10px;
-    height: 30px;
-    width: 30px;
-}
-.infoData{
-    display: inline-block;
-}
-.phone{
-    background-image: url('../../../assets/Images/icon_phone.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-}
-.email{
-    background-image: url('../../../assets/Images/icon_mail.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-}
-.link{
-    height: 30px;
-    width: 30px;
-    background-image: url('../../../assets/Images/link_icon_blue.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-}
-.home{
-    height: 30px;
-    width: 30px;
-    background-image: url('../../../assets/Images/home.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-}
-.aboutRow{
-    min-height: 200px;
-    border-bottom: 1px solid $grey;
-    margin: 10px 0;
-    position: relative;
-}
-.editAbout{
-    font: 14px sans-serif;
-    color: $grey;
-    position: absolute;
-    top: 0;
-    right: 0;
+    margin: 30px auto 10px;
 }
 .hoverTag{
     color: rgba(0,0,0,0);
@@ -140,53 +64,79 @@ textarea{
     background-color: grey;
     color: white;
 }
-.addDeals{
-    height: 40px;
-    width: 40px;
-    background-image: url('../../../assets/Images/add.png');
-    background-repeat: no-repeat;
-    background-size: contain;
+.userName{
+    font: 32px sans-serif;
+    width: fit-content;
+    color: $dark;
+    padding: 10px;
     margin: auto;
+    padding-bottom: 0px;
 }
-.aboutHeader{
-    font: 20px sans-serif;
-    color: $darkblue;
-    margin: 15px;
-    position: relative;
+.info{
+    font: 21px sans-serif;
+    color: $grey;
+    width: 75%;
+    margin: 5px auto;
+}
+.infoLabel{
+    display: inline-block;
+    margin-right: 10px;
+    width: 100px;
+    text-align: right;
+    margin: 4px auto;
+}
+.infoData{
+    width: calc(100% - 120px);
+    display: inline-block;
+    border-bottom: 1px solid $grey;
+    text-align: left;
+}
+input{
+    width: calc(100% - 120px);
+    border: 2px solid $grey;
+    border-radius: 5px;
+    margin: auto;
+    display: inline-block;
+    text-align: left;
+}
+.good-button{
+    background-color: $lightblue;
+    border-radius: 5px;
+    padding: 5px 20px;
+    margin: 8px;
 }
 .about{
     width: 90%;
-    margin: auto;
+    margin: 20px auto;
     resize: none;
+    border: 1px solid $grey;
+    border-radius: 5px;
+    min-height: 125px;
+    text-align: left;
+    padding: 8px;
+    white-space: pre-line;
 }
 
-//Deals Section
-.yourDeals{
-    font: 20px sans-serif;
-    color: grey;
-}
-.dealHeader{
-    font: 20px sans-serif;
-    color: $darkblue;
-    margin: 10px 0;
+.coupostCreator{
+    background-color: white;
+    height: auto;
+    min-height: 600px;
+    width: 350px;
+    margin: 20px 10px;
     position: relative;
+    text-align: center;
 }
-.codeHeader{
-    font: 16px sans-serif;
-    color: $darkblue;
-    margin: 10px;
-    display: inline-block;
+.addCoupost{
+    margin: 30px auto;
 }
-.dealColumn{
-    overflow-y: scroll;
-    min-height: calc(100vh - 65px);
+.coupostLoading{
+    margin: 30px 15px 0;
 }
 .dealContainer{
     height: 200px;
     width: 200px;
-    margin: 15px auto;
+    margin: 45px auto 0px;
     border-radius: 3px;
-    border: 1px solid white;
     position: relative;
     overflow: hidden;
 }
@@ -198,18 +148,114 @@ textarea{
     background-color: rgba(0,0,0,0);
     transition: all .2s ease;
 }
-.editLabel:hover{
-    border: 1px solid $grey;
-}
 .dealImg{
     width: 200px;
     height: 200px;
-    //background-image: url('../../../assets/Images/team.jpg');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
     display: inline-block;
+    cursor: pointer;
 }
+
+.analytics{
+    background-color: white;
+    position: relative;
+    min-height: 300px;
+    width: 870px;
+    margin: 0px auto 50px;
+    text-align: center;
+}
+
+.mobileHeader{
+    display: none;
+    background-color: $grey;
+    div{
+        width: 33%;
+        display: inline-block;
+        font: 18px sans-serif;
+        color: white;
+        text-align: center;
+        padding: 10px;
+    }
+    .middleTab{
+        border-left: 1px solid $lightgrey;
+        border-right: 1px solid $lightgrey;
+    }
+
+}
+
+
+
+@media screen and (min-width:1000px){
+    // .businessInfo{
+    //     width: 70%;
+    // }
+    // .coupostCreator{
+    //     width: 70%;
+    // }
+    // .analytics{
+    //     width: 70%;
+    // }
+}
+
+@media screen and (max-width:991px){
+    .businessInfo{
+        width: 70%;
+    }
+    .coupostCreator{
+        width: 70%;
+    }
+    .analytics{
+        width: 70%;
+    }
+}
+@media screen and (max-width:767px){
+    .info{
+        width: 100%;
+    }
+    .businessInfo{
+        width: 90%;
+    }
+    .coupostCreator{
+        width: 90%;
+    }
+    .analytics{
+        width: 90%;
+    }
+}
+@media screen and (max-width:575px){
+    .mobileHeader{
+        display: flex;
+        justify-content: center;
+    }
+    .mobileAnalytics{
+        display: none;
+        min-height: 100vh;
+        margin-top: 20px;
+    }
+    .mobileCoupostCreator{
+        display: none;
+        min-height: 100vh;
+    }
+    .mobileBusinessInfo{
+        display: none;
+        min-height: 100vh;
+    }
+    .mobileAnalyticsOn{
+        display: block;
+    }
+    .mobileCoupostCreatorOn{
+        display: block;
+    }
+    .mobileBusinessInfoOn{
+        display: block;
+    }
+}
+
+
+
+
 
 
 

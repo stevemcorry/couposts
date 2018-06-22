@@ -4,7 +4,7 @@
     background-size: cover;
     background-position: center;
     background-image: url('../../../assets/Images/phoneimage.jpg');
-    height: 90vh;
+    height: 50vh;
     width: 100%;
     position: fixed;
     transform: translateY(-35px);
@@ -65,7 +65,7 @@
     text-decoration: underline;
 }
 .homeWrap{
-    margin-top: calc(90vh + 50px);
+    margin-top: calc(50vh + 50px);
     padding-bottom: 30px;
     background-color: rgb(245, 248, 250);
     transition: all .3s ease;

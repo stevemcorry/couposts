@@ -1,7 +1,7 @@
 <div class="dealContainer">
   <div class="dealCarosel"
     [style.transform]="carouselPos"
-    [style.width.px]="dealImages.length * 375">
+    [style.width.px]="dealImages.length * getWidth()">
     <img [src]="img" 
       alt="" 
       class="modalDealImg" 

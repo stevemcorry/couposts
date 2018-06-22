@@ -43,6 +43,7 @@ import { BusinessLocationsModalComponent } from './modals/business-locations-mod
 import { BusinessUploadModalComponent } from './modals/business-upload-modal/business-upload-modal.component';
 import { BusinessFinishModalComponent } from './modals/business-finish-modal/business-finish-modal.component';
 import { AgmCoreModule } from '@agm/core';
+import { PaymentModule } from './payments/payment/payment.module';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { AgmCoreModule } from '@agm/core';
     AgmCoreModule.forRoot({
       apiKey: environment.placeskey,
       libraries: ["places"]
-    })
+    }),
+    PaymentModule
   ],
   providers: [],
   bootstrap: [AppComponent]

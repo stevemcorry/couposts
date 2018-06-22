@@ -23,6 +23,8 @@ export class BusinessAboutComponent implements OnInit {
   password;
   repassword
   businessId;
+  inputOn = false;
+
   constructor(
     public mainService: MainService,
     public route: ActivatedRoute,
@@ -96,6 +98,16 @@ export class BusinessAboutComponent implements OnInit {
       console.log(err,'err')
       alert('There was an error updating your info.')
     })
+  }
+  scrollTop(){
+    window.scrollTo(0, 0);
+    this.inputOn = true;
+    setTimeout(() => {
+      this.inputOn = false;
+    }, 500);
+  }
+  home(){
+    this.router.navigate(['']);
   }
 
 }

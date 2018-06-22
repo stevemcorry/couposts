@@ -43,7 +43,7 @@ export class BusinessUploadModalComponent implements OnInit {
     } else{
       setTimeout(()=>{
         this.checkDone()
-        this.currentUpload.progress = 0;
+        //this.currentUpload.progress = 0;
       },200)
     }
   }

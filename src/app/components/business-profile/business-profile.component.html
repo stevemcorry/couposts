@@ -22,22 +22,158 @@
 <app-edit-deals 
   [uid]="uid? uid:''"
   [business]="business"
-  [image]="image">
+  [image]="image"
+  (closeDeal)="showEdit = false">
 </app-edit-deals>
 
 <!-- <app-deal-edit 
   [uid]="user? user.$key:''">
 </app-deal-edit> -->
+
+<div class="businessWrap" 
+  [ngClass]="{businessWrapOff: showEdit}"
+  (click)="showEdit = false">
+
+  <div class="mobileHeader">
+    <div (click)="setMobileView('info')">
+      Info
+    </div>
+    <div (click)="setMobileView('couposts')"
+      class="middleTab">
+      Couposts
+    </div>
+    <div (click)="setMobileView('analytics')">
+      Analytics
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row center">
+      <div class="businessInfo mobileBusinessInfo" [ngClass]="{mobileBusinessInfoOn : mobileBusinessInfo}">
+        <div class="businessInfoTitle">Business Info</div>
+        <button class="editBusinessInfo" 
+          (click)="edit = !edit"
+          *ngIf="editOn && !edit">
+          Edit
+        </button>
+        <button class="editBusinessInfo" 
+          *ngIf="edit" 
+          (click)="saveEdit()">
+          Save
+        </button>
+        <div class="profilePic"
+          [style.background-image]="image?'url('+image+')':''"
+          (mouseenter)="imgHoverCheck(true)"
+          (mouseleave)="imgHoverCheck(false)"
+          >
+          <div class="hoverTag"
+          (click)="openUpload()"
+          [ngClass]="{hoverOn: imgHover}"
+          *ngIf="editOn"
+          >
+          Upload Your Picture
+          </div>
+        </div>
+        <div class="userName">
+          {{business? business.name:''}}
+        </div>
+
+        <div class="info">
+          <div class="infoLabel">Instagram:</div>
+          <div class="infoData" 
+            *ngIf="!edit">
+            @{{business? business.insta:''}}
+          </div>
+          <input type="text" 
+            [(ngModel)]="business.insta"
+            *ngIf="edit">
+        </div>
+        <div class="info">
+          <div class="infoLabel">Website:</div>
+          <div class="infoData" 
+            *ngIf="!edit">
+            {{business? business.website:''}}
+          </div>
+          <input type="text" 
+            [(ngModel)]="business.website"
+            *ngIf="edit">
+        </div>
+        <div class="info">
+          <div class="infoLabel">Email:</div>
+          <div class="infoData" 
+            *ngIf="!edit">
+            {{business? business.email:''}}
+          </div>
+          <input type="text" 
+            [(ngModel)]="business.email"
+            *ngIf="edit">
+        </div>
+        <button (click)="locationModal.open()" 
+          class="good-button">
+          Location Manager
+        </button>
+        <div *ngIf="!edit" 
+          class="about"
+          >{{business ? business.about: ''}}
+        </div>
+        <textarea placeholder="About"
+          *ngIf="edit"
+          placeholder="Tell people about your company!"
+          [(ngModel)]="business.about"
+          class="about">
+        </textarea>
+
+      </div>
+      <div class="coupostCreator mobileCoupostCreator"
+        [ngClass]="{mobileCoupostCreatorOn : mobileCoupostCreator}">
+        <div class="businessInfoTitle">Coupost Creator</div>
+
+        <div class="dealContainer"
+          *ngFor="let deal of deals"
+          (click)="openDeal(deal)">
+          <div class="dealImg"
+            [ngStyle]="{'background-image':'url(' + deal.imgs[0] + ')'}">
+            <div class="dealTitle">
+              {{deal.deal.dealTitle}}
+            </div>
+          </div>
+        </div>
+        <div class="coupostLoading userName" 
+          *ngIf="!deals[0]">
+          {{dealsLoading}}
+        </div>
+        <button class="good-button addCoupost"
+          *ngIf="editOn"
+          (click)="openDeal('')">
+          Create Coupost
+        </button>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="analytics mobileAnalytics" [ngClass]="{mobileAnalyticsOn : mobileAnalytics}">
+        <div class="businessInfoTitle">Analytics</div>
+        <div class="coupostLoading userName">
+            Coming Soon!
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- 
 <div class="container-fluid businessWrap">
   <div class="row">
     <div class="col-lg-8 text-center rightBorder leftCol">
-      <!-- <div class="row">
+      <div class="row">
         <div class="col-md-12 text-left">
           <div class="userName">
             {{user? user.name:''}}
           </div>
         </div>
-      </div> -->
+      </div>
       <div class="row borderBottom">
         <div class="col-md-auto text-align">
           <div class="profilePic"
@@ -75,10 +211,13 @@
             <div class="infoLabel phone"></div>
             <div class="infoData" 
               *ngIf="!edit">
-              {{business? business.phone:''}}
+              {{business? business.insta:''}}
             </div>
             <input type="text" 
-              [(ngModel)]="business.phone"
+              [(ngModel)]="business.insta"
+              *ngIf="edit">
+            <input type="text" 
+              [(ngModel)]="business.insta"
               [textMask]="{mask: mask}"
               *ngIf="edit">
           </div>
@@ -146,8 +285,6 @@
     </div>
 
 
-  <!-- DEALS -->
-
 
     <div class="col-lg-4 dealColumn">
       <div class="yourDeals">Your Deals:</div>
@@ -167,9 +304,9 @@
       </div>
     </div>
   </div>
-</div>
-<div class="container-fluid">
-</div>
+</div> -->
+<!-- <div class="container-fluid">
+</div> -->
 
 
 <!-- ADD MODAL -->

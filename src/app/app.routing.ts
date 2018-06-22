@@ -7,6 +7,7 @@ import { RedirectComponent } from './components/redirect/redirect.component';
 import { AboutComponent } from 'app/components/about/about.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { MakePaymentComponent } from './payments/make-payment/make-payment.component';
 
 const APP_ROUTES: Routes = [
     { path: 'land', component: LandingComponent },
@@ -17,6 +18,7 @@ const APP_ROUTES: Routes = [
     { path: 'auth', component: RedirectComponent },
     { path: 'about', component: AboutComponent },
     { path: 'admin', component: AdminComponent },
+    { path: 'pay', component: MakePaymentComponent },
     { path: '404', component: HomeComponent},
     { path: '**', redirectTo: '/404'}
 ];

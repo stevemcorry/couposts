@@ -1,25 +1,79 @@
 @import '../../colors.scss';
+#header{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    transition: all .5s ease;
+    background-color: $darkblue;
+    z-index: 1;
+    padding: 10px;
+}
+.logo{
+    height: 45px;
+    width: 115px;
+    background-image: url('../../../assets/Images/Couposts_Logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transition: all .2s ease;
+}
+.row{
+}
+h1{
+    color: $darkblue;
+    font-size: 35px;
+    margin: 20px 0;
+}
+h2{
+    color: $darkblue;
+    font-size: 28px;
+    margin: 10px 0;
+}
+h3{
+    color: $darkblue;
+    font-size: 22px;
+    margin: 10px 0 20px;
+}
+h5{
+    color: $grey;
+    font-size: 16px;
+    line-height: 21px;
+}
+h6{
+    color: $grey;
+    font-size: 15px;
+}
+span{
+    color: $dark;
+}
+.notSure{
+    line-height: 45px;
+    margin-bottom: 30px;
+}
 .business-wrapper{
     min-height: 100vh;
     height: 100%;
     width: 100vw;
 }
+.greyBack{
+    background-color: $backgroundgrey;
+}
 .marginless{
     margin: 15px 10px;
 }
-.videoTitle{
-    font: 36px sans-serif;
-    text-align: center;
-    color: $darkblue;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 15px;
-}
-.video{
-    width: 100%;
-    height: 30vw;
-    min-height: 350px;
-}
+// .videoTitle{
+//     font: 36px sans-serif;
+//     text-align: center;
+//     color: $darkblue;
+//     margin: auto;
+//     margin-top: 10px;
+//     margin-bottom: 15px;
+// }
+// .video{
+//     width: 100%;
+//     height: 30vw;
+//     min-height: 350px;
+// }
 .bulletText{
     color: $darkblue;
     font-size: 30px;
@@ -29,11 +83,42 @@
 .rightCol{
     margin-top: 65px;
 }
-.inputHeader{
+.smallWidth{
+    max-width: 800px;
+    margin: auto;
+}
+.medWidth{
+    //max-width: 900px;
     text-align: left;
-    color: $darkblue;
-    font-size: 30px;
-    margin: 10px 6%;
+}
+.inputWrapper{
+    background-color: white;
+    max-width: 400px;
+    margin: 50px auto 100px;
+    padding-top: 15px;
+    transition: all .3s ease;
+    button{
+        color: white;
+        font: 30px sans-serif;
+        border: none;
+        color: white;
+        background-color: $darkblue;
+        border-radius: 3px;
+        padding: 5px 15px;
+        width: 70%;
+        height: 55px;
+        margin: 10px auto 20px;
+        cursor: pointer;
+    }
+}
+.inputOn{
+    background-color: rgb(177, 177, 177);
+}
+.inputHeader{
+    text-align: center;
+    color: $grey;
+    font-size: 18px;
+    margin: 10px 0 30px;
     transition: all 1s ease;
 }
 .headerOff{
@@ -44,82 +129,321 @@
     max-width: 650px;
 }
 input{
-    width: 90%;
+    width: 70%;
     height: 40px;
     border: 1px solid $grey;
-    border-radius: 5px;
+    border-radius: 3px;
     padding-left: 10px;
     margin-bottom: 15px;
 }
-button{
-    color: white;
-    font: 30px sans-serif;
-    border: none;
-    color: white;
-    background-color: $darkblue;
-    border-radius: 15px;
-    padding: 5px 15px;
-    width: 90%;
-    height: 55px;
-    margin: 40px auto 20px;
-    cursor: pointer;
+.createAccount{
+    width: 100%;
+    text-align: center;
+    margin: 30px 0;
+    button{
+        color: white;
+        font: 16px sans-serif;
+        border: none;
+        color: white;
+        background-color: $darkblue;
+        border-radius: 3px;
+        padding: 5px 15px;
+        height: 40px;
+        margin: 10px auto 20px;
+        cursor: pointer;
+    }
 }
-.typeChoose{
-    position: relative;
-    height: 50px;
-}
-.typeChooseOn{
-    height: 5px;
-}
-.type{
-    position: absolute;
-    display: inline-block;
-    color: white;
-    font: 25px sans-serif;
-    border: none;
-    color: white;
-    background-color: $darkblue;
-    padding: 5px 10px;
-    width: 170px;
-    margin: 0 5%;
-    cursor: pointer;
-    transition: all 1s ease;
-    height: 40px;
-    margin-bottom: 15px;
-    transition: all .5s ease;
-    right: 0%;
-}
-.online{
-    left: 0%;
-}
-.location{
-    left: calc(90% - 170px);
-}
-.locationOn{
-    left: 0%;
-}
-.typeOn{
-    font-size: 30px;
-    color: $darkblue;
+.whiteBack{
     background-color: white;
-    width: fit-content;
-    transform: translateY(-50px);
-    padding: 5px 5px;
-    left: 0% !important;
 }
-.typeOff{
-    color: rgba(0,0,0,0);
-    background-color: rgba(0,0,0,0);
-    z-index: -1;
+.sidePadding{
+    padding: 10px 10% 30px;
 }
-
-@media (max-width: 992px){
-    .video{
-        width: 80%;
+.stepWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 20px auto;
+    div{
+        display: inline-block;
+    }
+}
+.stepLabel{
+    color: $darkblue;
+    font: 25px sans-serif;
+    font-weight: 1000;
+    width: 35%;
+    div{
+        text-align: center;
+        width: 90%;
+    }
+}
+.stepCircle{
+    background-color: $lightblue;
+    border-radius: 50%;
+    border: 2px solid $grey;
+    color: white;
+    text-align: center;
+    height: 90px;
+    width: 90px;
+    min-height: 90px;
+    min-width: 90px;
+    line-height: 85px;
+    margin: 5px 35px;
+    font-size: 30px;
+    position: relative;
+}
+.downLine{
+    position: absolute;
+    height: 80px;
+    width: 0px;
+    border: 1px solid $grey;
+    left: 50%;
+    top: 100%;
+    z-index: 0;
+}
+.stepInfo{
+    color: $grey;
+    font: 16px sans-serif;
+    width: 35%;
+}
+.storyWrap{
+    margin: 10px;
+    width: 100%;
+}
+.storyStep{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+.storyLabel{
+    color: $dark;
+    font-size: 28px;
+    display: inline-block;
+    width: 150px;
+    text-align: right;
+    margin-right: 50px;
+    align-self: flex-start;
+}
+.storyInfo{
+    width: calc(100% - 155px);
+    color: $grey;
+    font-size: 17px;
+    display: inline-block;
+    padding: 0;
+}
+.blueText{
+    color: $darkblue;
+    margin: 0 10%;
+}
+.storyFooter{
+    text-align: center;
+    margin: 70px 0 30px;
+}
+.photoSteps{
+    width: 100%;
+    margin: 25px 0;
+    .photo{
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: inline-block;
+        height: 170px;
+        width: 170px;
+        min-height: 170px;
+        min-width: 170px;
+        margin: 20px;
+        background-position: center;
+    }
+    .photoLabel{
+        width: calc( 100% - 240px);
+        display: inline-block;
+    }
+    .right{
+        float: right;
+    }
+    .left{
+        float: left;
+    }
+}
+.sanDiablo{
+    background-image: url('../../../assets/Images/sandiablo.jpg');
+}
+.crustClub{
+    background-image: url('../../../assets/Images/crustClub.jpg');
+}
+.box{
+    width: 40%;
+    min-width: 300px;
+    height: 300px;
+    border: 2px solid $lightblue;
+    border-radius: 5px;
+    margin: 5%;
+    text-align: center;
+}
+.boxHeader{
+    color: white;
+    background-color: $lightblue;
+    font: 40px sans-serif;
+    padding: 10px 5px;
+    height: 115px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.boxBody{
+    padding: 10px;
+}
+.clearBox{
+    padding: 10px;
+    width: 25%;
+    min-width: 200px;
+    min-height: 330px;
+    border: 2px solid $grey;
+    border-radius: 5px;
+    margin: 3%;
+    text-align: center;
+    display: inline-block;
+}
+.blueBox{
+    padding: 10px;
+    width: 25%;
+    min-width: 200px;
+    min-height: 330px;
+    border: 2px solid $darkblue;
+    border-radius: 5px;
+    margin: 3%;
+    text-align: center;
+    display: inline-block;
+}
+@media (max-width: 900px){
+    .box{
+        width: 50%;
+        margin: 20px 24%;
         min-height: 250px;
     }
-    ul{
-        max-width: 650px;
-        margin: auto;
+    .blueBox{
+        width: 50%;
+        margin: 20px 24%;
+        min-height: 250px;
+    }
+    .clearBox{
+        width: 50%;
+        margin: 20px 24%;
+        min-height: 250px;
+    }
+}
+
+@media screen and (max-width:991px){
+    .sidePadding{
+        padding: 10px 5% 30px;
+    }
+}
+@media screen and (max-width:767px){
+    .sidePadding{
+        padding: 10px 2% 30px;
+    }
+    .smallButton{
+        display: none;
+    }
+    .box{
+        width: 60%;
+        margin: 20px auto;
+        min-height: 250px;
+    }
+    .blueBox{
+        width: 60%;
+        margin: 20px auto;
+        min-height: 250px;
+    }
+    .clearBox{
+        width: 60%;
+        margin: 20px auto;
+        min-height: 250px;
+    }
+}
+.marginBottom{
+    margin-bottom: 50px;
+}
+@media screen and (max-width:575px){
+    .alignLeft{
+        text-align: left !important;
+    }
+    .marginBottom{
+        margin-bottom: 10px;
+    }
+    .medWidth{
+        text-align: center;
+        width: 100%;
+    }
+    h1{
+        color: $darkblue;
+        font-size: 22px;
+        margin: 20px 0;
+        text-align: center;
+    }
+    h2{
+        color: $darkblue;
+        font-size: 18px;
+        margin: 10px 0;
+        text-align: center;
+    }
+    h5{
+        color: $grey;
+        font-size: 15px;
+        line-height: 21px;
+        text-align: center;
+    }
+    h6{
+        color: $grey;
+        font-size: 14px;
+        text-align: center;
+    }
+    .notSure{
+        line-height: 25px;
+        margin-bottom: 20px;
+    }
+    .box{
+        width: 80%;
+    }
+    .blueBox{
+        width: 80%;
+    }
+    .clearBox{
+        width: 80%;
+    }
+    .photoSteps{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .photoSteps{
+        margin: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        .photoLabel{
+            width: 90%;
+        }
+        .photo{
+            height: 250px;
+            width: 250px;
+        }
+    }
+    .storyStep{
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        .storyLabel{
+            text-align: center;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .storyInfo{
+            text-align: center;
+            width: 90%;
+        }
     }
 }

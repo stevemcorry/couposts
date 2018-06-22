@@ -1,4 +1,4 @@
-<div class="deal">
+<div class="deal" *ngIf="deal">
   <div [ngStyle]="{'background-image':'url(' + deal.firstImage + ')'}" 
     class="dealImg" 
     *ngIf="deal.firstImage">
@@ -30,3 +30,21 @@
     <!-- <div class="addDealsBack" *ngIf="deal.hover"></div> -->
   </div>
 </div>
+
+<div class="deal" *ngIf="!deal">
+    <div [ngStyle]="{'background-image':'url(' + previewImage + ')'}" 
+      class="dealImg" 
+      *ngIf="previewImage">
+    </div>
+    <div class="dealImg" 
+      *ngIf="!previewImage">
+    </div>
+    <div class="dealLabel">
+      <div class="businessTitle">
+        {{businessName}}
+      </div>
+      <div class="dealTitle" *ngIf="dealTitle">
+        {{percentage}}% {{dealTitle}}
+      </div>
+    </div>
+  </div>

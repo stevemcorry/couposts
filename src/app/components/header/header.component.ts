@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
 
   @HostListener('window:scroll', ['$event']) onScrollEvent($event){
     let height = $(window).scrollTop();
-    if(height > 250){
+    if(height > 50){
       document.getElementById('header').classList.add('smallHead')
     } else{
       document.getElementById('header').classList.remove('smallHead')

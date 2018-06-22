@@ -39,6 +39,7 @@ export class BusinessProfileComponent implements OnInit {
   enterCodes:boolean;
   url;
   arrowOn;
+  showEdit = false;
   business:any = {};
   deal = {
     dealTitle: '',
@@ -49,6 +50,7 @@ export class BusinessProfileComponent implements OnInit {
   }
   deals = [];
   dealImages = [0];
+  dealsLoading = "Loading Deals...";
   editDeal;
   edit: boolean;
   editOn: boolean;
@@ -91,6 +93,7 @@ export class BusinessProfileComponent implements OnInit {
       this.business = data;
       if(this.uid === data.$key){
         this.editOn = true;
+        //this.openDeal('');
       }
       profileSub.unsubscribe();
     },error=>{
@@ -109,10 +112,12 @@ export class BusinessProfileComponent implements OnInit {
           this.deals.push(deal)
         }
       }
+      if(!this.deals[0]){
+        this.dealsLoading = "No couposts created yet! Click below to create a coupost!";
+      }
     });
   }
   checkBusiness(data){
-    console.log(data,'data');
     let industryCheck = 0;
     for(let i in data.industry){
       industryCheck++;
@@ -183,6 +188,16 @@ export class BusinessProfileComponent implements OnInit {
     }
   }
   uploadSaved(event){
+    let profileSub = this.businessService.getBusinessProfile(this.url).subscribe(data=>{
+      this.image = data.url;
+      this.business = data;
+      if(this.uid === data.$key){
+        this.editOn = true;
+      }
+      profileSub.unsubscribe();
+    },error=>{
+      console.log(error,'error')
+    })
     this.finishModal.open();
   }
   finish(){
@@ -222,6 +237,24 @@ export class BusinessProfileComponent implements OnInit {
     if(!this.editOn){return}
     if(this.checkBusiness(this.business)){
       this.editDeals.openDeal(x);
+    }
+    setTimeout(()=>{
+      this.showEdit = true;
+    }, 500)
+  }
+  mobileBusinessInfo = true;
+  mobileCoupostCreator;
+  mobileAnalytics;
+  setMobileView(x){
+    this.mobileBusinessInfo = false;
+    this.mobileCoupostCreator = false;
+    this.mobileAnalytics = false;
+    if(x == 'info'){
+      this.mobileBusinessInfo = true;
+    } else if(x == 'couposts'){
+      this.mobileCoupostCreator = true;
+    } else {
+      this.mobileAnalytics = true;
     }
   }
 

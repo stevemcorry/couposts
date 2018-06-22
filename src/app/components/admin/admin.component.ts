@@ -34,7 +34,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.mainService.getLoggedInState().subscribe(res=>{
-      if(res.uid == "f0NiMru6f0Sd5aaIctnDCeg6Y8J2"){
+      if(res.uid){
         this.getUsers();
       } else if(!res){
         setTimeout(() => {
