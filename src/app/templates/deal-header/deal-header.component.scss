@@ -1,4 +1,4 @@
-
+@import '../../colors.scss';
 .close{
     position: absolute;
     right: 25px;
@@ -7,6 +7,7 @@
 .header{
     width: 100%;
     display: flex;
+    padding: 13px;
 }
 .leftHeader{
     display: inline-block;
@@ -27,6 +28,7 @@
     height: 200px;
 }
 .infoHeader{
+    color: $dark;
     font: 30px sans-serif;
     text-align: center;
     margin: 5px 0 15px;
@@ -35,6 +37,26 @@
     font: 25px sans-serif;
     width: 100%;
     margin: 0 5px;
+    color: $darkblue;
+}
+.buttonIcon{
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 20px;
+    width: 20px;
+    min-height: 20px;
+    min-width: 20px;
+    display: inline-block;
+}
+.web{
+    background-image: url('../../../assets/Images/link.png');
+}
+.insta{
+    background-image: url('../../../assets/Images/insta.png');
+}
+.lightblue{
+    background-color: $lightblue;
 }
 .remainderWarn{
     position: absolute;
@@ -47,4 +69,15 @@
 }
 .good-button{
     margin: 5px 0;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 560px){
+    .header{
+        flex-direction: column;
+        align-items: center;
+    }
+    .rightHeader{
+        width: 100%;
+    }
 }

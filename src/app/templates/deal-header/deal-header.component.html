@@ -23,12 +23,18 @@
     <button class="good-button" 
       *ngIf="deal.business.website"
       (click)="websiteClick(deal.business)">
-      Visit website
+      <div class="web buttonIcon"></div>
+      <span>
+        Website
+      </span>
     </button>
-    <button class="good-button" 
+    <button class="good-button lightblue" 
       *ngIf="deal.business.insta"
       (click)="instaClick(deal.business)">
-      Visit Intstagram
+      <div class="insta buttonIcon"></div>
+      <span>
+        Intstagram
+      </span>
     </button>
   </div>
 </div>

@@ -295,7 +295,7 @@
 
         <input type="text" 
           placeholder="Name"
-          [(ngModel)]="signature">
+          [(ngModel)]="contactName">
         <input type="text" 
           placeholder="Role / Position"
           [(ngModel)]="contactPosition">
@@ -363,13 +363,13 @@
       <div class="summary">
         <div class="summaryStep">
           <div class="summaryHead">Number of Posts</div>
-          <div>{{numberOfPosts}}%</div>
+          <div>{{deal.dealAmount}}</div>
         </div>
         <div class="summaryStep">
           <div class="summaryHead">Price Per Post</div>
           <div>{{numberOfPosts}}%</div>
         </div>
-        <div class="summaryStep">
+        <div class="summaryStep" *ngIf="releaseNow">
           <div class="summaryHead">Release Coupost Now</div>
           <div>{{numberOfPosts}}%</div>
         </div>
@@ -442,7 +442,7 @@
           Merchant Discount:
           <br>
           <br>
-          {{deal.dealPercentage}}
+          {{deal.dealPercentage}}%
           <br>
           <br>
           Discount is for:
@@ -462,13 +462,13 @@
           Merchant has agreed to pay:
           <br>
           <br>
-          $4.99 per post
+          {{getPrice()}}
           <br>
           <br>
           Monthly Maximum Number of Couposts:
           <br>
           <br>
-          50
+          {{deal.dealAmount}}
           <br>
           <br>
           The Coupost will renew:
@@ -497,11 +497,11 @@
           If User has a problem redeeming coupost then COUPOSTS will reach out to the person deemed responsible by Merchant to deal with this problem. That person’s name and contact info are:
           <br>
           <br>
-          Name:
+          Name: {{contactName}}
           <br>
-          Role/Position:
+          Role/Position: {{contactPosition}}
           <br>
-          Email:
+          Email: {{contactEmail}}
           <br>
           <br>
           If after 3 business days COUPOSTS receives no response, Merchant will receive a $25 charge to their card on file for each User who notified us as having a problem. This amount is non-refundable.
@@ -512,7 +512,7 @@
           <br>
           •	Merchant Legal Name: {{business.name}}
           <br>
-          <br>
+          <!-- <br>
           •	Street Address: 999 bagel street
           <br>
           <br>
@@ -523,7 +523,7 @@
           <br>
           <br>
           •	Zip/Postal Code: 84020
-          <br>
+          <br> -->
           <br>
           Payment
           <br>
@@ -533,9 +533,9 @@
           <br>
           Any refund made by COUPOSTS will be paid to Merchant in credit that may be used towards having more Users post about Merchant. The credit is redeemable at www.couposts.com.
           <br>
-          <br>
+          <!-- <br>
           Signature
-          <br>
+          <br> -->
           <br>
           I am a duly authorized representative of Merchant and my signature confirms Merchant’s consent to be bound to this Agreement and the Terms and Conditions located at http://www.Coupostsworks.com/merchant-terms-and-conditions.
           <br>
@@ -543,10 +543,10 @@
           Agreed and Accepted by
           <br>
           <br>
-          Name
+          Name: {{signature}}
           <br>
           <br>
-          Position
+          Position: {{role}}
         </h5>
       </div>
     </div>
@@ -586,14 +586,9 @@
             [dealImages]="dealImages">
           </app-carousel>
         </div>
-        <div *ngIf="stepCount == 2">
-            <div class="aboutDeal">{{business.about}}</div>
-          <div class="businessName">{{deal.redeem}}</div>
-          <div class="businessName">{{deal.comment}}</div>
-        </div>
-        <div class="bottomDeal">
+        <!-- <div class="bottomDeal">
 
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

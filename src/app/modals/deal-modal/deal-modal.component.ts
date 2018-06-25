@@ -67,6 +67,7 @@ export class DealModalComponent implements OnInit {
     this.setImages(deal.imgs);
     this.modal.open();
     this.carosel.carouselPos = 'translateX(0px)';
+    console.log(deal,'deal');
   }
   setImages(imgs){
     this.dealImages = [];

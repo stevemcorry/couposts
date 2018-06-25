@@ -95,6 +95,11 @@ export class EditDealsComponent implements OnInit {
         this.stepCount = 1;
         return;
       }
+      if(!this.previewImage){
+        alert('Please choose a preview Image');
+        this.stepCount = 1;
+        return;
+      }
     }
     if(x >= 3){
       if(this.selectedFiles || this.dealImages[0]){
@@ -104,37 +109,41 @@ export class EditDealsComponent implements OnInit {
             this.stepCount = 2;
             return;
           }
-        } else if(this.dealImages[0]){
-          //this.stepCount = 3;
         }
       } else {
         alert('Please select your pictures');
         this.stepCount = 2;
         return;
       }
-    } else if(x == 4){
+    }
+    if(x >= 4){
       if(this.locationArr.length){
+        let check = false;
         for(let loc of this.locationArr){
           if(loc == true){
-            this.stepCount = 4;
+            check = true;
+          }
+        }
+        if(!check){
+          if(!this.onlineOnly){
+            alert('No location selected');
+            this.stepCount = 3;
             return;
           }
         }
-        alert('No location selected');
       } else{
-        this.stepCount = 4;
+        alert('Please Select a location.');
+        this.stepCount = 3;
+        return;
       }
-    } else if(x == 5){
-      //Check payment and # of deals
+    }
+    if(x >= 5){
       if(this.payOptionType == 'go'){
-        if(this.deal.dealAmount){
-
-        }else{
+        if(!this.deal.dealAmount){
           alert('Please enter the number of deals you want to give');
           return;
         }
       } else if(this.payOptionType == 'save') {
-        //check to see if plan is selected of custom ammount entered
         if(this.savePlan){
           if(this.savePlan == 4){
             if(!this.deal.dealAmount){
@@ -150,12 +159,17 @@ export class EditDealsComponent implements OnInit {
         }
       }
       this.stepCount = 5;
-    } else if(x == 6){
-      //check the codes
-      this.stepCount = 6;
-    } else if(x == 7){
-      //check to see if contract and info was entered
-      this.stepCount = 7;
+    }
+    if(x >= 6){
+      if(!this.checkStepFive()){
+        return;
+      }
+    }
+    if(x >= 7){
+      if(!this.signature || !this.role || !this.contactName || !this.contactPosition || !this.contactEmail){
+        alert('Please enter all the Information');
+        return;
+      }
     }
     this.stepCount = x;
   }
@@ -208,11 +222,64 @@ export class EditDealsComponent implements OnInit {
     this.selectedFiles = event.target.files;
   }
 
+  //Step 3
+  onlineOnly;
+  onlineOnlyFunction(){
+    this.selectAll = false;
+    for(let i = 0; i < this.business.address.length; i++){
+      this.locationArr[i] = false;
+    }
+    this.onlineOnly = true;
+  }
+  selectAllFunction(){
+    if(!this.selectAll){
+      for(let i = 0; i < this.business.address.length; i++){
+        this.locationArr[i] = true;
+      }
+    } else{
+      for(let i = 0; i < this.business.address.length; i++){
+        this.locationArr[i] = false;
+      }
+    }
+    this.selectAll = !this.selectAll;
+    this.onlineOnly = false;
+  }
+  editLocation(i){
+    if(!this.locationArr.length){
+      this.selectAll = false;
+      for(let j = 0; j < this.business.address.length; j++){
+        this.locationArr[j] = true;
+      }
+    }
+    this.locationArr[i] = !this.locationArr[i];
+    this.onlineOnly = false;
+  }
+  checkIndex(i){
+    if(this.locationArr.length){
+      if(this.locationArr[i]){
+        return true;
+      } else{
+        return false;
+      }
+    } else {
+      for(let j = 0; j < this.business.address.length; j++){
+        this.locationArr[j] = true;
+      }
+      return true;
+    }
+  }
 
-  //step 5
+  //step 4
 
-  codeSet(x){
-    this.codeType = x;
+  planAmount;
+  releaseNow;
+  payOption(x){
+    this.payOptionType = x;
+  }
+  setSavePlan(x){
+    this.customAmountOn = false;
+    this.savePlan = x;
+    this.savePlanCheck(x);
   }
   setCodes(){
     this.codes = [];
@@ -224,31 +291,90 @@ export class EditDealsComponent implements OnInit {
       this.codes = [{value:"", used: false}]
     }
   }
+  calcSavePrice(x){
+    if(x < 20){
+      this.customAmount = x * 5;
+    } else if(x >= 20 && x < 50){
+      this.customAmount = x * 4.5;
+    } else if(x >= 50 && x < 100){
+      this.customAmount = x * 4;
+    } else if(x >= 100){
+      this.customAmount = x * 3;
+    }
+  }
+  savePlanCheck(x){
+    switch(x){
+      case 1:
+        this.deal.dealAmount = 20;
+        this.planAmount = 4.49;
+        break;
+      case 2:
+        this.deal.dealAmount = 50;
+        this.planAmount = 3.99;
+        break;
+      case 3:
+        this.deal.dealAmount = 100;
+        this.planAmount = 2.99;
+        break;
+      case 4:
+        this.customAmountOn = true;
+        this.calcSavePrice(this.deal.dealAmount);
+        this.setCodes();
+    }
+  }
+
+
+  //step 5
 
   redeemType = false;
   codeType = 'universal';
+  dealExpires = false;
+  expirationDate;
   redeemCode(x){
     this.redeemType = x;
     this.codeSet(x);
     this.setCodes();
   }
+  codeSet(x){
+    this.codeType = x;
+  }
 
-  dealExpires;
-  expirationDate;
   checkStepFive(){
     if(this.redeemType === false || (this.codes[0] && this.codes[0].value ) ){
       if((!this.dealExpires || this.expirationDate)){
         return true;
       } else {
+        alert('Please enter your expiration date');
         return false;
       }
     } else {
+      alert('Please enter your codes');
       return false;
     }
   }
 
+  //step6
+    signature;
+    role;
+    contactName;
+    contactPosition;
+    contactEmail;
+    getPrice(){
+      if(this.payOptionType == 'go'){
+        return "$4.99 per post"
+      } else if(this.payOptionType == 'save') {
+        if(this.savePlan == 4){
+          return  "$" + this.customAmount;
+        } else {
+          return  "$" + this.planAmount;
+        }
+      }
+    }
 
   //step 7
+    getTotal(){
+      return 100;
+    }
 
   handler: any;
   amount = 500;
@@ -262,26 +388,6 @@ export class EditDealsComponent implements OnInit {
 
 
 
-  payOption(x){
-    this.payOptionType = x;
-  }
-  setSavePlan(x){
-    this.customAmountOn = false;
-    this.savePlan = x;
-    switch(x){
-      case 1:
-        this.deal.dealAmount = 20;
-        break;
-      case 2:
-        this.deal.dealAmount = 50;
-        break;
-      case 3:
-        this.deal.dealAmount = 100;
-        break;
-      case 4:
-        this.customAmountOn = true;
-    }
-  }
 
   openDeal(x){
     this.addModal = true;
@@ -338,38 +444,6 @@ export class EditDealsComponent implements OnInit {
       }
     })
   }
-  selectAllFunction(){
-    if(!this.selectAll){
-      for(let i = 0; i < this.business.address.length; i++){
-        this.locationArr[i] = true;
-      }
-    } else{
-      for(let i = 0; i < this.business.address.length; i++){
-        this.locationArr[i] = false;
-      }
-    }
-    this.selectAll = !this.selectAll;
-  }
-  checkIndex(i){
-    if(this.locationArr.length){
-      if(this.locationArr[i]){
-        return true;
-      } else{
-        return false;
-      }
-    } else {
-      return true;
-    }
-  }
-  editLocation(i){
-    if(!this.locationArr.length){
-      this.selectAll = false;
-      for(let j = 0; j < this.business.address.length; j++){
-        this.locationArr[j] = true;
-      }
-    }
-    this.locationArr[i] = !this.locationArr[i];
-  }
 
   //upload Images
   uploadDisplay(key) {
@@ -413,17 +487,6 @@ export class EditDealsComponent implements OnInit {
   //   // }
   // }
 
-  calcSavePrice(x){
-    if(x < 20){
-      this.customAmount = x * 5;
-    } else if(x >= 20 && x < 50){
-      this.customAmount = x * 4.5;
-    } else if(x >= 50 && x < 100){
-      this.customAmount = x * 4;
-    } else if(x >= 100){
-      this.customAmount = x * 3;
-    }
-  }
   saveDeal(){
     if(!this.deal.dealAmount){
       alert('Please enter how many deals you want to give');

@@ -38,3 +38,20 @@
 .editLabel:hover{
     border: 1px solid $grey;
 }
+
+
+
+@media screen and (min-width:650px){
+    #dealModal /deep/ .modal-dialog {
+        width: 600px;
+        max-width: 600px;
+        margin: 30px auto;
+    }
+}
+@media screen and (max-width: 649px){
+    #dealModal /deep/ .modal-dialog {
+        width: auto !important;
+        max-width: 100% !important;
+        margin: 30px auto !important;
+    }
+}
