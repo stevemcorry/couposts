@@ -125,6 +125,7 @@ input{
     margin: 20px 10px;
     position: relative;
     text-align: center;
+    padding-top: 30px;
 }
 .addCoupost{
     margin: 30px auto;
@@ -183,6 +184,15 @@ input{
         border-right: 1px solid $lightgrey;
     }
 
+}
+#deal{
+    display: inline-block;
+    position: relative;
+    width: 90%;
+    min-width: 325px;
+    height: 40%;
+    background-color: $lightgrey;
+    margin: 2% auto;
 }
 
 

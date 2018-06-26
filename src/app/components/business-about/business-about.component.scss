@@ -267,11 +267,30 @@ input{
         float: left;
     }
 }
+.vibeLogo{
+    width: calc(100% - 155px);
+    height: 85px;
+    display: inline-block;
+    padding: 0;
+    background-image: url('../../../assets/Images/logo.png');
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: contain;
+}
 .sanDiablo{
     background-image: url('../../../assets/Images/sandiablo.jpg');
 }
 .crustClub{
     background-image: url('../../../assets/Images/crustClub.jpg');
+}
+.sushi{
+    background-image: url('../../../assets/Images/sushi.png');
+}
+.sushiPage{
+    background-image: url('../../../assets/Images/sushiPage.png');
+}
+.sushiPageSmall{
+    background-image: url('../../../assets/Images/sushiPageSmall.png');
 }
 .box{
     width: 40%;
@@ -445,5 +464,8 @@ input{
             text-align: center;
             width: 90%;
         }
+    }
+    .vibeLogo{
+        background-position: center;
     }
 }

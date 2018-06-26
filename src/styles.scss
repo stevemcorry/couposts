@@ -7,11 +7,21 @@ app-deal-header{
 .modal-header, .modal-footer {
     border: none;
 }
-.good-button{
+.dark-button{
     padding: 8px 10px;
     background-color: $darkblue;
     color: white;
     font: 20px sans-serif;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+.good-button{
+    padding: 8px 10px;
+    background-color: $lightblue;
+    color: white;
+    font: 20px sans-serif;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
 }
@@ -22,14 +32,16 @@ app-deal-header{
     font: 20px sans-serif;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
 }
 .cancel-button{
     padding: 8px 10px;
-    background-color: lightgrey;
+    background-color: $grey;
     color: white;
     font: 20px sans-serif;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
 }
 .modal{
     overflow: scroll;

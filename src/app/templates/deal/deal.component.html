@@ -1,13 +1,6 @@
 <div class="deal" *ngIf="deal">
-  <div [ngStyle]="{'background-image':'url(' + getImage() + ')'}" 
-    class="dealImg" 
-    *ngIf="deal.firstImage">
-    <div class="timeWarn" *ngIf="time">
-      Expires: {{time}}
-    </div>
-  </div>
-  <div class="dealImg" 
-    *ngIf="!deal.firstImage">
+  <div [ngStyle]="{'background-image':'url(' + deal.display + ')'}" 
+    class="dealImg">
     <div class="timeWarn" *ngIf="time">
       Expires: {{time}}
     </div>
@@ -20,15 +13,15 @@
       {{deal.business.name}}
     </div>
     <div class="dealTitle">
-      {{deal.deal.dealTitle}}
+      {{deal.deal.dealPercentage}}% Off {{deal.deal.dealTitle}}
     </div>
   </div>
-  <div class="hoverOverDiv">
+  <!-- <div class="hoverOverDiv">
     <div class="addDeals" 
       *ngIf="deal.hover">
     </div>
-    <!-- <div class="addDealsBack" *ngIf="deal.hover"></div> -->
-  </div>
+    <div class="addDealsBack" *ngIf="deal.hover"></div>
+  </div> -->
 </div>
 
 <div class="deal" *ngIf="!deal">
@@ -36,7 +29,7 @@
       class="dealImg" 
       *ngIf="previewImage">
     </div>
-    <div class="dealImg" 
+    <div class="dealImg logo" 
       *ngIf="!previewImage">
     </div>
     <div class="dealLabel">

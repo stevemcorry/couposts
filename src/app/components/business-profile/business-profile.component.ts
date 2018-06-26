@@ -88,7 +88,6 @@ export class BusinessProfileComponent implements OnInit {
       dataSub.unsubscribe();
     })
     let profileSub = this.businessService.getBusinessProfile(this.url).subscribe(data=>{
-      this.checkBusiness(data);
       this.image = data.url;
       this.business = data;
       if(this.uid === data.$key){
@@ -126,17 +125,19 @@ export class BusinessProfileComponent implements OnInit {
       industryCheck++;
     }
     data.about ? this.aboutModalOn = true : '';
-    data.website ? this.websiteModalOn = true : '';
+    //data.website ? this.websiteModalOn = true : '';
     industryCheck ? this.industryModalOn = true : '';
     data.address ? this.locationModalOn = true : '';
     data.url ? this.uploadModalOn = true : '';
     if(!data.about){
       this.welcomeModal.open();
       return false;
-    } else if(!data.website || !industryCheck){
-      this.websiteModal.open();
-      return false;
-    } else if(!data.address){
+    } 
+    // else if(!data.website || !industryCheck){
+    //   this.websiteModal.open();
+    //   return false;
+    // } 
+    else if(!data.address){
       this.locationModal.open();
       return false;
     } else if(!data.url){
@@ -192,6 +193,13 @@ export class BusinessProfileComponent implements OnInit {
   }
   uploadSaved(event){
     let profileSub = this.businessService.getBusinessProfile(this.url).subscribe(data=>{
+      if(!data.url){
+        setTimeout(()=>{
+          this.uploadSaved('');
+        }, 500)
+        profileSub.unsubscribe();
+        return;
+      }
       this.image = data.url;
       this.business = data;
       if(this.uid === data.$key){
@@ -201,7 +209,6 @@ export class BusinessProfileComponent implements OnInit {
     },error=>{
       console.log(error,'error')
     })
-    this.finishModal.open();
   }
   finish(){
     console.log('finished');

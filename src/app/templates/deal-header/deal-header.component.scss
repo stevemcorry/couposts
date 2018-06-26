@@ -24,8 +24,9 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    width: 200px;
+    width: 100%;
     height: 200px;
+    border: 1px solid $lightgrey;
 }
 .infoHeader{
     color: $dark;
@@ -55,8 +56,8 @@
 .insta{
     background-image: url('../../../assets/Images/insta.png');
 }
-.lightblue{
-    background-color: $lightblue;
+.darkblue{
+    background-color: $darkblue;
 }
 .remainderWarn{
     position: absolute;

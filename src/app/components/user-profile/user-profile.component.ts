@@ -107,7 +107,7 @@ export class UserProfileComponent implements OnInit {
           deal: data.deal,
           imgs: data.imgs,
         }
-        dealObj.firstImage = data.imgs[Object.keys(data.imgs)[0]];
+        //dealObj.firstImage = data.imgs[Object.keys(data.imgs)[0]];
         dealObj.dealStatus = deal;
         res(dealObj);
       })

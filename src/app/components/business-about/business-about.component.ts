@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from '../../services/main.service';
+import { NotificationsService } from 'angular2-notifications-lite';
 
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
@@ -25,10 +26,18 @@ export class BusinessAboutComponent implements OnInit {
   businessId;
   inputOn = false;
 
+  options = {
+    position: ["bottom", "right"],
+    timeOut: 5000,
+    lastOnBottom: true,
+    showProgressBar: false,
+  }
+
   constructor(
     public mainService: MainService,
     public route: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    private toastService: NotificationsService
   ) {
     this.route.queryParams.subscribe(res=>{
       this.businessId = res.id;
@@ -54,6 +63,18 @@ export class BusinessAboutComponent implements OnInit {
     },err=>{
       console.log(err,'err')
     })
+  }
+  checkText(){
+    if(this.business.insta.includes('@')){
+      let toast = this.toastService.error('Dont include @','_', {
+        timeOut: 3000,
+        showProgressBar: true,
+        pauseOnHover: true,
+        clickToClose: true
+      });
+
+      this.business.insta = "";
+    }
   }
   signUp(){
     if(!this.business.name){

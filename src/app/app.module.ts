@@ -45,6 +45,8 @@ import { BusinessFinishModalComponent } from './modals/business-finish-modal/bus
 import { AgmCoreModule } from '@agm/core';
 import { PaymentModule } from './payments/payment/payment.module';
 
+import { SimpleNotificationsModule } from 'angular2-notifications-lite';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,7 +87,8 @@ import { PaymentModule } from './payments/payment/payment.module';
     AngularFireDatabaseModule,
     Ng2Bs3ModalModule,
     TextMaskModule,
-    HttpClientModule, 
+    HttpClientModule,  
+    SimpleNotificationsModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: environment.placeskey,
       libraries: ["places"]

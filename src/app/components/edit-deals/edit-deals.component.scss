@@ -297,6 +297,10 @@ input[type=date]{
     margin: 10px 0;
     text-align: center;
 }
+.sameHeightButtons{
+    height: 50px;
+    line-height: 40px;
+}
 .campaignButtons{
     height: 50px;
     line-height: 20px;
@@ -538,5 +542,33 @@ h5{
     .rightBorder{
         border-right: none;
         border-bottom: 1px solid $grey;
+    }
+}
+
+#deal{
+    display: inline-block;
+    position: relative;
+    width: 27vw;
+    min-width: 325px;
+    height: 21vw;
+    background-color: white;
+    margin: 3% 1% 0;
+}
+@media screen and (max-width: 1038px){
+    #deal{
+        width: 40vw;
+        height: 28vw;
+    }
+}
+@media screen and (max-width: 678px){
+    #deal{
+        width: 65vw;
+        height: 40vw;
+    }
+}
+@media screen and (max-width: 575px){
+    #deal{
+        width: 70vw;
+        height: 50vw;
     }
 }

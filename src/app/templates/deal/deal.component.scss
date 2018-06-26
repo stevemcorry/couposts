@@ -1,24 +1,24 @@
 @import '../../colors.scss';
 .deal{
-    position: relative;
-    display: inline-block;
-    width: 27vw;
-    min-width: 325px;
-    height: 21vw;
-    background-color: white;
-    margin: 3% 1% 0;
+    width: 100%;
+    //min-width: 325px;
+    height: 100%;
 }
 .dealImg{
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-image: url('../../../assets/Images/mountains.jpg');
+    background-image: url('../../../assets/Images/Couposts_Logo.png');
     height: calc(100% - 60px);
     width: 100%;
     background-color: white;
     transition: all .3s ease;
     object-fit: contain;
     position: relative;
+}
+.logo{
+    background-size: 90%;
+    background-color: $grey;
 }
 .timeWarn{
     position: absolute;
@@ -69,10 +69,11 @@
 }
 .dealTitle{
     font-size: 18px;
-    color: grey;
+    color: $darkblue;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    font-weight: 500;
 }
 .hoverOverDiv{
     position: absolute;
@@ -102,21 +103,21 @@
     left: calc(50% - 25px);
 }
 
-@media screen and (max-width: 1038px){
-    .deal{
-        width: 40vw;
-        height: 28vw;
-    }
-}
-@media screen and (max-width: 678px){
-    .deal{
-        width: 65vw;
-        height: 40vw;
-    }
-}
-@media screen and (max-width: 575px){
-    .deal{
-        width: 70vw;
-        height: 50vw;
-    }
-}
+// @media screen and (max-width: 1038px){
+//     .deal{
+//         width: 40vw;
+//         height: 28vw;
+//     }
+// }
+// @media screen and (max-width: 678px){
+//     .deal{
+//         width: 65vw;
+//         height: 40vw;
+//     }
+// }
+// @media screen and (max-width: 575px){
+//     .deal{
+//         width: 70vw;
+//         height: 50vw;
+//     }
+// }

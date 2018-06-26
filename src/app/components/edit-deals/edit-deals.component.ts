@@ -8,6 +8,7 @@ import { Upload } from '../../services/upload';
 import * as _ from "lodash";
 import { environment } from '../../../environments/environment';
 import { PaymentService } from '../../payments/payment.service';
+import { NotificationsService } from 'angular2-notifications-lite';
 
 @Component({
   selector: 'app-edit-deals',
@@ -65,11 +66,19 @@ export class EditDealsComponent implements OnInit {
   displayText = "Choose a file";
   displayTexts = "Choose your files";
 
+  options = {
+    position: ["bottom", "right"],
+    timeOut: 5000,
+    lastOnBottom: true,
+    showProgressBar: false,
+  }
+
   constructor(
     //public mainService: MainService,
     public dealsService: DealsService,
     public upSvc: UploadService,
-    private paymentSvc: PaymentService
+    private paymentSvc: PaymentService,
+    private toastService: NotificationsService
   ) { }
 
   ngOnInit() {
@@ -82,21 +91,18 @@ export class EditDealsComponent implements OnInit {
       }
     });
   }
-  alert(x){
-    alert(x);
-  }
   nextStep(x){
     if(x == 1){
       this.stepCount = 1;
     }
     if(x >= 2){
       if(!this.deal.dealTitle){
-        alert('Please enter what you are discounting');
+        this.alerty('Please enter what you are discounting');
         this.stepCount = 1;
         return;
       }
       if(!this.previewImage){
-        alert('Please choose a preview Image');
+        this.alerty('Please choose a preview Image');
         this.stepCount = 1;
         return;
       }
@@ -105,13 +111,13 @@ export class EditDealsComponent implements OnInit {
       if(this.selectedFiles || this.dealImages[0]){
         if(this.selectedFiles){
           if(!this.selectedFiles.length){
-            alert('Please select your pictures');
+            this.alerty('Please select your pictures');
             this.stepCount = 2;
             return;
           }
         }
       } else {
-        alert('Please select your pictures');
+        this.alerty('Please select your pictures');
         this.stepCount = 2;
         return;
       }
@@ -126,13 +132,13 @@ export class EditDealsComponent implements OnInit {
         }
         if(!check){
           if(!this.onlineOnly){
-            alert('No location selected');
+            this.alerty('No location selected');
             this.stepCount = 3;
             return;
           }
         }
       } else{
-        alert('Please Select a location.');
+        this.alerty('Please Select a location.');
         this.stepCount = 3;
         return;
       }
@@ -140,21 +146,21 @@ export class EditDealsComponent implements OnInit {
     if(x >= 5){
       if(this.payOptionType == 'go'){
         if(!this.deal.dealAmount){
-          alert('Please enter the number of deals you want to give');
+          this.alerty('Please enter the number of deals you want to give');
           return;
         }
       } else if(this.payOptionType == 'save') {
         if(this.savePlan){
           if(this.savePlan == 4){
             if(!this.deal.dealAmount){
-              alert('Please enter the amount of deals you want to give');
+              this.alerty('Please enter the amount of deals you want to give');
               return;
             }
           } else {
             this.stepCount = 5;
           }
         } else{
-          alert('Please choose a plan');
+          this.alerty('Please choose a plan');
           return;
         }
       }
@@ -167,11 +173,19 @@ export class EditDealsComponent implements OnInit {
     }
     if(x >= 7){
       if(!this.signature || !this.role || !this.contactName || !this.contactPosition || !this.contactEmail){
-        alert('Please enter all the Information');
+        this.alerty('Please enter all the Information');
         return;
       }
     }
     this.stepCount = x;
+  }
+  alerty(x){
+    let toast = this.toastService.error(x,'_', {
+      timeOut: 3000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true
+    });
   }
 
 
@@ -327,7 +341,7 @@ export class EditDealsComponent implements OnInit {
 
   //step 5
 
-  redeemType = false;
+  redeemType:any = false;
   codeType = 'universal';
   dealExpires = false;
   expirationDate;
@@ -341,15 +355,30 @@ export class EditDealsComponent implements OnInit {
   }
 
   checkStepFive(){
-    if(this.redeemType === false || (this.codes[0] && this.codes[0].value ) ){
+    if(this.redeemType === false){
       if((!this.dealExpires || this.expirationDate)){
         return true;
       } else {
-        alert('Please enter your expiration date');
+        this.alerty('Please enter your expiration date');
         return false;
       }
+    } else if(this.redeemType === 'universal'){
+      if(this.codes[0] && this.codes[0].value){
+        return true;
+      } else {
+        this.alerty('Please enter your universal code');
+        return false;
+      }
+    } else if(this.redeemType === 'unique'){
+      for(let i = 0; i < this.codes.length; i++){
+        if(!this.codes[i].value){
+          this.alerty('Please enter all unique codes');
+          return false;
+        }
+      }
+      return true;
     } else {
-      alert('Please enter your codes');
+      this.alerty('Please enter your codes');
       return false;
     }
   }

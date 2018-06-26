@@ -25,16 +25,21 @@
         <!-- <button (click)="instaLogin()">Insta Login</button> -->
     </modal-body>
     <modal-footer>
-        <button style="float: left" class="good-button" (click)="close()">Close</button>
-        <button class="good-button" 
-            (click)="signup()" 
-            *ngIf="!currentUser">
-            Sign Up
-        </button>
-        <button class="good-button" 
-            (click)="login()" 
-            *ngIf="currentUser">
-            Login
-        </button>
+        <div class="buttons">
+            <button class="cancel-button" 
+                (click)="close()">
+                Close
+            </button>
+            <button class="good-button" 
+                (click)="signup()" 
+                *ngIf="!currentUser">
+                Sign Up
+            </button>
+            <button class="good-button" 
+                (click)="login()" 
+                *ngIf="currentUser">
+                Login
+            </button>
+        </div>
     </modal-footer>
 </modal>

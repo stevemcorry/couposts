@@ -10,7 +10,8 @@
   <app-deal *ngFor="let deal of allDeals | userDeals : confirmed"
     [deal]="deal"
     (click)="openConfirm(deal)"
-    [time]="getExpiration(deal.dealStatus.timeConfirmed)">
+    [time]="getExpiration(deal.dealStatus.timeConfirmed)"
+    id="deal">
   </app-deal>
   <div class="lineSeparator" *ngIf="waiting != 'waiting' && confirmed != 'confirmed'"></div>
 
@@ -19,7 +20,8 @@
   </div>
   <app-deal *ngFor="let deal of allDeals | userDeals : waiting"
     [deal]="deal"
-    (click)="open(deal)">
+    (click)="open(deal)"
+    id="deal">
   </app-deal>
   <div class="lineSeparator" *ngIf="waiting != 'waiting' && denied != 'denied'"></div>
 
@@ -31,7 +33,8 @@
   <app-deal *ngFor="let deal of allDeals | userDeals : denied"
     [deal]="deal"
     (click)="openDenied(deal)"
-    [time]="getDeniedExpiration(deal.dealStatus.timeDenied)">
+    [time]="getDeniedExpiration(deal.dealStatus.timeDenied)"
+    id="deal">
   </app-deal>
 
 </div>

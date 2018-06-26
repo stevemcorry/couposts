@@ -16,7 +16,8 @@
 <app-business-finish-modal (saved)="finish()"></app-business-finish-modal>
 
 <app-upload [uid]="uid? uid:''"
-  [key]="newDealKey? newDealKey : ''">
+  [key]="newDealKey? newDealKey : ''"
+  (saved)="uploadSaved($event)">
 </app-upload>
 
 <app-edit-deals 
@@ -78,7 +79,7 @@
           {{business? business.name:''}}
         </div>
 
-        <div class="info">
+        <div class="info" (click)="edit = true">
           <div class="infoLabel">Instagram:</div>
           <div class="infoData" 
             *ngIf="!edit">
@@ -88,7 +89,7 @@
             [(ngModel)]="business.insta"
             *ngIf="edit">
         </div>
-        <div class="info">
+        <div class="info" (click)="edit = true">
           <div class="infoLabel">Website:</div>
           <div class="infoData" 
             *ngIf="!edit">
@@ -98,7 +99,7 @@
             [(ngModel)]="business.website"
             *ngIf="edit">
         </div>
-        <div class="info">
+        <div class="info" (click)="edit = true">
           <div class="infoLabel">Email:</div>
           <div class="infoData" 
             *ngIf="!edit">
@@ -128,7 +129,14 @@
         [ngClass]="{mobileCoupostCreatorOn : mobileCoupostCreator}">
         <div class="businessInfoTitle">Coupost Creator</div>
 
-        <div class="dealContainer"
+        <app-deal *ngFor="let deal of deals"
+          [deal]="deal"
+          (click)="openDeal(deal)"
+          [home]="true"
+          id="deal">
+        </app-deal>
+
+        <!-- <div class="dealContainer"
           *ngFor="let deal of deals"
           (click)="openDeal(deal)">
           <div class="dealImg"
@@ -138,7 +146,7 @@
               {{deal.deal.dealTitle}}
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="coupostLoading userName" 
           *ngIf="!deals[0]">
           {{dealsLoading}}

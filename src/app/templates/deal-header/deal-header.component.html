@@ -18,9 +18,9 @@
       {{deal.business.name}}
     </div>
     <div class="infoDetails">
-      {{deal.deal.dealTitle}}
+      {{deal.deal.dealPercentage}}% Off {{deal.deal.dealTitle}}
     </div>
-    <button class="good-button" 
+    <button class="good-button darkblue" 
       *ngIf="deal.business.website"
       (click)="websiteClick(deal.business)">
       <div class="web buttonIcon"></div>
@@ -28,7 +28,7 @@
         Website
       </span>
     </button>
-    <button class="good-button lightblue" 
+    <button class="good-button" 
       *ngIf="deal.business.insta"
       (click)="instaClick(deal.business)">
       <div class="insta buttonIcon"></div>

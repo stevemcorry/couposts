@@ -2,6 +2,8 @@
   [key]="newDealKey? newDealKey : ''">
 </app-upload> -->
 
+<simple-notifications [options]="options"></simple-notifications>
+
 <div class="addModal container-fluid"
   [ngClass]="{addModalOn: addModal}">
   <div class="row">
@@ -13,7 +15,7 @@
         style="border-top: none" 
         [ngClass]="{borderBottom: stepCount == 1}"
         (click)="nextStep(1)">
-        Step One:
+        1. Coupost Offer
       </div>
       <div class="step stepOne" 
         [ngClass]="{stepOn : stepCount == 1}">
@@ -26,7 +28,7 @@
           <div class="warn" *ngIf="deal.dealPercentage < 10">*Discount must be 10% or above</div>
           <div class="dealHeader">What will you be discounting?</div>
           <input type="text" 
-            placeholder="Ex: Chicken tacos, Site wide, Red ball caps"
+            placeholder="Ex: Chicken tacos, Site wide, Online Order, Red ball caps"
             [(ngModel)]="deal.dealTitle">
             <div class="dealHeader">Upload your display image:</div>
             <input type="file" 
@@ -38,7 +40,7 @@
               {{displayText}}
             </label>
           <div class="buttons">
-            <div class="saveDeal" 
+            <div class="saveDeal rightButtons" 
               (click)="nextStep(2)">
               Next
             </div>
@@ -49,7 +51,7 @@
       <div class="stepLabel" 
         (click)="nextStep(2)"
         [ngClass]="{borderBottom: stepCount == 2}">
-        Step Two:
+        2. Post Pictures
       </div>
       <div class="step stepTwo" 
         [hidden]="stepCount != 2">
@@ -76,7 +78,9 @@
       </div>
 
 
-      <div class="stepLabel" (click)="nextStep(3)">Step Three:</div>
+      <div class="stepLabel" (click)="nextStep(3)">
+        3. Location(s)
+      </div>
       <div class="step stepTwo" 
         *ngIf="stepCount == 3">
         <div class="dealHeader">Where can this Coupost be redeemed?</div>
@@ -115,28 +119,30 @@
       </div>
 
 
-      <div class="stepLabel" (click)="nextStep(4)">Step Four:</div>
+      <div class="stepLabel" (click)="nextStep(4)">
+        4. Campaign
+      </div>
       <div class="step stepFour" 
         *ngIf="stepCount == 4">
         <div class="dealHeader">Choose campaign type:</div>
         <div class="buttons">
-          <div class="cancelDeal campaignButtons leftButtons" 
+          <div class="cancelDeal campaignButtons leftButtons sameHeightButtons" 
             (click)="alert('Coming soon!')">
             Pay Per <br> Engagement
           </div>
-          <div class="saveDeal rightButtons" 
+          <div class="saveDeal rightButtons sameHeightButtons" 
             (click)="showDealOptions = 'ppp'"
             [ngClass]="{selectedButton: showDealOptions}">
             Pay Per Post
           </div>
         </div>
         <div class="buttons" *ngIf="showDealOptions">
-          <div class="saveDeal leftButtons" 
+          <div class="saveDeal leftButtons sameHeightButtons" 
             (click)="payOption('go')"
             [ngClass]="{selectedButton: payOptionType == 'go'}">
             Pay As You Go
           </div>
-          <div class="saveDeal rightButtons" 
+          <div class="saveDeal rightButtons sameHeightButtons" 
             (click)="payOption('save')"
             [ngClass]="{selectedButton: payOptionType == 'save'}">
             Pay & Save
@@ -211,7 +217,9 @@
       </div>
 
 
-      <div class="stepLabel" (click)="nextStep(5)">Step Five:</div>
+      <div class="stepLabel" (click)="nextStep(5)">
+        5. Redemption
+      </div>
       <div class="step stepTwo" *ngIf="stepCount == 5">
         <div class="dealHeader">How Will the user redeem the Coupost?</div>
         <div class="buttons redeemButtons">
@@ -274,7 +282,9 @@
         </div>
       </div>
 
-      <div class="stepLabel" (click)="nextStep(6)">Step Six:</div>
+      <div class="stepLabel" (click)="nextStep(6)">
+        6. Contract
+      </div>
       <div class="step stepTwo" 
         *ngIf="stepCount == 6">
         <div class="smallHeader">
@@ -318,7 +328,9 @@
         </div>
       </div>
 
-      <div class="stepLabel" (click)="nextStep(7)">Step Seven:</div>
+      <div class="stepLabel" (click)="nextStep(7)">
+        7. Payment
+      </div>
       <div class="step stepTwo" 
         *ngIf="stepCount == 7">
         <div class="dealHeader">Card Info</div>
@@ -382,7 +394,6 @@
 
     <div class="col-lg-8 text-center preview" *ngIf="stepCount == 1">
       <div class="userSees">Preview: <br> This is what the user sees</div>
-      <div>
         <!-- <img *ngIf="previewImage" 
           [src]="previewImage" 
           id="uploadPreview" 
@@ -394,9 +405,9 @@
         <app-deal [previewImage]="previewImage"
           [businessName]="business.name"
           [percentage]="deal.dealPercentage"
-          [dealTitle]="deal.dealTitle">
+          [dealTitle]="deal.dealTitle"
+          id="deal">
         </app-deal>
-      </div>
     </div>
 
     <div class="col-lg-8 text-center preview" *ngIf="stepCount == 6">
@@ -558,7 +569,7 @@
       <div class="dealWrap">
         <app-deal-header 
           [deal]="{
-            deal: {dealTitle: deal.dealTitle}, 
+            deal: {dealTitle: deal.dealTitle, dealPercentage: deal.dealPercentage}, 
             business: {
               photo: image, 
               name: business.name, 

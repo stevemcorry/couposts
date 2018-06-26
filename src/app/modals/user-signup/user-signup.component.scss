@@ -1,10 +1,11 @@
+@import '../../colors';
 input{
     font-size: 18px;
-    color: darkgrey;
+    color: $dark;
     width: 100%;
     height: 40px;
     border-radius: 5px;
-    border: 1px solid lightblue;
+    border: 1px solid $lightgrey;
     margin: 10px 0;
     padding-left: 5px;
 }
@@ -13,11 +14,16 @@ input{
     cursor: pointer;
     width: 250px;
     margin: auto;
+    color: $darkblue;
+}
+.cancel-button{
+    float: left;
+}
+.buttons{
+    width: 93%;
+    margin: auto;
 }
 button{
-    background-color: #007cd4;
-    border: none;
-    color: white;
     font-size: 25px;
 }
 /deep/ .modal-dialog .modal-header{

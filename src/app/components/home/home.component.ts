@@ -68,16 +68,16 @@ export class HomeComponent implements OnInit {
         this.dealsLoading = "No deals right now!"
       }
       this.deals = res;
-      this.formatDeals();
+      //this.formatDeals();
     })
   }
-  formatDeals(){
-    for(let deal of this.deals){
-      if(deal.imgs){
-        deal.firstImage = deal.imgs[Object.keys(deal.imgs)[0]];
-      }
-    }
-   }
+  // formatDeals(){
+  //   for(let deal of this.deals){
+  //     if(deal.imgs){
+  //       deal.firstImage = deal.imgs[Object.keys(deal.imgs)[0]];
+  //     }
+  //   }
+  //  }
    dealImg(img){
      //console.log(img)
      if(img){

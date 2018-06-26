@@ -19,11 +19,13 @@
       {{dealsLoading}}
     </div>
 
-    <app-deal *ngFor="let deal of deals"
-      [deal]="deal"
-      (click)="open(deal)"
-      [home]="true">
-    </app-deal>
+      <app-deal *ngFor="let deal of deals"
+        [deal]="deal"
+        (click)="open(deal)"
+        [home]="true"
+        id="deal">
+      </app-deal>
+  
 
   </div>
 </div>
