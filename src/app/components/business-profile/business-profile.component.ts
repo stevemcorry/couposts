@@ -117,6 +117,9 @@ export class BusinessProfileComponent implements OnInit {
       }
     });
   }
+  log(x){
+    console.log(x)
+  }
   checkBusiness(data){
     let industryCheck = 0;
     for(let i in data.industry){

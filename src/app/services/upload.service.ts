@@ -39,7 +39,8 @@ export class UploadService {
     )
   }
   pushUploadDeal(upload: Upload, key) {
-    let uploadTask = this.storageRef.child(`${this.basePath}/${upload.file.name}`+ key).put(upload.file);
+    let time = new Date().toISOString();
+    let uploadTask = this.storageRef.child(`${this.basePath}/${upload.file.name}`+ key + time + Math.random()).put(upload.file);
     return uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) =>  {
         // upload in progress
@@ -57,6 +58,26 @@ export class UploadService {
       }
     )
   }
+  setDealDisplay(upload: Upload, key){
+    let time = new Date().toISOString();
+    let uploadTask = this.storageRef.child(`${this.basePath}/${upload.file.name}`+ key + time + Math.random()).put(upload.file);
+    return uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot) =>  {
+        // upload in progress
+        upload.progress = (uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes) * 100
+      },
+      (error) => {
+        // upload failed
+        console.log(error,'not working')
+      },
+      () => {
+        // upload success
+        upload.url = uploadTask.snapshot.downloadURL
+        upload.name = upload.file.name
+        this.saveDealDisplay(upload, key)
+      }
+    )
+  }
   // Writes the file details to the realtime db
   private saveFileData(upload: Upload, uid) {
     let currentUserObj: FirebaseObjectObservable<any> = this.db.object('companies/'+uid+'/url')
@@ -69,6 +90,10 @@ export class UploadService {
   private saveDealData(upload: Upload, key) {
     let currentUserObj: FirebaseListObservable<any> = this.db.list('deals/'+ key + "/imgs");
     currentUserObj.push(upload.url);
+  }
+  private saveDealDisplay(upload: Upload, key) {
+    let currentUserObj: FirebaseObjectObservable<any> = this.db.object('deals/'+ key + "/display");
+    currentUserObj.set(upload.url);
   }
 
 }

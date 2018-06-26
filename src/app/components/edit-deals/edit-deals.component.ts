@@ -251,6 +251,7 @@ export class EditDealsComponent implements OnInit {
         this.locationArr[j] = true;
       }
     }
+    this.selectAll = false;
     this.locationArr[i] = !this.locationArr[i];
     this.onlineOnly = false;
   }
@@ -402,9 +403,6 @@ export class EditDealsComponent implements OnInit {
       // })
     }
   }
-  // openAddDealImg(x){
-  //   this.uploadComponent.openDeal();
-  // }
   cancelNewDeal(){
     this.addModal = false;
     this.dealsService.cancelDeal(this.newDealKey);
@@ -447,14 +445,12 @@ export class EditDealsComponent implements OnInit {
 
   //upload Images
   uploadDisplay(key) {
-    this.upSvc.resetDealImages(this.uid, key);
     let files = this.selectedFile
     let filesIndex = _.range(files.length)
     _.each(filesIndex, (idx) => {
       this.currentUpload = new Upload(files[idx]);
-      this.upSvc.pushUploadDeal(this.currentUpload, key)}
+      this.upSvc.setDealDisplay(this.currentUpload, key)}
     )
-    this.checkDone();
   }
   uploadMulti(key) {
     this.upSvc.resetDealImages(this.uid, key);
@@ -464,7 +460,6 @@ export class EditDealsComponent implements OnInit {
       this.currentUpload = new Upload(files[idx]);
       this.upSvc.pushUploadDeal(this.currentUpload, key)}
     )
-    this.checkDone();
   }
   checkDone(){
     if(this.currentUpload.progress === 100){
@@ -486,29 +481,50 @@ export class EditDealsComponent implements OnInit {
   //   //   this.deal.coupons.push({})
   //   // }
   // }
+  getBusinessLocations(){
+    let locations = [];
+    if(this.onlineOnly){return false}
+    if(this.selectAll){return this.business.address}
+    for(let j = 0; j < this.business.address.length; j++){
+      if(this.checkIndex[j]){
+        locations.push(this.business.address[j]);
+      }
+    }
+    return locations;
+  }
+  showDealOptions
+  getPayOption(){
+    let payOption = {
+      option: this.showDealOptions,
+      type: this.payOptionType,
+    }
+    return payOption;
+  }
+  // getCodes(){
+  //   let codes = {
+  //     type: this.redeemType,
+  //     codes: this.codes,
+  //   }
+  // }
+  getExpiration(){
+    return this.dealExpires ? this.expirationDate : false;
+  }
 
   saveDeal(){
-    if(!this.deal.dealAmount){
-      alert('Please enter how many deals you want to give');
-      return;
-    }
-    let codes = {
-      type: this.redeemType,
-      codes: this.codes,
-    };
-    if(!this.deal.dealsLeft){
-      this.deal.dealsLeft = this.deal.dealAmount;
-    }
-    if(!this.deal.dealsLeft){
-      this.deal.dealsLeft = this.deal.dealAmount;
-    }
+
+    !this.deal.dealsLeft ? this.deal.dealsLeft = this.deal.dealAmount: '';
+
     let deal = {
       dealTitle: this.deal.dealTitle,
+      dealPercentage: this.deal.dealPercentage,
+      locations: this.getBusinessLocations(),
+      pay: this.getPayOption(),
       dealAmount: this.deal.dealAmount,
       dealsLeft: this.deal.dealsLeft,
-      codes: codes,
-      redeemType: this.redeemType
-    };
+      redeemType: this.redeemType,
+      codes: this.codes,
+      expiration: this.getExpiration()
+    }
     let business = {
       id: this.uid,
       name: this.business.name,
@@ -522,22 +538,69 @@ export class EditDealsComponent implements OnInit {
     let push = {
       deal: deal,
       business: business
-    };
+    }
     this.dealsService.newDeal(push).then(res=>{
-      this.newDealKey = res.key;
+      this.uploadDisplay(res.key);
       this.uploadMulti(res.key);
       alert('Deal Saved!');
       this.closeNewDeal();
-      this.stepCount = 1;
-      this.redeemType = false;
-      this.deal.dealAmount = 0;
-      this.codeType = 'universal';
-      this.codes = [{value: '', used: false}];
-      //this.enterCodes = false;
     }).catch(err=>{
       console.log(err)
     })
+
   }
+
+  // saveDeal(){
+  //   if(!this.deal.dealAmount){
+  //     alert('Please enter how many deals you want to give');
+  //     return;
+  //   }
+  //   let codes = {
+  //     type: this.redeemType,
+  //     codes: this.codes,
+  //   };
+  //   if(!this.deal.dealsLeft){
+  //     this.deal.dealsLeft = this.deal.dealAmount;
+  //   }
+  //   if(!this.deal.dealsLeft){
+  //     this.deal.dealsLeft = this.deal.dealAmount;
+  //   }
+  //   let deal = {
+  //     dealTitle: this.deal.dealTitle,
+  //     dealAmount: this.deal.dealAmount,
+  //     dealsLeft: this.deal.dealsLeft,
+  //     codes: codes,
+  //     redeemType: this.redeemType
+  //   };
+  //   let business = {
+  //     id: this.uid,
+  //     name: this.business.name,
+  //     about: this.business.about,
+  //     photo: this.business.url,
+  //     email: this.business.email,
+  //     phone: this.business.phone,
+  //     website: this.business.website,
+  //     insta: this.business.insta
+  //   }
+  //   let push = {
+  //     deal: deal,
+  //     business: business
+  //   };
+  //   this.dealsService.newDeal(push).then(res=>{
+  //     this.newDealKey = res.key;
+  //     this.uploadMulti(res.key);
+  //     alert('Deal Saved!');
+  //     this.closeNewDeal();
+  //     this.stepCount = 1;
+  //     this.redeemType = false;
+  //     this.deal.dealAmount = 0;
+  //     this.codeType = 'universal';
+  //     this.codes = [{value: '', used: false}];
+  //     //this.enterCodes = false;
+  //   }).catch(err=>{
+  //     console.log(err)
+  //   })
+  // }
   editDeal(){
     if(!this.deal.dealAmount){
       alert('Please enter how many deals you want to give');

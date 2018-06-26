@@ -1,5 +1,5 @@
 <div class="deal" *ngIf="deal">
-  <div [ngStyle]="{'background-image':'url(' + deal.firstImage + ')'}" 
+  <div [ngStyle]="{'background-image':'url(' + getImage() + ')'}" 
     class="dealImg" 
     *ngIf="deal.firstImage">
     <div class="timeWarn" *ngIf="time">

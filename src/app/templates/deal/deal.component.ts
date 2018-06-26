@@ -19,6 +19,9 @@ export class DealComponent implements OnInit {
 
   ngOnInit() {
   }
+  getImage(){
+    return this.deal.display? this.deal.display : this.deal.firstImage;
+  }
   // checkTime(deal){
   //   if(deal.dealStatus){
   //     if(deal.dealStatus.timeConfirmed){

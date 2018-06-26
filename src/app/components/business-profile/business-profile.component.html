@@ -132,7 +132,8 @@
           *ngFor="let deal of deals"
           (click)="openDeal(deal)">
           <div class="dealImg"
-            [ngStyle]="{'background-image':'url(' + deal.imgs[0] + ')'}">
+            [ngStyle]="{'background-image':'url(' + deal.display + ')'}"
+            (click)="log(deal.display)">
             <div class="dealTitle">
               {{deal.deal.dealTitle}}
             </div>
