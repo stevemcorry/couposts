@@ -46,6 +46,10 @@ import { AgmCoreModule } from '@agm/core';
 import { PaymentModule } from './payments/payment/payment.module';
 
 import { SimpleNotificationsModule } from 'angular2-notifications-lite';
+import { UserDemoComponent } from './modals/user-demo/user-demo.component';
+import { VerifyInstaModalComponent } from './modals/verify-insta-modal/verify-insta-modal.component';
+import { BusinessAboutTemplateComponent } from './templates/business-about-template/business-about-template.component';
+import { DealsFilter } from './filters/deals.filter';
 
 @NgModule({
   declarations: [
@@ -68,6 +72,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications-lite';
     UserProfileComponent,
     AdminComponent,
     UserDealsFilter,
+    DealsFilter,
     DealHeaderComponent,
     CarouselComponent,
     DealComponent,
@@ -75,7 +80,10 @@ import { SimpleNotificationsModule } from 'angular2-notifications-lite';
     BusinessWebsiteModalComponent,
     BusinessLocationsModalComponent,
     BusinessUploadModalComponent,
-    BusinessFinishModalComponent
+    BusinessFinishModalComponent,
+    UserDemoComponent,
+    VerifyInstaModalComponent,
+    BusinessAboutTemplateComponent
   ],
   imports: [
     BrowserModule,

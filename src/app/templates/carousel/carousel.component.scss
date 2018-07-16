@@ -1,11 +1,13 @@
+@import '../../colors.scss';
 .dealContainer{
     width: 375px;
     height: 375px;
     margin: 15px auto;
-    border-radius: 3px;
     border: 1px solid white;
     position: relative;
     overflow: hidden;
+    border-top: 1px solid $med;
+    border-bottom: 1px solid $med;
 }
 .dealCarosel{
     height: 375px;

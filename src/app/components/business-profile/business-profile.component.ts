@@ -120,6 +120,7 @@ export class BusinessProfileComponent implements OnInit {
     console.log(x)
   }
   checkBusiness(data){
+    console.log(data)
     let industryCheck = 0;
     for(let i in data.industry){
       industryCheck++;
@@ -137,7 +138,7 @@ export class BusinessProfileComponent implements OnInit {
     //   this.websiteModal.open();
     //   return false;
     // } 
-    else if(!data.address){
+    else if(!data.address && data.onlineOnly !== true){
       this.locationModal.open();
       return false;
     } else if(!data.url){
@@ -183,13 +184,17 @@ export class BusinessProfileComponent implements OnInit {
   }
   locationSaved(event){
     let obj = JSON.parse(event);
-    if(obj[0]){
+    console.log(obj);
+    if(obj == 'online'){
+      this.business.onlineOnly = true;
+      this.saveEdit();
+    } else if(obj[0]){
       this.business.address = obj;
       this.saveEdit();
     }
-    if(!this.uploadModalOn){
-      this.uploadModal.open();
-    }
+    // if(!this.uploadModalOn){
+    //   this.uploadModal.open();
+    // }
   }
   uploadSaved(event){
     let profileSub = this.businessService.getBusinessProfile(this.url).subscribe(data=>{

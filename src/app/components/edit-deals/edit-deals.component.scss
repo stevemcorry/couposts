@@ -72,14 +72,12 @@
     border-bottom: 1px solid $grey;
 }
 .stepOne{
-    height: 0px;
     overflow: hidden;
-}
-.stepOn{
     height: auto;
 }
 .step{
     background-color: $lightgrey;
+    padding-bottom: 5px;
 }
 .stepFour{
     padding-bottom: 20px;
@@ -328,13 +326,21 @@ input[type=date]{
     background-color: $lightgrey;
     padding-bottom: 30px;
 }
+.aboutHeader{
+    font: 20px sans-serif;
+    text-align: left;
+    padding-left: 15px;
+    margin-bottom: 10px;
+}
 .dealWrap{
     margin: auto;
-    width: 630px;
-    min-width: 630px;
+    width: 480px;
+    min-width: 480px;
     border: 1px solid black;
     position: relative;
     box-shadow: 0px 0px 10px lightgrey;
+    background-color: white;
+
 }
 .topDeal{
     text-align: left;

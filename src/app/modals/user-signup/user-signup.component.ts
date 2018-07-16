@@ -21,6 +21,7 @@ export class UserSignupComponent implements OnInit {
   repass;
   @ViewChild('modal')modal: ModalComponent;
   @Input()fromRedeem;
+  @Input()getStarted = false;
   @Output()loggedIn: EventEmitter<string> = new EventEmitter();
   constructor(
     public mainService: MainService,
@@ -29,6 +30,7 @@ export class UserSignupComponent implements OnInit {
   ngOnInit() {
   }
   open(){
+    this.currentUser = false;
     this.modal.open();
   }
   close(){

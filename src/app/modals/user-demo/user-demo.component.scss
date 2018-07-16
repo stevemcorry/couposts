@@ -1,0 +1,66 @@
+@import '../../colors.scss';
+#top{
+    color: $dark;
+}
+.location{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin: 5px auto;
+    padding: 8px;
+    color: $grey;
+    background-color: $lightgrey;
+    font: 16px sans-serif;
+    cursor: pointer;
+}
+.locationName{
+    display: inline-block;
+}
+.checkbox{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    border-radius: 3px;
+    background-color: $lightgrey;
+    border: 1px solid $dark;
+    transition: all .2s ease;
+    margin: 0;
+    margin-right: 10px;
+}
+.checkOn{
+    background-color: $darkblue;
+}
+input[type=text]{
+    width: 90%;
+    border-radius: 3px;
+    padding: 3px;
+    margin: 0px 5%;  
+    color: $dark;
+    border: 2px solid $grey;
+}
+
+.info-header{
+    font: 20px sans-serif;
+    color: $dark;
+}
+.smallInputHeader{
+    font: 16px sans-serif;
+    color: $grey;
+    margin: 5px 20px;
+}
+.inputHeader{
+    font: 18px sans-serif;
+    color: $grey;
+    margin: 20px;
+}
+#age{
+    margin: 0 20px;
+    border: 2px solid $grey;
+}
+.buttons{
+    width: 90%;
+    margin: auto;
+}
+.cancel-button{
+    float: left;
+}

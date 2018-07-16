@@ -138,9 +138,11 @@ export class EditDealsComponent implements OnInit {
           }
         }
       } else{
-        this.alerty('Please Select a location.');
-        this.stepCount = 3;
-        return;
+        if(!this.onlineOnly){
+          this.alerty('Please Select a location.');
+          this.stepCount = 3;
+          return;
+        }
       }
     }
     if(x >= 5){
@@ -174,6 +176,7 @@ export class EditDealsComponent implements OnInit {
     if(x >= 7){
       if(!this.signature || !this.role || !this.contactName || !this.contactPosition || !this.contactEmail){
         this.alerty('Please enter all the Information');
+        this.stepCount = 6;
         return;
       }
     }
@@ -478,7 +481,7 @@ export class EditDealsComponent implements OnInit {
     let filesIndex = _.range(files.length)
     _.each(filesIndex, (idx) => {
       this.currentUpload = new Upload(files[idx]);
-      this.upSvc.setDealDisplay(this.currentUpload, key)}
+      this.upSvc.setDealDisplay(this.currentUpload, key, this.business.name)}
     )
   }
   uploadMulti(key) {
@@ -487,7 +490,7 @@ export class EditDealsComponent implements OnInit {
     let filesIndex = _.range(files.length)
     _.each(filesIndex, (idx) => {
       this.currentUpload = new Upload(files[idx]);
-      this.upSvc.pushUploadDeal(this.currentUpload, key)}
+      this.upSvc.pushUploadDeal(this.currentUpload, key,this.business.name)}
     )
   }
   checkDone(){

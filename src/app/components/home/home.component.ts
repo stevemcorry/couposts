@@ -4,6 +4,7 @@ import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DealsService } from 'app/services/deals.service';
 import { DealModalComponent } from '../../modals/deal-modal/deal-modal.component';
+import { UserSignupComponent } from '../../modals/user-signup/user-signup.component';
 
 declare var jquery:any;
 declare var $ :any;
@@ -18,6 +19,8 @@ declare var $ :any;
   ]
 })
 export class HomeComponent implements OnInit {
+
+  @ViewChild(UserSignupComponent)userSignup;
 
   deals:any = [
     // {
@@ -40,11 +43,13 @@ export class HomeComponent implements OnInit {
   ) {
     this.getDeals();
    }
+
   @HostListener('window:scroll', ['$event']) onScrollEvent($event){
     let height = $(window).scrollTop();
       document.getElementById('mainDisplay').style.opacity = this.returnOpacString(height);
       document.getElementById('mainDisplay').style.transform = this.returnTranslateString(height)
   }
+
   returnOpacString(height){
     if(height > 100){
       let opac:any
@@ -55,11 +60,17 @@ export class HomeComponent implements OnInit {
       return 1;
     }
   }
+
   returnTranslateString(height){
     return "translateY(-" + height/3 + "px)";
   }
+  
   goToSignup(){
     this.router.navigate(['signup']);
+  }
+  getStarted(){
+    console.log('straging')
+      this.userSignup.open();
   }
   getDeals(){
     let listings = [];
@@ -78,16 +89,16 @@ export class HomeComponent implements OnInit {
   //     }
   //   }
   //  }
-   dealImg(img){
-     //console.log(img)
-     if(img){
-       for(let x in img){
-         return img[x]
-        }
-     } else {
-       return '';
-     }
-   }
+  // dealImg(img){
+  //   //console.log(img)
+  //   if(img){
+  //     for(let x in img){
+  //       return img[x]
+  //     }
+  //   } else {
+  //     return '';
+  //   }
+  // }
   open(deal){
     this.dealModal.open(deal);
   }

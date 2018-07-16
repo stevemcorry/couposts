@@ -26,6 +26,8 @@ input{
 .cancel-button{
     font-size: 14px;
     margin: 5px;
+    float: right;
+    margin-right: 10px;
 }
 .active-button{
     background-color: $darkblue;
@@ -51,4 +53,8 @@ input{
 }
 .removeLocation:hover{
     color: red;
+}
+.checkboxInput{
+    width: 20px;
+    margin: 8px 0 8px 10px;
 }

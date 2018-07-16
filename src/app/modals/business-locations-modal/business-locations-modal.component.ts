@@ -11,11 +11,12 @@ import {} from '@types/googlemaps';
 export class BusinessLocationsModalComponent implements OnInit {
 
   @ViewChild('modal')modal: ModalComponent;
+  @Input()allLocations = [];
+  @Input()onlineOnly;
   @Input()next;
   @Output()saved: EventEmitter<string> = new EventEmitter();
   @ViewChild('search') public searchElement: ElementRef;
 
-  allLocations = [];
 
   constructor(
     private mapsAPILoader: MapsAPILoader, 
@@ -38,6 +39,11 @@ export class BusinessLocationsModalComponent implements OnInit {
   addLocation(){
     if(!this.searchElement.nativeElement.value){return}
     let value:any = this.searchElement.nativeElement.value;
+    if(!this.allLocations){
+      this.allLocations = [];
+    }
+    console.log(this.allLocations);
+    this.onlineOnly = false;
     this.allLocations.push(value);
     this.searchElement.nativeElement.value = '';
   }
@@ -47,7 +53,11 @@ export class BusinessLocationsModalComponent implements OnInit {
   save(){
     this.addLocation();
     this.modal.close();
-    this.saved.emit(JSON.stringify(this.allLocations));
+    if(this.onlineOnly){
+      this.saved.emit(JSON.stringify('online'));
+    } else {
+      this.saved.emit(JSON.stringify(this.allLocations));
+    }
   }
   remove(i, location){
     this.allLocations.splice(i,1);

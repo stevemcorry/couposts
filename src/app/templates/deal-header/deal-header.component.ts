@@ -18,6 +18,7 @@ export class DealHeaderComponent implements OnInit {
   }
   @Input()profile;
   @Input()expiration;
+  @Input()headerOff = false;
 
   constructor(
     private dealService: DealsService,

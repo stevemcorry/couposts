@@ -1,40 +1,43 @@
 <div class="close" (click)="closeModal()">X</div>
 <div class="header">
   <div class="leftHeader">
-    <div class="companyPhoto" 
-      [ngStyle]="{'background-image':'url(' + deal.business.photo + ')'}">
-    </div>
-    <div class="remainderWarn"      
-      *ngIf="deal.deal.dealsLeft < 20 && !profile">
-        {{deal.deal.dealsLeft}} remaining
-    </div>
-    <div class="remainderWarn"      
-      *ngIf="expiration">
-        Expires: {{expiration}}
-    </div>
-  </div>
-  <div class="rightHeader">
     <div class="infoHeader">
       {{deal.business.name}}
     </div>
+    <!-- <div class="buttons" *ngIf="!headerOff">
+      <button class="good-button darkblue" 
+        *ngIf="deal.business.website"
+        (click)="websiteClick(deal.business)">
+        <div class="web buttonIcon"></div>
+        <span>
+          Website
+        </span>
+      </button>
+      <button class="good-button darkblue" 
+        *ngIf="deal.business.insta"
+        (click)="instaClick(deal.business)">
+        <div class="insta buttonIcon"></div>
+        <span>
+          Instagram
+        </span>
+      </button>
+    </div> -->
+    <div class="companyPhoto" 
+      *ngIf="!headerOff"
+      [ngStyle]="{'background-image':'url(' + deal.business.photo + ')'}">
+      <div class="remainderWarn"      
+        *ngIf="deal.deal.dealsLeft < 20 && !profile">
+          {{deal.deal.dealsLeft}} remaining
+      </div>
+      <div class="remainderWarn"      
+        *ngIf="expiration">
+          Expires: {{expiration}}
+      </div>
+    </div>
+  </div>
+  <div class="rightHeader">
     <div class="infoDetails">
       {{deal.deal.dealPercentage}}% Off {{deal.deal.dealTitle}}
     </div>
-    <button class="good-button darkblue" 
-      *ngIf="deal.business.website"
-      (click)="websiteClick(deal.business)">
-      <div class="web buttonIcon"></div>
-      <span>
-        Website
-      </span>
-    </button>
-    <button class="good-button" 
-      *ngIf="deal.business.insta"
-      (click)="instaClick(deal.business)">
-      <div class="insta buttonIcon"></div>
-      <span>
-        Intstagram
-      </span>
-    </button>
   </div>
 </div>

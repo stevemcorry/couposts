@@ -1,6 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MainService } from '../../services/main.service';
+import { UserSignupComponent } from '../../modals/user-signup/user-signup.component';
 
 declare var jquery:any;
 declare var $ :any;
@@ -13,6 +14,8 @@ declare var $ :any;
 })
 export class HeaderComponent implements OnInit {
 
+  @ViewChild(UserSignupComponent)userSignup;
+  @Input()clearHeader;
   loggedIn;
   drop;
   constructor(
@@ -26,10 +29,15 @@ export class HeaderComponent implements OnInit {
 
   @HostListener('window:scroll', ['$event']) onScrollEvent($event){
     let height = $(window).scrollTop();
-    if(height > 50){
+    if(height > 305){
       document.getElementById('header').classList.add('smallHead')
     } else{
       document.getElementById('header').classList.remove('smallHead')
+    }
+    if(height > 50){
+      document.getElementById('header').classList.add('smallHeaderOn')
+    } else{
+      document.getElementById('header').classList.remove('smallHeaderOn')
     }
   } 
   goAbout(){
@@ -61,7 +69,7 @@ export class HeaderComponent implements OnInit {
           if(!res.email){return}
           this.userData = res;
           for(let deal in res.deals){
-            if(res.deals[deal].confirmed || res.deals[deal].denied){
+            if(res.deals[deal].confirmed || res.deals[deal].denied|| !res.deals[deal].confirmed){
               if(!res.deals[deal].redeemed){
                 this.userDealCount ++;
               }
@@ -84,7 +92,8 @@ export class HeaderComponent implements OnInit {
 
   }
   logIn(){
-    this.router.navigate(['land']);
+    this.userSignup.open();
+    //this.router.navigate(['land']);
     this.drop = false;
   }
 }

@@ -19,8 +19,9 @@ export class UploadService {
   private basePath:string = '/uploads';
   uploads: FirebaseListObservable<Upload[]>;
 
-  pushUpload(upload: Upload, uid) {
-    let uploadTask = this.storageRef.child(`${this.basePath}/${upload.file.name}`).put(upload.file);
+  pushUpload(upload: Upload, uid, name) {
+    let time = new Date().toISOString();
+    let uploadTask = this.storageRef.child(`${this.basePath}/${name}${upload.file.name}`+ uid + time + Math.random()).put(upload.file);
     return uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) =>  {
         // upload in progress
@@ -38,9 +39,9 @@ export class UploadService {
       }
     )
   }
-  pushUploadDeal(upload: Upload, key) {
+  pushUploadDeal(upload: Upload, key, name) {
     let time = new Date().toISOString();
-    let uploadTask = this.storageRef.child(`${this.basePath}/${upload.file.name}`+ key + time + Math.random()).put(upload.file);
+    let uploadTask = this.storageRef.child(`${this.basePath}/${name}${upload.file.name}`+ key + time + Math.random()).put(upload.file);
     return uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) =>  {
         // upload in progress
@@ -58,9 +59,9 @@ export class UploadService {
       }
     )
   }
-  setDealDisplay(upload: Upload, key){
+  setDealDisplay(upload: Upload, key, name){
     let time = new Date().toISOString();
-    let uploadTask = this.storageRef.child(`${this.basePath}/${upload.file.name}`+ key + time + Math.random()).put(upload.file);
+    let uploadTask = this.storageRef.child(`${this.basePath}/${name}${upload.file.name}`+ key + time + Math.random()).put(upload.file);
     return uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) =>  {
         // upload in progress

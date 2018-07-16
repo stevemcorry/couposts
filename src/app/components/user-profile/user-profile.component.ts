@@ -104,6 +104,7 @@ export class UserProfileComponent implements OnInit {
       this.dealService.getDeal(deal.key).subscribe(data=>{
         let dealObj: any = {
           business: data.business,
+          display: data.display,
           deal: data.deal,
           imgs: data.imgs,
         }
@@ -124,7 +125,18 @@ export class UserProfileComponent implements OnInit {
     return dealsArr;
   }
   verifyInsta(){
-    this.mainService.instaLogin();
+    //this.mainService.instaLogin();
+
+    //DELETE LATER
+    let user = {counts: {
+      followed_by: 250,
+      follows: 250,
+      media: 25
+    }}
+    this.mainService.updateUserInsta(user, this.uid).then(res=>{
+      console.log('saved Insta Data',res);
+    })
+
   }
 
   open(deal){
@@ -137,6 +149,7 @@ export class UserProfileComponent implements OnInit {
     this.acceptModal.close();
     this.deal = deal;
     this.confirmedModal.open();
+    console.log(deal);
   }
   openDenied(deal){
     this.deal = deal;
@@ -174,6 +187,7 @@ export class UserProfileComponent implements OnInit {
     this.confirmedModal.close();
     this.acceptModal.open();
   }
+  truth = true;
   accept(){
     this.acceptModal.close();
     let deal = this.deal.dealStatus;
@@ -188,13 +202,15 @@ export class UserProfileComponent implements OnInit {
         key: key,
         deal: this.deal.dealStatus
       }
+      console.log(this.uid, key, this.user, userDeal);
       this.dealService.dealRedeem(key, this.user, this.uid, userDeal).then(data=>{
       })
     })
   }
   emailCode(deal, key){
+    console.log(deal);
     let userCode,
-      codes = deal.codes.codes,
+      codes = deal.codes,
       codeKey;
     for(let i = 0; i < codes.length; i++){
       if(this.uid == codes[i].user && !codes[i].used){
@@ -209,13 +225,14 @@ export class UserProfileComponent implements OnInit {
       code: userCode,
       body: "This is your code: " + userCode
     }
-    this.dealService.emailCode(body).then(res=>{
-      this.emailSent(codeKey, key);
-    }).catch(err=>{
-      if(err.status == 200){
-        this.emailSent(codeKey, key);
-      }
-    })
+    console.log(body,'body');
+    // this.dealService.emailCode(body).then(res=>{
+    //   this.emailSent(codeKey, key);
+    // }).catch(err=>{
+    //   if(err.status == 200){
+    //     this.emailSent(codeKey, key);
+    //   }
+    // })
   }
   copyCode(){
     

@@ -9,6 +9,8 @@ import { UserSignupComponent } from '../user-signup/user-signup.component';
 import { DealsService } from '../../services/deals.service';
 import { MainService } from '../../services/main.service';
 import { CarouselComponent } from '../../templates/carousel/carousel.component';
+import { UserDemoComponent } from '../user-demo/user-demo.component';
+import { VerifyInstaModalComponent } from '../verify-insta-modal/verify-insta-modal.component';
 
 @Component({
   selector: 'app-deal-modal',
@@ -32,12 +34,14 @@ export class DealModalComponent implements OnInit {
   carouselCheck = 0;
   users;
   //resizeWidth = this.getWidth();
-  user;
+  user:any = {};
   redeeming;
 
   @ViewChild('modal')modal: ModalComponent;
   @ViewChild('redeemModal')redeemModal: ModalComponent;
   @ViewChild(UserSignupComponent)userSignup;
+  @ViewChild(UserDemoComponent)userdemo;
+  @ViewChild(VerifyInstaModalComponent)verifyComponent;
   constructor(
     private auth: AngularFireAuth,
     private afData: AngularFireDatabase,
@@ -76,6 +80,31 @@ export class DealModalComponent implements OnInit {
     }
   }
 
+  closeRedeem(){
+    this.redeemModal.close();
+    console.log('closing');
+  }
+  closeModal(){
+    this.modal.close();
+    console.log('closing modal');
+  }
+  goBack(){
+    this.redeemModal.close();
+    this.modal.open();
+  }
+  saveImage(){
+    // console.log('saving')
+    
+    // window.open(canvas.toDataURL('image/png'));
+    // var gh = canvas.toDataURL('png');
+
+    // var a  = document.createElement('a');
+    // a.href = gh;
+    // a.download = 'image.png';
+
+    // a.click()
+
+  }
 
   next(){
     let user = this.auth.auth.currentUser
@@ -106,6 +135,16 @@ export class DealModalComponent implements OnInit {
     this.modal.close();
   }
   loggedIn(){
+    this.modal.close();
+    this.userdemo.open();
+    this.getUser(this.users);
+  }
+  demoSaved(){
+    // this.completeNext();
+    // this.getUser(this.users);
+    this.verifyComponent.open();
+  }
+  instaVerified(){
     this.completeNext();
     this.getUser(this.users);
   }
@@ -137,8 +176,13 @@ export class DealModalComponent implements OnInit {
   checkDeal(){
     for(let deal in this.user.deals){
       if(deal == this.deal.$key){
-        this.showAlert('You have already redeemed this deal! It is under review. Thanks for your patience!');
-        return;
+        console.log(this.user.deals[deal], deal, 'dealss')
+        if(!this.user.deals[deal].redeemed){
+          if(!this.user.deals[deal].confirmed){
+            this.showAlert('You have already redeemed this deal! It is under review. Thanks for your patience!');
+            return;
+          }
+        }
       }
     }
     this.dealOk();
@@ -193,5 +237,29 @@ export class DealModalComponent implements OnInit {
   getDate(){
     let date = new Date().toISOString();
     return date;
+  }
+  websiteClick(business){
+    let url = "";
+    if (!/^http[s]?:\/\//.test(business.website)) 
+    {
+      url += 'http://';
+    }
+    url += business.website;
+    window.open( url, "_blank");
+    let obj = {
+      time: new Date().toISOString(),
+    }
+    this.dealService.websiteVisit(business.id, obj).then(res=>{
+      console.log('saved you dutch boi')
+    })
+  }
+  instaClick(business){
+    window.open("http://instagram.com/" + business.insta, "_blank");
+    let obj = {
+      time: new Date().toISOString(),
+    }
+    this.dealService.instaVisit(business.id, obj).then(res=>{
+      console.log('saved you dutch boi')
+    })
   }
 }

@@ -1,5 +1,6 @@
 <app-header></app-header>
 <div class="adminWrap">
+  <div *ngIf="!usersWith[0]">{{loading}}</div>
   <div *ngFor="let user of usersWith"
     class="user">
     <div class="userInfo">

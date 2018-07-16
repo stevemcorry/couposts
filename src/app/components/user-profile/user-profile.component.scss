@@ -1,6 +1,6 @@
 @import '../../colors.scss';
 .userWrap{
-    margin-top: 70px;
+    margin-top: 63px;
     padding-bottom: 30px;
     padding-top: 20px;
     transition: all .3s ease;
@@ -69,6 +69,15 @@
     height: 21vw;
     background-color: white;
     margin: 3% 1% 0;
+}
+.bigButton{
+    width: 100%;
+    background-color: red;
+}
+.acceptInfo{
+    color: $dark;
+    font: 20px sans-serif;
+    text-align: center;
 }
 @media screen and (max-width: 1038px){
     #deal{

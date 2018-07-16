@@ -1,0 +1,66 @@
+<modal #modal>
+    <modal-header id="top">
+        User Info!
+    </modal-header>
+    <modal-body>
+        <div class="info-header">Help us get the best deals for you!</div>
+        <div class="inputHeader">Age:</div>
+        <select name="age" id="age">
+          <option value="group1">13-17</option>
+          <option value="group2">18-24</option>
+          <option value="group3">25-34</option>
+          <option value="group4">35-44</option>
+          <option value="group5">45-55</option>
+          <option value="group6">55-64</option>
+          <option value="group7">64+</option>
+        </select>
+
+        <div class="inputHeader">Gender:</div>
+
+        <select name="age" id="age">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        <!-- <input type="radio" 
+          name="gender" 
+          value="male"> Male<br>
+        <input type="radio" 
+          name="gender" 
+          value="female">
+          Female<br>
+        <input type="radio" 
+          name="gender" 
+          value="other">
+          Other <br> -->
+
+
+        <div class="inputHeader">City:</div>
+
+        <input type="text" placeholder="What city's deals do you want to see?">
+
+        <div class="inputHeader">Which of these best describe you? You will see deals based on your answers</div>
+        <div class="smallInputHeader">Mark all that apply</div>
+          <div class="location" 
+            *ngFor="let location of interests;"
+            (click)="location.value = !location.value">
+            <div class="checkbox" 
+              [ngClass]="{checkOn: location.value}"></div>
+            <div class="locationName">
+              {{location.name}}</div>
+          </div>
+
+    </modal-body>
+    <modal-footer>
+        <div class="buttons">
+            <button class="cancel-button" 
+                (click)="close()">
+                Close
+            </button>
+            <button class="good-button" 
+                (click)="save()">
+                Save
+            </button>
+        </div>
+    </modal-footer>
+</modal>

@@ -8,15 +8,19 @@
   [next]="locationModalOn">
 </app-business-website-modal>
 <app-business-locations-modal (saved)="locationSaved($event)"
-  [next]="uploadModalOn">
+  [next]="uploadModalOn"
+  [onlineOnly]="business.onlineOnly"
+  [allLocations]="business.address">
 </app-business-locations-modal>
 <app-business-upload-modal [uid]="uid" 
-  (saved)="uploadSaved($event)">
+  (saved)="uploadSaved($event)"
+  [name]="business.name">
 </app-business-upload-modal>
 <app-business-finish-modal (saved)="finish()"></app-business-finish-modal>
 
 <app-upload [uid]="uid? uid:''"
   [key]="newDealKey? newDealKey : ''"
+  [name]="business.name"
   (saved)="uploadSaved($event)">
 </app-upload>
 

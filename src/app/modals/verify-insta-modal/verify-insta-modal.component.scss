@@ -1,0 +1,16 @@
+@import '../../colors.scss';
+#top{
+    color: $dark;
+}
+.buttons{
+    width: 90%;
+    margin: auto;
+    text-align: center;
+}
+.good-button{
+    width: 40%;
+    font-size: 28px;
+}
+.cancel-button{
+    float: left;
+}

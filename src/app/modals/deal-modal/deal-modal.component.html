@@ -1,60 +1,129 @@
 <modal #modal id="dealModal">
   <modal-header>
-    <app-deal-header (close)="modal.close()" 
+    <app-deal-header (close)="closeModal()" 
       [deal]="deal">
     </app-deal-header>
   </modal-header>
-  <div class="aboutHeader">
-    {{deal.business.about}}
-  </div>
+  <div class="good-button big-button" (click)="next()">Claim Coupost</div>
   <modal-body>
     <app-carousel [dealImages]="dealImages"></app-carousel>
+    <div class="aboutHeaderLabel">Business Info:</div>
+    <div class="infoButtons" *ngIf="!headerOff">
+      <button class="good-button darkblue" 
+        *ngIf="deal.business.website"
+        (click)="websiteClick(deal.business)">
+        <div class="web buttonIcon"></div>
+        <span>
+          Website
+        </span>
+      </button>
+      <button class="good-button darkblue" 
+        *ngIf="deal.business.insta"
+        (click)="instaClick(deal.business)">
+        <div class="insta buttonIcon"></div>
+        <span>
+          Instagram
+        </span>
+      </button>
+    </div>
+    <div class="aboutHeader">
+      <app-business-about-template 
+        [about]="deal.business.about">
+      </app-business-about-template>
+    </div>
+    <div>
+      <div *ngIf="deal.deal.locations" 
+        (click)="locationsOn = !locationsOn"
+        class="locationHeader">
+        Valid Locations
+      </div>
+      <div *ngIf="!deal.deal.locations"
+        class="locationHeader">
+        Redeemable Online
+      </div>
+      <div *ngIf="deal.deal.locations" class="locations">
+        <div *ngFor="let location of deal.deal.locations" 
+          [hidden]="!locationsOn"
+          class="location">
+          {{location}}
+        </div>
+      </div>
+      <div *ngIf="deal.deal.expiration"
+        class="expiration">
+        *This deal expires {{deal.deal.expiration}}
+      </div>
+    </div>
   </modal-body>
   <modal-footer>
-    <button (click)="next()" class="good-button">Next</button>
+    <div class="buttons">
+      <button (click)="modal.close()" 
+        class="cancel-button">
+        Close
+      </button>
+      <button (click)="next()" 
+        class="good-button">
+        Claim
+      </button>
+    </div>
   </modal-footer>
 </modal>
 
 <modal #redeemModal>
-    <modal-header>
-      <app-deal-header (close)="modal.close" 
-        [deal]="deal">
+    <modal-header id="noBottom">
+      <app-deal-header (close)="closeRedeem()" 
+        [deal]="deal"
+        [headerOff]="true">
       </app-deal-header>
     </modal-header>
-    <div class="aboutHeader">
-      {{deal.business.about}}
-    </div>
-    <modal-body>
+    <modal-body id="noTop">
       <app-carousel [dealImages]="dealImages"></app-carousel>
       
       <div class="stepHeader">
         Step one:
       </div>
+      <!-- <div class="stepInfo">
+        Click and hold the image and save to your phone. or click <span (click)="saveImage()">here</span> to save the image.
+      </div> -->
       <div class="stepInfo">
-        Click and hold the image and save to your phone.
+          Select an image above and save it to your phone. <br> <i>(Click and hold the image to save to your phone)</i> 
       </div>
       <div class="stepHeader">
         Step two:
       </div>
       <div class="stepInfo">
-        You can write your own caption but must include <span>@couposts</span> and <span>{{deal.business.insta ? '@'+deal.business.insta : deal.business.name}}</span>.
+        You can write your own caption, but your post/story must include: 
+        <div class="linkSpan">
+          <span>@couposts</span> <span>{{deal.business.insta ? '@'+deal.business.insta : deal.business.name}}</span> <br> 
+        </div>
       </div>
       <div class="stepWarn">
-        *Both must be included, spelled correctly, and link to the accounts in order to qualify
+        *Both must be <span>included, spelled correctly,</span> and <span>link</span> to the accounts in order to qualify
       </div>
       <div class="stepHeader">
         Step three:
       </div>
       <div class="stepInfo">
-          Click redeem to go to your instagram. Once your post/story is verified (may take up to 12 hours), your Coupost will be available on your profile page.
+          Click "Go to Instagram" and post! Once your post/story is verified (may take up to 12 hours), your Coupost will be available on your profile page.
       </div>
         
     </modal-body>
     <modal-footer>
-      <div (click)="redeem()" class="good-button">
-        Redeem
+      <div class="buttons">
+        <div (click)="goBack()" class="cancel-button">
+          Back
+        </div>
+        <div (click)="redeem()" class="good-button">
+          Go to Instagram
+        </div>
       </div>
     </modal-footer>
 </modal>
 
-<app-user-signup (loggedIn)="loggedIn()" [fromRedeem]="true"></app-user-signup>
+<app-user-demo (saved)="demoSaved()">
+</app-user-demo>
+<app-verify-insta-modal (saved)="instaVerified()"
+  [uid]="user.$key">
+</app-verify-insta-modal>
+<app-user-signup (loggedIn)="loggedIn()" 
+  [fromRedeem]="true">
+</app-user-signup>

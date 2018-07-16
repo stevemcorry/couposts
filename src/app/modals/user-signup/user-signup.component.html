@@ -1,9 +1,23 @@
 <modal #modal>
-    <modal-header>
+    <modal-header *ngIf="getStarted">
+        How Does It Work?
+    </modal-header>
+    <modal-header *ngIf="!getStarted">
         User Sign-Up!
     </modal-header>
     <modal-body>
         <!-- <div *ngIf="!currentUser"> -->
+        <div  *ngIf="getStarted">
+            <ol>
+                <li>Select Coupost</li>
+                <li>Post an approved picture on your Instagram feed or story.</li>
+                <li>Once your post is verified, the coupost will be activated.</li>
+                <li>Redeem coupost by going to your profile page here at couposts.com</li>
+            </ol>
+        </div>
+        <div *ngIf="getStarted" class="getStarted">
+            Get Started!
+        </div>
         <div>
             <input type="text" 
                 placeholder="Your Name" 
@@ -20,7 +34,16 @@
             <input type="email" placeholder="Email Address" [(ngModel)]="email">
             <input type="password" placeholder="Password" [(ngModel)]="pass">
         </div> -->
-        <div (click)="currentUser = !currentUser" class="userSwitch">Already have an account?</div>
+        <div (click)="currentUser = !currentUser" 
+            class="userSwitch"
+            *ngIf="!currentUser">
+            Already have an account?
+        </div>
+        <div (click)="currentUser = !currentUser" 
+            class="userSwitch" 
+            *ngIf="currentUser">
+            Create an Account
+        </div>
         <!-- <button (click)="facebookLogin()">FB Login</button> -->
         <!-- <button (click)="instaLogin()">Insta Login</button> -->
     </modal-body>

@@ -26,27 +26,45 @@ export class AdminComponent implements OnInit {
   four = false;
   denyDeal;
   denyKey;
+  loading = "Loading...."
   constructor(
     public mainService: MainService,
     public dealService: DealsService,
     public router: Router
-  ) { }
+  ) { 
+    this.start();
+  }
 
   ngOnInit() {
+  }
+  start(){
     this.mainService.getLoggedInState().subscribe(res=>{
-      if(res.uid){
-        this.getUsers();
-      } else if(!res){
+      if(!res){
+        this.loading = "Still getting logged in";
         setTimeout(() => {
           this.getLoggedIn();
         }, 500);
+      } else if(res.uid){
+        this.getUsers();
       } else{
         this.router.navigate(['/']);
       }
+    },err =>{
+      this.loading = 'You must be a logged in admin to view this page';
+      setTimeout(() => {
+        this.router.navigate(['/']);
+      }, 2500);
     })
   }
   getLoggedIn(){
     this.mainService.getLoggedInState().subscribe(res=>{
+      if(!res){
+        this.loading = 'You must be a logged in admin to view this page';
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        }, 2500);
+        return;
+      }
       if(res.uid == "f0NiMru6f0Sd5aaIctnDCeg6Y8J2"){
         this.getUsers();
       } else{
@@ -55,6 +73,7 @@ export class AdminComponent implements OnInit {
     })
   }
   getUsers(){
+    this.loading = "Getting users now";
     this.mainService.getUsers().subscribe(res=>{
       this.usersWith = [];
       for(let user of res){
@@ -115,6 +134,9 @@ export class AdminComponent implements OnInit {
         }
       }
       user.formatDeals = deals;
+    }
+    if(!this.usersWith[0]){
+      this.loading = "No Users Have Posted";
     }
   }
   confirmPost(deal, uid){

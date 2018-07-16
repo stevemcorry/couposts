@@ -5,21 +5,70 @@
     font: 20px sans-serif;
     text-align: left;
     padding-left: 15px;
+    margin-bottom: 10px;
 }
 .stepInfo{
+    color: $dark;
     font: 14px sans-serif;
-    span{
-        color: $darkblue;
+    .linkSpan{
+        text-align: center;
+        margin: 8px 0;
+        span{
+            color: $darkblue;
+            font-size: 18px;
+        }
     }
+}
+.aboutHeaderLabel{
+    text-align: center;
+    width: 100%;
+    font: 20px sans-serif;
+    color: $dark;
+}
+.infoButtons{
+    margin: 9px auto;
+    width: 100%;
+    text-align: center;
+    .good-button{
+        float: none;
+    }
+}
+.buttonIcon{
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 20px;
+    width: 20px;
+    min-height: 20px;
+    min-width: 20px;
+    display: inline-block;
+}
+.web{
+    background-image: url('../../../assets/Images/link.png');
+}
+.insta{
+    background-image: url('../../../assets/Images/insta.png');
+}
+.darkblue{
+    background-color: $darkblue;
+}
+.good-button{
+    margin: 5px 0;
+    border-radius: 5px;
 }
 .stepWarn{
     font: 12px sans-serif;
-    margin-top: 3px;
+    margin-top: 3px; 
+    color: $dark;
+    span{
+        font-weight: 900;
+    }
 }
 .stepHeader{
     font: 18px sans-serif;
     font-weight: 900;
     margin: 10px 0 5px;
+    color: $dark;
 }
 .checkbox{
     display: inline-block;
@@ -38,7 +87,55 @@
 .editLabel:hover{
     border: 1px solid $grey;
 }
-
+.expiration{
+    color: red;
+    font: 16px sans-serif;
+    margin-bottom: 20px;
+}
+.locationHeader{
+    text-align: center;
+    width: 185px;
+    margin: auto;
+    font: 20px sans-serif;
+    color: $darkblue;
+    cursor: pointer;
+    margin-bottom: 15px;
+    text-decoration: underline;
+}
+.locations{
+    width: 80%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: auto;
+}
+.location{
+    font: 16px sans-serif;
+    color: $dark;
+    line-height: 25px;
+    text-align: center;
+}
+.big-button{
+    width: 90%;
+    text-align: center;
+    margin: 5px auto;
+    transform: translateY(-15px);
+}
+.buttons{
+    width: 100%;
+}
+.cancel-button{
+    float: left;
+}
+.good-button{
+    float: right;
+}
+#noBottom /deep/ .modal-header{
+    padding-bottom: 0 !important;
+}
+#noTop /deep/ .modal-body{
+    padding-top: 0 !important;
+}
 
 
 @media screen and (min-width:650px){

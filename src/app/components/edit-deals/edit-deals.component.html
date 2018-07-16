@@ -18,7 +18,7 @@
         1. Coupost Offer
       </div>
       <div class="step stepOne" 
-        [ngClass]="{stepOn : stepCount == 1}">
+        [hidden]="stepCount != 1">
         <div class="dealHeader">Discount:</div>
         <div class="percentage">{{deal.dealPercentage}}%</div>
         <input type="range" 
@@ -588,14 +588,17 @@
           </div>
         </div> -->
         <div>
-          <div class="aboutDeal">{{business.about}}</div>
-          <div class="selectImage">Select a picture</div>
           <app-carousel *ngIf="!dealImages.length"
             [dealImages]="previewImages">
           </app-carousel>
           <app-carousel *ngIf="dealImages.length" 
             [dealImages]="dealImages">
           </app-carousel>
+          <div class="aboutHeader">
+            <app-business-about-template 
+              [about]="business.about">
+            </app-business-about-template>
+          </div>
         </div>
         <!-- <div class="bottomDeal">
 

@@ -7,7 +7,8 @@
     <modal-body>
       <div class="info-header">Where will you be offering your deals?</div>
       <div class="location" 
-        *ngFor="let location of allLocations; let i = index">
+        *ngFor="let location of allLocations; let i = index"
+        [hidden]="onlineOnly">
         <div class="locationName">
           {{location}}
         </div>
@@ -27,6 +28,11 @@
         [ngClass]="{'active-button': searchElement.nativeElement.value}">
         Add Location
       </button>
+      <input type="checkbox" 
+        name="true"
+        value="true"
+        class="checkboxInput"
+        [(ngModel)]="onlineOnly"> Online Only <br>
       <div class="info-warn">*You can always add locations later</div>
       <button class="good-button" (click)="save()">Save and Continue</button>
     </modal-body>

@@ -44,7 +44,7 @@
     width: 200px;
     background-image: url('../../../assets/Images/blankUser.png');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     margin: 30px auto 10px;
 }
@@ -191,8 +191,8 @@ input{
     width: 90%;
     min-width: 325px;
     height: 40%;
-    background-color: $lightgrey;
     margin: 2% auto;
+    border: 1px solid $med;
 }
 
 

@@ -3,6 +3,7 @@
     position: absolute;
     right: 25px;
     top: 25px;
+    z-index: 5;
 }
 .header{
     width: 100%;
@@ -24,8 +25,9 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    width: 100%;
+    width: 215px;
     height: 200px;
+    margin: auto;
     border: 1px solid $lightgrey;
 }
 .infoHeader{
@@ -73,12 +75,24 @@
     border-radius: 5px;
 }
 
-@media screen and (max-width: 560px){
+// @media screen and (max-width: 560px){
+    .buttons{
+        width: fit-content;
+        margin: auto;
+    }
     .header{
         flex-direction: column;
         align-items: center;
     }
+    .companyPhoto{
+        margin: 10px auto;
+        position: relative;
+    }
     .rightHeader{
+        padding-top: 0;
         width: 100%;
     }
-}
+    .leftHeader{
+        width: 100%;
+    }
+// }

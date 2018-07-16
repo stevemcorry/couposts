@@ -42,14 +42,15 @@
 
 <modal #acceptModal id="userModal">
     <modal-header>
-      <app-deal-header (close)="confirmedModal.close()" 
+      <app-deal-header (close)="acceptModal.close()" 
         [deal]="deal"
         [profile]="true"
+        [headerOff]="true"
         [expiration]="getExpiration(deal.dealStatus.timeConfirmed)">
       </app-deal-header>
     </modal-header>
 
-    <modal-body *ngIf="deal.deal.codes ? !deal.deal.codes.type : ''">
+    <modal-body *ngIf="!deal.deal.redeemType">
       <div class="acceptDesc">
         Show this to an employee at the front desk and they’ll take care of you!
       </div>
@@ -58,37 +59,29 @@
       </div> 
     </modal-body>
 
-    <modal-body *ngIf="deal.deal.codes ? deal.deal.codes.type : ''">
+    <modal-body *ngIf="deal.deal.redeemType">
       <div class="acceptDesc">
-        Email the coupont to your email or copy to clipboard.
+        Email the Coupost to your email.
       </div>
       <div class="approveWarn">
-        *Coupost will disappear after one of the buttons are clicked*
+        *Coupost will disappear after "Email Code" button is clicked clicked*
       </div> 
     </modal-body>
   
-    <modal-footer *ngIf="deal.deal.codes ? !deal.deal.codes.type : ''">
-      <button (click)="acceptModal.close()" 
-        class="cancel-button">
-        Close
-      </button>
+    <modal-footer *ngIf="!deal.deal.redeemType">
       <button (click)="accept()" 
-        class="good-button">
+        class="good-button bigButton">
         Approve
       </button>
     </modal-footer>
 
-    <modal-footer *ngIf="deal.deal.codes ? deal.deal.codes.type : ''">
+    <modal-footer *ngIf="deal.deal.redeemType">
       <!-- <button (click)="copyCode(deal.deal)" 
         class="cancel-button">
         Copy Code
       </button> -->
-      <button (click)="acceptModal.close()" 
-        class="cancel-button">
-        Close
-      </button>
       <button (click)="emailCode(deal.deal, deal.dealStatus.key); accept()" 
-        class="good-button">
+        class="good-button bigButton">
         Email Code
       </button>
     </modal-footer>
@@ -104,8 +97,8 @@
     </app-deal-header>
   </modal-header>
 
-  <div class="aboutHeader">
-    {{deal.business.about}}
+  <div class="acceptInfo">
+    Your post has been approved!
   </div>
 
   <modal-body>

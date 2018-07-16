@@ -20,6 +20,7 @@ export class BusinessUploadModalComponent implements OnInit {
 
   @ViewChild('modal')modal: ModalComponent;
   @Input()uid;
+  @Input()name;
   @Output()saved: EventEmitter<string> = new EventEmitter();
 
   constructor(
@@ -51,7 +52,7 @@ export class BusinessUploadModalComponent implements OnInit {
   save(){
     let file = this.selectedFiles.item(0)
     this.currentUpload = new Upload(file);
-    this.upSvc.pushUpload(this.currentUpload,this.uid);
+    this.upSvc.pushUpload(this.currentUpload,this.uid, this.name);
     this.checkDone()
   }
   done(){

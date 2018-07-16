@@ -1,14 +1,16 @@
-<app-header></app-header>
+<app-header [clearHeader]="true"></app-header>
+<app-user-signup [getStarted]="true"></app-user-signup>
 <app-deal-modal></app-deal-modal>
 <div class="container-fluid homeWrap">
   <div class="mainImage">
     <div class="coverMain"></div>
     <div class="mainDisplay" id="mainDisplay">
       <div class="logo"></div>
-      <div class="underTitle">Find the perfect deal for you!</div>
+      <div class="underTitle">Earn coupons by posting!</div>
       <!-- <input type="text" 
         placeholder="Business Name"
         class="inputSearch"> -->
+      <button class="good-button" (click)="getStarted()">Get Started</button>
       <div class="underLine" (click)="goToSignup()">I'm a business</div>
     </div>
   </div>
@@ -19,7 +21,12 @@
       {{dealsLoading}}
     </div>
 
-      <app-deal *ngFor="let deal of deals"
+    <div *ngIf="deals[0]"
+      class="available">
+      Available Couposts
+    </div>
+
+      <app-deal *ngFor="let deal of deals | deals"
         [deal]="deal"
         (click)="open(deal)"
         [home]="true"

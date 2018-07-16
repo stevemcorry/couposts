@@ -21,6 +21,7 @@ export class UploadComponent{
     selectedFiles: FileList;
     @Input()uid;
     @Input()key;
+    @Input()name;
     currentUpload: Upload;
     constructor(private upSvc: UploadService) { }
     detectFiles(event) {
@@ -29,7 +30,7 @@ export class UploadComponent{
     uploadSingle() {
       let file = this.selectedFiles.item(0)
       this.currentUpload = new Upload(file);
-      this.upSvc.pushUpload(this.currentUpload,this.uid);
+      this.upSvc.pushUpload(this.currentUpload,this.uid,this.name);
       this.checkDone()
     }
     // uploadSingleDeal() {
@@ -58,7 +59,7 @@ export class UploadComponent{
       let filesIndex = _.range(files.length)
       _.each(filesIndex, (idx) => {
         this.currentUpload = new Upload(files[idx]);
-        this.upSvc.pushUploadDeal(this.currentUpload, this.key)}
+        this.upSvc.pushUploadDeal(this.currentUpload, this.key, this.name)}
       )
       this.checkDone();
     }

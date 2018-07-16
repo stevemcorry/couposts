@@ -1,0 +1,11 @@
+<div>{{aboutFix()}}</div>
+<div *ngIf="aboutCheck() && !showAbout" 
+    class="showMore" 
+    (click)="showAbout = !showAbout">
+    show more
+</div>
+<div *ngIf="showAbout" 
+    class="showMore" 
+    (click)="showAbout = !showAbout">
+    show less
+</div>

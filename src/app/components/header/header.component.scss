@@ -84,8 +84,11 @@
 .logout:hover{
     background-color: $grey;
 }
+.clearHeader{
+    background-color: transparent !important;
+}
 .smallHead{
-    //background-color: #638cc2 !important;
+    background-color: $darkblue !important;
     .logo{
         height: 35px;
         width: 100px;
@@ -100,6 +103,9 @@
     padding: 10px;
 }
 @media screen and (max-width: 770px){
+    .smallHeaderOn{
+        background-color: $darkblue !important;
+    }
     .smallHeader{
         display: block;
         .logo{
