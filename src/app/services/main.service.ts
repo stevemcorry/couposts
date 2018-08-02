@@ -88,8 +88,11 @@ export class MainService {
     // window.location.href =
     // "https://api.instagram.com/oauth/authorize/?client_id=240fc475ad0e43d383570dd87398fa43&redirect_uri=http://localhost:4000/auth/&response_type=code"
 
+    // window.location.href =
+    // "https://api.instagram.com/oauth/authorize/?client_id=240fc475ad0e43d383570dd87398fa43&redirect_uri=http://localhost:4000/auth/&response_type=token"
+
     window.location.href =
-    "https://api.instagram.com/oauth/authorize/?client_id=240fc475ad0e43d383570dd87398fa43&redirect_uri=http://localhost:4000/auth/&response_type=token"
+    "https://api.instagram.com/oauth/authorize/?client_id=240fc475ad0e43d383570dd87398fa43&redirect_uri=https://couposts.com/auth/&response_type=token"
 
     // window.location.href =
     // "https://api.instagram.com/oauth/authorize/?client_id=240fc475ad0e43d383570dd87398fa43&redirect_uri=http://coupost-7fc1b.firebaseapp.com/auth&response_type=code"
@@ -100,6 +103,10 @@ export class MainService {
   }
   instaAccess(code){
     return this.http.get(`https://api.instagram.com/v1/users/self`+ this.access + code)
+      .map(data => data.json())
+  }
+  getUserMedia(code){
+    return this.http.get(`https://api.instagram.com/v1/users/self/media/recent` + this.access + code)
       .map(data => data.json())
   }
   // instaStories(code){

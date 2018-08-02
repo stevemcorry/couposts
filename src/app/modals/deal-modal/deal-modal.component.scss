@@ -48,6 +48,7 @@
 }
 .insta{
     background-image: url('../../../assets/Images/insta.png');
+    transform: translateY(3px);
 }
 .darkblue{
     background-color: $darkblue;
@@ -92,29 +93,6 @@
     font: 16px sans-serif;
     margin-bottom: 20px;
 }
-.locationHeader{
-    text-align: center;
-    width: 185px;
-    margin: auto;
-    font: 20px sans-serif;
-    color: $darkblue;
-    cursor: pointer;
-    margin-bottom: 15px;
-    text-decoration: underline;
-}
-.locations{
-    width: 80%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    margin: auto;
-}
-.location{
-    font: 16px sans-serif;
-    color: $dark;
-    line-height: 25px;
-    text-align: center;
-}
 .big-button{
     width: 90%;
     text-align: center;
@@ -123,6 +101,9 @@
 }
 .buttons{
     width: 100%;
+    button{
+        padding: 8px 20px;
+    }
 }
 .cancel-button{
     float: left;

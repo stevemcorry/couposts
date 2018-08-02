@@ -1,0 +1,24 @@
+@import '../../colors.scss';
+.locationHeader{
+    text-align: center;
+    width: 225px;
+    margin: auto;
+    font: 20px sans-serif;
+    color: $darkblue;
+    cursor: pointer;
+    margin-bottom: 15px;
+    text-decoration: underline;
+}
+.locations{
+    width: 80%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: auto;
+}
+.location{
+    font: 16px sans-serif;
+    color: $dark;
+    line-height: 25px;
+    text-align: center;
+}

@@ -1,0 +1,156 @@
+<modal #modal id="myModal">
+  <modal-header>
+    <h2>{{title}}</h2>
+  </modal-header>
+  <modal-body>
+    <div class="section" *ngIf="tip == 1">
+      <div class="sectionHeader" (click)="subTip = 1">What do I offer?</div>
+      <div class="sectionBody" [ngClass]="{subTipOn: subTip == 1}">
+        You want your offer to be enough where it gives people an incentive to post. 
+        <br>
+        <br>
+        At Couposts we haven't seen much success in campaigns from companies that offered less than 20%. The higher the offer, the more people will post about you.
+        <br>
+        <br>
+        Obviously, the higher the offer you give, the less money you make. But keep in mind that for each person that posts you are getting a new customer + marketing from that person. So, when considering what to offer, you must remember the following:
+        <br>
+        This coupost will be acquiring you a new customer (customer acquisition cost)
+        If you believe that your product/service is good then, the customers acquired through this coupost will be worth a lot more to you throughout the customer’s lifetime (customer lifetime value). Our job at Couposts is to help get customers to your door. Your job is to keep them coming back.
+        <br>
+        <br>
+        And keep in mind the fact that the user is posting (i.e. promoting) your business to their friends and family. That’s called amplified word of mouth marketing.
+      </div>
+      <div class="sectionHeader" (click)="subTip = 2">What should I discount?</div>
+      <div class="sectionBody" [ngClass]="{subTipOn: subTip == 2}">
+        You may discount different things depending on your strategy with your campaign. Maybe you have a surplus of items that you want to sell, maybe you are releasing a new product and want people to try/promote it, or maybe you just want new people to post about you and become new customers in which case you could offer them a store wide discount. 
+        <br>
+        <br>
+        Here are some examples of offers:
+        <br>
+        <span>30% OFF California Sushi Roll </span> - offer is only for a SPECIFIC item, it’s not for any type of Sushi.
+        <br>
+        <span>35% OFF Any Item </span>
+        <br>
+        <span>40% OFF Online Order </span>
+        <br>
+        <span>50% OFF All Dresses</span>
+        <br>
+        <span>100% OFF Sandwich w/purchase of Sandwich</span> - equivalent to a buy one get one free offer
+        <br>
+        <span>100% OFF Earrings just pay shipping</span>
+      </div>
+      <div class="sectionHeader" (click)="subTip = 3">
+        What should I use as my display image?
+      </div>
+      <div class="sectionBody" [ngClass]="{subTipOn: subTip == 3}">
+        Some companies will use their logo as their display image while others will use a picture of their product.
+        <br>
+        <br>
+        But we've found it most beneficial to put a picture of your product as the display image.
+      </div>
+    </div>
+    <div class="section" *ngIf="tip == 2">
+      <div class="sectionHeader" (click)="subTip = 1">
+        What dimensions should the post pictures be?
+      </div>
+      <div class="sectionBody" [ngClass]="{subTipOn: subTip == 1}">
+        Users are able to resize most images before they post on Instagram so that they fit on the screen. If you’re worried that the picture is too big, then check on your Instagram to see if it works. 
+        <br>
+      </div>
+      <div class="sectionHeader" (click)="subTip = 2">
+        What should I use for post pictures?
+      </div>
+      <div class="sectionBody" [ngClass]="{subTipOn: subTip == 2}">
+        This depends on what kind of business you are. Here are some examples:
+        <br>
+        <br>
+        For the food industry, people like to see delicious looking pictures of products, but they also like to see that people they know/trust are trying the food. 
+        <!-- In the photo below are the top photos for #icecream. As you can see,  -->
+        Many pictures show somebody holding the item. It doesn't show their face, just their hand. Maybe take a picture with your phone of the product in your hand so the image doesn't look super staged, and upload that!
+        <br>
+        <br>
+        For clothing companies, it's been more effective to have people post pictures of people wearing the clothing for sale because it's easier to see what someone looks like wearing the clothes.
+        <br>
+        <br>
+        We recommend looking up the hashtags for your product and see what types of posts are getting good engagement. And test a few types of photos! See what works for you!
+        <br>
+      </div>
+      <div class="sectionHeader" (click)="subTip = 3">
+        What should I use as my display image?
+      </div>
+      <div class="sectionBody" [ngClass]="{subTipOn: subTip == 3}">
+        Some companies will use their logo as their display image while others will use a picture of their product.
+        <br>
+        <br>
+        But we've found it most beneficial to put a picture of your product as the display image.
+      </div>
+    </div>
+    <div class="section" *ngIf="tip == 3">
+      <div class="sectionHeader" (click)="subTip = 1">
+        Valid Locations
+      </div>
+      <div class="sectionBody" [ngClass]="{subTipOn: subTip == 1}">
+        Users will be able to see which locations are valid before they post and again when their coupost is activated.
+        <br>
+      </div>
+    </div>
+    <div class="section" *ngIf="tip == 4">
+      <div class="sectionHeader" (click)="subTip = 1">
+        Campaign Types:
+      </div>
+      <div class="sectionBody" [ngClass]="{subTipOn: subTip == 1}">
+        <span>Pay Per Post:</span> The user might have 200 followers, or they might have 1,500+. But you pay the same price per person. If 12 people post, you pay for the 12 posts. If 0 post then you don't owe anything. 
+        <br>
+        <br>
+        <span>Pay Per Engagement:</span> You sick of influencers with a million followers but only get 100 likes? With Pay per engagement, you only pay for the engagement (likes, views, comments) on the user's posts.
+        <br>
+        <br>
+        You will also need to choose if you’d rather  <span>"Pay as you go"</span> or <span>"Pay & Save"</span>. 
+        <br>
+        <br>
+        <ul>
+          <li>
+            <span>Pay as you go:</span> This is often the choice for businesses who are new to Couposts. If nobody posts, then you don’t owe anything. You only pay for results.
+          </li>
+          <br>
+          <li>
+            <span>Pay & Save:</span> You will save on the price per post/engagement by paying upfront. The more you pay upfront, the more you save per post. This money you pay does not expire with the coupost.
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="section" *ngIf="tip == 5">
+      <div class="sectionHeader" (click)="subTip = 1">
+        Redemption Options
+      </div>
+      <div class="sectionBody" [ngClass]="{subTipOn: subTip == 1}">
+        After our team has verified that the user has posted, we will activate their coupost so that they're able to redeem it. The user then goes to their profile on couposts.com to redeem the coupost. Once the coupost is redeemed, it will disappear from their profile.
+        <br>
+        <br>
+        Couposts are currently redeemable in these 3 ways:
+        <br>
+        <br>
+        <span>1. Redeem Button:</span> This is usually used when the coupost must be redeemed at a physical location. The user will show their verified coupost to an employee, and the employee simply clicks on the redeem button.
+        <br>
+        <br>
+        <span>2. Universal Code:</span> This is a single promo code that is distributed to those that post.
+        <br>
+        <br>
+        <span>3. Unique Code:</span> This is a unique code that is distributed to those that post.
+      </div>
+      <div class="sectionHeader" (click)="subTip = 2">
+        Will I lose my Couposts?
+      </div>
+      <div class="sectionBody" [ngClass]="{subTipOn: subTip == 2}">
+        No! Say you chose “Pay & Save” and you paid upfront for 50 couposts. If only 10 people posted for your campaign before it expired, you would still have 40 (50 - 10 = 40) left. You could come back into this coupost and update the expiration date and you would still have your 40 couposts remaining.
+        <br>
+      </div>
+    </div>
+  </modal-body>
+  <modal-footer>
+    <button class="good-button left-button" (click)="openVideo()">
+      Video Tutorial
+    </button>
+    <button class="cancel-button right-button" (click)="modal.close()">Close</button>
+  </modal-footer>
+</modal>

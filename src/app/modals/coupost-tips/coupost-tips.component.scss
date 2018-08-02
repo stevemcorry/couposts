@@ -1,0 +1,44 @@
+@import './../../colors.scss';
+.section{
+
+}
+.sectionHeader{
+    padding: 0 15px;
+    font-weight: 900;
+    font: 18px sans-serif;
+    color: $dark;
+    margin-bottom: 13px;
+    cursor: pointer;
+}
+.sectionBody{
+    padding: 0px 15px;
+    height: 0px;
+    color: $grey;
+    background-color: $lightgrey;
+    font: 16px sans-serif;
+    line-height: 18px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    border-bottom: 1px solid $med;
+}
+.subTipOn{
+    padding: 8px 15px;
+    border-top: 1px solid $med;
+    height: 100%;
+}
+span{
+    font-weight: 900;
+}
+.left-button{
+    float: left;
+}
+.right-button{
+    float: right;
+}
+#myModal /deep/ .modal-body{
+    padding: 0;
+}
+#myModal /deep/ .modal-footer{
+    display: inline-block;
+    width: 100%;
+}

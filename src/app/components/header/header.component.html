@@ -18,7 +18,8 @@
         <div class="dealWarn" *ngIf="userDealCount">{{userDealCount}}</div>
       </div>
       <div class="menuitem" 
-        (click)="goSignup()">
+        (click)="goSignup()"
+        *ngIf="!loggedIn">
         Business?
       </div>
       <div class="menuitem">
@@ -58,10 +59,13 @@
             {{userDealCount}}
           </div>
         </div>
-        <div class="menuitem">
+        <div class="menuitem" 
+          (click)="goAbout()">
           About
         </div>
-        <div class="menuitem">
+        <div class="menuitem" 
+          (click)="goSignup()"
+          *ngIf="!loggedIn">
           Business?
         </div>
         <div *ngIf="loggedIn" 

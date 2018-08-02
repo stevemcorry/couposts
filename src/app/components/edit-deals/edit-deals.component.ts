@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostListener, ViewChild } from '@angular/core';
 //import { MainService } from 'app/services/main.service';
 import { UploadComponent } from 'app/modals/upload/upload.component';
 import { DealsService } from 'app/services/deals.service';
@@ -9,6 +9,8 @@ import * as _ from "lodash";
 import { environment } from '../../../environments/environment';
 import { PaymentService } from '../../payments/payment.service';
 import { NotificationsService } from 'angular2-notifications-lite';
+import { CoupostTipsComponent } from '../../modals/coupost-tips/coupost-tips.component';
+import { resolve } from '../../../../node_modules/@types/q';
 
 @Component({
   selector: 'app-edit-deals',
@@ -43,6 +45,7 @@ export class EditDealsComponent implements OnInit {
   };
   @Input()uid =  "";
   @Input()image =  "";
+  @ViewChild(CoupostTipsComponent)toolTips: CoupostTipsComponent;
   selectedFiles: FileList;
   selectedFile: FileList;
   currentUpload: Upload;
@@ -63,8 +66,8 @@ export class EditDealsComponent implements OnInit {
   customAmount;
   customAmountOn;
   savePlan;
-  displayText = "Choose a file";
-  displayTexts = "Choose your files";
+  displayText = "Choose Display Image";
+  displayTexts = "Choose Postable Images";
 
   options = {
     position: ["bottom", "right"],
@@ -78,7 +81,7 @@ export class EditDealsComponent implements OnInit {
     public dealsService: DealsService,
     public upSvc: UploadService,
     private paymentSvc: PaymentService,
-    private toastService: NotificationsService
+    private toastService: NotificationsService,
   ) { }
 
   ngOnInit() {
@@ -90,6 +93,45 @@ export class EditDealsComponent implements OnInit {
         this.paymentSvc.processPayment(token, this.amount)
       }
     });
+  }
+  clearDeal(){
+    this.displayText = "Choose Display Image";
+    this.displayTexts = "Choose Postable Images";
+    this.previewImage = '';
+    this.previewImages = [];
+  }
+  openDeal(x){
+    this.clearDeal();
+    console.log(x, 'deals');
+    this.addModal = true;
+    if(x){
+      this.deal = x.deal;
+      this.newDealKey = x.$key;
+      this.getImages(x);
+      this.checkLocations(x.deal.locations);
+      this.setPlan(x.deal.pay);
+      this.setContract(x.deal.contract);
+    } else {
+      this.notify('Click on the "?" for more information on any of the steps');
+      // this.dealsService.newDeal(this.uid, {}).then(res=>{
+      //   this.newDealKey = res.key;
+      //   this.getImages();
+      // })
+    }
+  }
+  goPreview(){
+    document.getElementById('previewStuff').scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start'});
+  }
+  openTips(name, x){
+    this.toolTips.open(name,x);
+  }
+  playVideo(event){
+    this.alerty("There's no video yet silly! " + event);
+  }
+  setPlan(pay){
+    this.showDealOptions = pay.option;
+    this.payOptionType = pay.type;
+    this.savePlan = pay.plan;
   }
   nextStep(x){
     if(x == 1){
@@ -108,9 +150,9 @@ export class EditDealsComponent implements OnInit {
       }
     }
     if(x >= 3){
-      if(this.selectedFiles || this.dealImages[0]){
+      if(this.selectedFiles || this.previewImages[0]){
         if(this.selectedFiles){
-          if(!this.selectedFiles.length){
+          if(!this.selectedFiles.length && !this.previewImages[0]){
             this.alerty('Please select your pictures');
             this.stepCount = 2;
             return;
@@ -155,6 +197,7 @@ export class EditDealsComponent implements OnInit {
         if(this.savePlan){
           if(this.savePlan == 4){
             if(!this.deal.dealAmount){
+              this.stepCount = 4;
               this.alerty('Please enter the amount of deals you want to give');
               return;
             }
@@ -162,6 +205,7 @@ export class EditDealsComponent implements OnInit {
             this.stepCount = 5;
           }
         } else{
+          this.stepCount = 4;
           this.alerty('Please choose a plan');
           return;
         }
@@ -181,6 +225,14 @@ export class EditDealsComponent implements OnInit {
       }
     }
     this.stepCount = x;
+  }
+  notify(x){
+    let toast = this.toastService.bare(x,'_', {
+      timeOut: 10000,
+      showProgressBar: true,
+      pauseOnHover: false,
+      clickToClose: true
+    });
   }
   alerty(x){
     let toast = this.toastService.error(x,'_', {
@@ -286,6 +338,11 @@ export class EditDealsComponent implements OnInit {
       return true;
     }
   }
+  resetIndex(){
+    for(let j = 0; j < this.business.address.length; j++){
+      this.locationArr[j] = false;
+    }
+  }
 
   //step 4
 
@@ -311,28 +368,28 @@ export class EditDealsComponent implements OnInit {
   }
   calcSavePrice(x){
     if(x < 20){
-      this.customAmount = x * 5;
+      this.customAmount = (x * 5).toFixed(2);
     } else if(x >= 20 && x < 50){
-      this.customAmount = x * 4.5;
+      this.customAmount = (x * 4.5).toFixed(2);
     } else if(x >= 50 && x < 100){
-      this.customAmount = x * 4;
+      this.customAmount = (x * 4).toFixed(2);
     } else if(x >= 100){
-      this.customAmount = x * 3;
+      this.customAmount = (x * 3).toFixed(2);
     }
   }
   savePlanCheck(x){
     switch(x){
       case 1:
         this.deal.dealAmount = 20;
-        this.planAmount = 4.49;
+        this.planAmount = 4.50;
         break;
       case 2:
         this.deal.dealAmount = 50;
-        this.planAmount = 3.99;
+        this.planAmount = 4.00;
         break;
       case 3:
         this.deal.dealAmount = 100;
-        this.planAmount = 2.99;
+        this.planAmount = 3.00;
         break;
       case 4:
         this.customAmountOn = true;
@@ -392,16 +449,22 @@ export class EditDealsComponent implements OnInit {
     contactName;
     contactPosition;
     contactEmail;
+
     getPrice(){
       if(this.payOptionType == 'go'){
         return "$4.99 per post"
       } else if(this.payOptionType == 'save') {
         if(this.savePlan == 4){
-          return  "$" + this.customAmount;
+          return  "$" + this.mathy(this.customAmount);
         } else {
-          return  "$" + this.planAmount;
+          return  "$" + this.mathy(this.planAmount * this.deal.dealAmount);
         }
       }
+    }
+    mathy(num){
+      num = parseInt(num);
+      return num.toFixed(2);
+      //return (Math.round(num * 100) / 100).toFixed(2);
     }
 
   //step 7
@@ -419,21 +482,19 @@ export class EditDealsComponent implements OnInit {
     });
   }
 
-
-
-
-  openDeal(x){
-    this.addModal = true;
-    if(x){
-      this.deal = x.deal;
-      this.newDealKey = x.$key;
-      this.getImages();
-    } else {
-      // this.dealsService.newDeal(this.uid, {}).then(res=>{
-      //   this.newDealKey = res.key;
-      //   this.getImages();
-      // })
+  checkLocations(loc){
+    this.resetIndex();
+    for(let l of loc){
+      for(let i = 0; i < this.business.address.length; i++){
+        if(this.business.address[i] == l){
+          this.editLocation(i);
+        }
+      }
     }
+  }
+  getImages(x){
+    this.previewImage = x.display;
+    this.previewImages = x.imgs;
   }
   cancelNewDeal(){
     this.addModal = false;
@@ -460,20 +521,29 @@ export class EditDealsComponent implements OnInit {
     this.dealImages = [];
     this.stepCount = 1;
     this.redeemType = false;
-    this.deal.dealAmount = 0;
     this.codeType = 'universal';
     this.codes = [{value: '', used: false}];
     this.newDealKey = '';
     this.closeDeal.emit();
+    //reset locations
+
+    this.resetCampaign();
+    this.resetContract()
+
   }
-  getImages(){
-    this.dealsService.getBusinessDealImages(this.newDealKey).subscribe(res=>{
-      this.dealImages = [];
-      for(let img of res){
-        this.dealImages.push(img.$value);
-      }
-    })
+  resetCampaign(){
+    this.payOptionType = "";
+    this.showDealOptions = "";
+    this.savePlan = 0;
   }
+  resetContract(){
+    this.signature = "";
+    this.role = "";
+    this.contactName = "";
+    this.contactEmail = "";
+    this.contactPosition = "";
+  }
+  
 
   //upload Images
   uploadDisplay(key) {
@@ -505,30 +575,29 @@ export class EditDealsComponent implements OnInit {
     }
   }
 
-  //images
-  // enterCodes;
-  // setCoupons(){
-  //   this.enterCodes = true;
-  //   // for(let i = 0; i < this.deal.dealAmount; i++){
-  //   //   this.deal.coupons.push({})
-  //   // }
-  // }
   getBusinessLocations(){
-    let locations = [];
-    if(this.onlineOnly){return false}
-    if(this.selectAll){return this.business.address}
-    for(let j = 0; j < this.business.address.length; j++){
-      if(this.checkIndex[j]){
-        locations.push(this.business.address[j]);
+    return new Promise(resolve=>{
+      let locations = [];
+      if(this.onlineOnly){
+        resolve(false);
       }
-    }
-    return locations;
+      if(this.selectAll){
+        resolve(this.business.address);
+      }
+      for(let j = 0; j < this.business.address.length; j++){
+        if(this.checkIndex(j)){
+          locations.push(this.business.address[j]);
+        }
+      }
+      resolve(locations)
+    })
   }
   showDealOptions
   getPayOption(){
     let payOption = {
       option: this.showDealOptions,
       type: this.payOptionType,
+      plan: this.payOptionType == "save" ? this.savePlan: false
     }
     return payOption;
   }
@@ -541,137 +610,98 @@ export class EditDealsComponent implements OnInit {
   getExpiration(){
     return this.dealExpires ? this.expirationDate : false;
   }
+  setContract(contract){
+    if(!contract){return};
+    this.signature = contract.sign.name;
+    this.role = contract.sign.role;
+    this.contactName = contract.contact.name;
+    this.contactPosition = contract.contact.role;
+    this.contactEmail = contract.contact.email;
+  }
+  getContract(){
+    let contract = {
+      sign: {
+        name: this.signature,
+        role: this.role
+      },
+      contact: {
+        name: this.contactName,
+        role: this.contactPosition,
+        email: this.contactEmail
+      }
+    }
+    return contract;
+  }
+
+  getCoupostObj(){
+    return new Promise(resolve=>{
+      this.getBusinessLocations().then(res=>{
+        !this.deal.dealsLeft ? this.deal.dealsLeft = this.deal.dealAmount: '';
+        let deal = {
+          dealTitle: this.deal.dealTitle,
+          dealPercentage: this.deal.dealPercentage,
+          locations: res,
+          pay: this.getPayOption(),
+          dealAmount: this.deal.dealAmount,
+          dealsLeft: this.deal.dealsLeft,
+          redeemType: this.redeemType,
+          codes: this.codes,
+          expiration: this.getExpiration(),
+          contract: this.getContract()
+        }
+        let business = {
+          id: this.uid,
+          name: this.business.name,
+          about: this.business.about,
+          photo: this.business.url,
+          email: this.business.email,
+          phone: this.business.phone,
+          website: this.business.website,
+          insta: this.business.insta
+        }
+        let push = {
+          deal: deal,
+          business: business
+        }
+        resolve(push);
+      })
+    })
+  }
 
   saveDeal(){
-
-    !this.deal.dealsLeft ? this.deal.dealsLeft = this.deal.dealAmount: '';
-
-    let deal = {
-      dealTitle: this.deal.dealTitle,
-      dealPercentage: this.deal.dealPercentage,
-      locations: this.getBusinessLocations(),
-      pay: this.getPayOption(),
-      dealAmount: this.deal.dealAmount,
-      dealsLeft: this.deal.dealsLeft,
-      redeemType: this.redeemType,
-      codes: this.codes,
-      expiration: this.getExpiration()
-    }
-    let business = {
-      id: this.uid,
-      name: this.business.name,
-      about: this.business.about,
-      photo: this.business.url,
-      email: this.business.email,
-      phone: this.business.phone,
-      website: this.business.website,
-      insta: this.business.insta
-    }
-    let push = {
-      deal: deal,
-      business: business
-    }
-    this.dealsService.newDeal(push).then(res=>{
-      this.uploadDisplay(res.key);
-      this.uploadMulti(res.key);
-      alert('Deal Saved!');
-      this.closeNewDeal();
-    }).catch(err=>{
-      console.log(err)
+    this.getCoupostObj().then(push=>{
+      this.dealsService.newDeal(push).then(res=>{
+        this.uploadDisplay(res.key);
+        this.uploadMulti(res.key);
+        this.notify('Deal Saved!');
+        this.closeNewDeal();
+      }).catch(err=>{
+        console.log(err)
+      })
     })
 
   }
-
-  // saveDeal(){
-  //   if(!this.deal.dealAmount){
-  //     alert('Please enter how many deals you want to give');
-  //     return;
-  //   }
-  //   let codes = {
-  //     type: this.redeemType,
-  //     codes: this.codes,
-  //   };
-  //   if(!this.deal.dealsLeft){
-  //     this.deal.dealsLeft = this.deal.dealAmount;
-  //   }
-  //   if(!this.deal.dealsLeft){
-  //     this.deal.dealsLeft = this.deal.dealAmount;
-  //   }
-  //   let deal = {
-  //     dealTitle: this.deal.dealTitle,
-  //     dealAmount: this.deal.dealAmount,
-  //     dealsLeft: this.deal.dealsLeft,
-  //     codes: codes,
-  //     redeemType: this.redeemType
-  //   };
-  //   let business = {
-  //     id: this.uid,
-  //     name: this.business.name,
-  //     about: this.business.about,
-  //     photo: this.business.url,
-  //     email: this.business.email,
-  //     phone: this.business.phone,
-  //     website: this.business.website,
-  //     insta: this.business.insta
-  //   }
-  //   let push = {
-  //     deal: deal,
-  //     business: business
-  //   };
-  //   this.dealsService.newDeal(push).then(res=>{
-  //     this.newDealKey = res.key;
-  //     this.uploadMulti(res.key);
-  //     alert('Deal Saved!');
-  //     this.closeNewDeal();
-  //     this.stepCount = 1;
-  //     this.redeemType = false;
-  //     this.deal.dealAmount = 0;
-  //     this.codeType = 'universal';
-  //     this.codes = [{value: '', used: false}];
-  //     //this.enterCodes = false;
-  //   }).catch(err=>{
-  //     console.log(err)
-  //   })
-  // }
   editDeal(){
-    if(!this.deal.dealAmount){
-      alert('Please enter how many deals you want to give');
-      return;
-    }
-    let codes = {
-      type: this.redeemType,
-      codes: this.codes,
-    };
-    if(!this.deal.dealsLeft){
-      if(this.deal.dealsLeft != 0){
-        this.deal.dealsLeft = this.deal.dealAmount;
-      }
-    }
-    let deal = {
-      dealTitle: this.deal.dealTitle,
-      dealAmount: this.deal.dealAmount,
-      dealsLeft: this.deal.dealsLeft,
-      redeem: this.deal.redeem,
-      comment: this.deal.comment,
-      codes: codes
-    };
-    let business = {
-      id: this.uid,
-      name: this.business.name,
-      about: this.business.about,
-      photo: this.business.url
-    }
-    this.dealsService.editDeal(deal, business, this.newDealKey).then(res=>{
-      if(this.selectedFiles){
-        if(this.selectedFiles.length){
-          this.uploadMulti(this.newDealKey);
+    this.getCoupostObj().then(push=>{
+      let d:any = push;
+      let deal = d.deal;
+      let business = d.business;
+      this.dealsService.editDeal(deal, business, this.newDealKey).then(res=>{
+        if(this.selectedFiles){
+          if(this.selectedFiles.length){
+            this.uploadMulti(this.newDealKey);
+          }
         }
-      }
-      alert('Deal Saved!');
-      this.closeNewDeal();
-      //this.enterCodes = false;
-    }).catch(err=>{
-      console.log(err)
+        if(this.selectedFile){
+          if(this.selectedFile.length){
+            this.uploadDisplay(this.newDealKey);
+          }
+        }
+        this.notify('Deal Saved!');
+        this.closeNewDeal();
+      }).catch(err=>{
+        console.log(err)
+      })
     })
   }
 

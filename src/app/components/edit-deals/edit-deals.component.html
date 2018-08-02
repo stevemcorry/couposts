@@ -1,25 +1,30 @@
-<!-- <app-upload [uid]="uid? uid:''"
-  [key]="newDealKey? newDealKey : ''">
-</app-upload> -->
-
 <simple-notifications [options]="options"></simple-notifications>
+<app-coupost-tips (video)="playVideo($event)"></app-coupost-tips>
 
 <div class="addModal container-fluid"
   [ngClass]="{addModalOn: addModal}">
   <div class="row">
-    <div  class="col-lg-4 text-center rightBorder leftCol">
+    <div  class="text-center rightBorder leftCol">
 
       <div class="cancelButton" (click)="closeNewDeal()"></div>
+      <div class="previewButton" (click)="goPreview()">Preview</div>
 
       <div class="stepLabel" 
         style="border-top: none" 
-        [ngClass]="{borderBottom: stepCount == 1}"
-        (click)="nextStep(1)">
-        1. Coupost Offer
+        [ngClass]="{borderBottom: stepCount == 1}">
+        <div style="cursor: pointer" 
+          (click)="nextStep(1)">
+          1. Coupost Offer
+        </div>
+        <div class="toolTip" 
+          (click)="openTips('Coupost Offer',1)"
+          title="Click for more info!">
+          ?
+        </div>
       </div>
       <div class="step stepOne" 
         [hidden]="stepCount != 1">
-        <div class="dealHeader">Discount:</div>
+        <div class="dealHeader">Discount for those that post:</div>
         <div class="percentage">{{deal.dealPercentage}}%</div>
         <input type="range" 
           min="0"
@@ -30,17 +35,22 @@
           <input type="text" 
             placeholder="Ex: Chicken tacos, Site wide, Online Order, Red ball caps"
             [(ngModel)]="deal.dealTitle">
-            <div class="dealHeader">Upload your display image:</div>
+            <div class="dealHeader">Upload the display image:</div>
+            <div class="dealSubHeader">You will upload the pictures you want posted in step 2</div>
             <input type="file" 
               name="file" 
-              id="file" 
+              id="file"
               class="inputfile"
-              (change)="detectFile($event)" >
-            <label for="file">
+              onclick="this.value = null"
+              (change)="detectFile($event)">
+            <label style="outline: none" for="file" class="tools">
               {{displayText}}
+              <span class="tooltiptext">
+                This is the first image the user will see. It will not be posted.
+              </span>
             </label>
           <div class="buttons">
-            <div class="saveDeal rightButtons" 
+            <div class="good-button rightButtons" 
               (click)="nextStep(2)">
               Next
             </div>
@@ -49,28 +59,38 @@
 
 
       <div class="stepLabel" 
-        (click)="nextStep(2)"
         [ngClass]="{borderBottom: stepCount == 2}">
-        2. Post Pictures
+        <div style="cursor: pointer" 
+          (click)="nextStep(2)">
+          2. Post Pictures
+        </div>
+        <div class="toolTip" 
+          (click)="openTips('Post Pictures',2)">
+          ?
+        </div>
       </div>
       <div class="step stepTwo" 
         [hidden]="stepCount != 2">
-          <div class="dealHeader">Upload the images you want posted:</div>
+          <div class="dealHeader">Upload the images you want the users to post:</div>
           <input type="file" 
             name="files"
+            onclick="this.value = null"
             (change)="detectFiles($event)" 
             id="files" 
             class="inputfile"
             multiple>
-          <label for="files">
+          <label style="outline: none" for="files" class="tools">
               {{displayTexts}}
+              <span class="tooltiptext">
+                These are the pictures you want the users to post. Select up to 5
+              </span>
           </label>
           <div class="buttons">
               <div class="deleteDeal leftButtons" 
                 (click)="stepCount = 1">
                 Back
               </div>
-              <div class="saveDeal rightButtons" 
+              <div class="good-button rightButtons" 
                 (click)="nextStep(3)">
                 Next
               </div>
@@ -78,8 +98,15 @@
       </div>
 
 
-      <div class="stepLabel" (click)="nextStep(3)">
-        3. Location(s)
+      <div class="stepLabel">
+        <div style="cursor: pointer" 
+          (click)="nextStep(3)">
+          3. Location(s)
+        </div>
+        <div class="toolTip" 
+          (click)="openTips('Location(s)',3)">
+          ?
+        </div>
       </div>
       <div class="step stepTwo" 
         *ngIf="stepCount == 3">
@@ -89,10 +116,11 @@
             (click)="onlineOnlyFunction()">
             <div class="checkbox" 
               [ngClass]="{checkOn: onlineOnly}"></div>
-            <div class="locationName">Online Only</div>
+            <div class="locationName">Online</div>
           </div>
           <div class="location underline"
-            (click)="selectAllFunction()">
+            (click)="selectAllFunction()"
+            *ngIf="business.address[0]">
             <div class="checkbox" 
               [ngClass]="{checkOn: selectAll}"></div>
             <div class="locationName">Select all</div>
@@ -111,46 +139,67 @@
               (click)="stepCount = 2">
               Back
             </div>
-            <div class="saveDeal rightButtons" 
+            <div class="good-button rightButtons" 
               (click)="nextStep(4)">
               Next
             </div>
         </div>
       </div>
 
-
-      <div class="stepLabel" (click)="nextStep(4)">
-        4. Campaign
+      <div class="stepLabel">
+        <div style="cursor: pointer" 
+          (click)="nextStep(4)">
+          4. Campaign
+        </div>
+        <div class="toolTip" 
+          (click)="openTips('Campaign',4)">
+          ?
+        </div>
       </div>
       <div class="step stepFour" 
         *ngIf="stepCount == 4">
         <div class="dealHeader">Choose campaign type:</div>
         <div class="buttons">
-          <div class="cancelDeal campaignButtons leftButtons sameHeightButtons" 
-            (click)="alert('Coming soon!')">
+          <div class="cancelDeal campaignButtons leftButtons sameHeightButtons tools" 
+            (click)="alerty('Coming soon!')">
             Pay Per <br> Engagement
+            <span class="tooltiptext">
+              You only pay for the engagements on a post
+            </span>
           </div>
-          <div class="saveDeal rightButtons sameHeightButtons" 
+          <div class="saveDeal rightButtons sameHeightButtons tools" 
             (click)="showDealOptions = 'ppp'"
             [ngClass]="{selectedButton: showDealOptions}">
             Pay Per Post
+            <span class="tooltiptext">
+              You pay every time a user posts
+            </span>
           </div>
         </div>
         <div class="buttons" *ngIf="showDealOptions">
-          <div class="saveDeal leftButtons sameHeightButtons" 
+          <div class="saveDeal leftButtons sameHeightButtons tools" 
             (click)="payOption('go')"
             [ngClass]="{selectedButton: payOptionType == 'go'}">
             Pay As You Go
+            <span class="tooltiptext">
+              You only pay when a user posts
+            </span>
           </div>
-          <div class="saveDeal rightButtons sameHeightButtons" 
+          <div class="saveDeal rightButtons sameHeightButtons tools" 
             (click)="payOption('save')"
             [ngClass]="{selectedButton: payOptionType == 'save'}">
             Pay & Save
+            <span class="tooltiptext">
+              Get a discount by buying your couposts upfront
+            </span>
           </div>
         </div>
         <div *ngIf="payOptionType == 'go'">
-          <div class="dealHeader center">$4.99/Post</div>
-          <div class="dealHeader center">How many deals?</div>
+          <div class="dealHeader center blue">$4.99/Post</div>
+          <div class="dealHeader center">Max number of Couposts you want redeemed.</div>
+          <div class="asterisk">
+            *You pay $4.99 when someone posts. No posts = No pay!
+          </div>
           <input type="number" min="0" placeholder="# of deals" [(ngModel)]="deal.dealAmount" (keyup)="setCodes()">
         </div>
         <div *ngIf="payOptionType == 'save'" 
@@ -158,17 +207,17 @@
           <div class="location" (click)="setSavePlan(1)">
             <div class="checkbox" 
               [ngClass]="{checkOn: savePlan == 1}"></div>
-            <div class="locationName">20 Couposts for $90 ($4.50/post)</div>
+            <div class="locationName">20 Couposts for $90 <span>($4.50/post)</span></div>
           </div>
           <div class="location" (click)="setSavePlan(2)">
             <div class="checkbox" 
               [ngClass]="{checkOn: savePlan == 2}"></div>
-            <div class="locationName">50 Couposts for $200($4.00/post)</div>
+            <div class="locationName">50 Couposts for $200 <span>($4.00/post)</span></div>
           </div>
           <div class="location" (click)="setSavePlan(3)">
             <div class="checkbox" 
               [ngClass]="{checkOn: savePlan == 3}"></div>
-            <div class="locationName">100 Couposts for $300($3.00/post)</div>
+            <div class="locationName">100 Couposts for $300 <span>($3.00/post)</span></div>
           </div>
           <div class="location" (click)="setSavePlan(4)">
             <div class="checkbox" 
@@ -192,15 +241,24 @@
         </div>
 
         <div *ngIf="payOptionType" class="smallHeader">
-           <span>Your coupost will be available to our users this upcoming Monday night at 7 PM MST. </span> We have found the most efficient time to bring traffic to our site is on Monday Nights. Part of the reason it's more efficient is because we release all new couposts at that time. However, you may release the coupost upon completion by selecting the box below.
+          When would you like your coupost to be available to the users?
+        </div>
+        <div class="location"
+          *ngIf="payOptionType"
+          (click)="releaseNow = false">
+          <div class="checkbox" 
+            [ngClass]="{checkOn: !releaseNow}"></div>
+          <div class="locationName">
+            Release coupost Monday at 7 PM MST for free
+          </div>
         </div>
         <div class="location" 
           *ngIf="payOptionType"
-          (click)="releaseNow = !releaseNow">
+          (click)="releaseNow = true">
           <div class="checkbox" 
             [ngClass]="{checkOn: releaseNow}"></div>
           <div class="locationName">
-            Release coupost upon completion for $17.41
+            Release coupost upon completion for $20
           </div>
         </div>
 
@@ -209,7 +267,7 @@
             (click)="stepCount = 3">
             Back
           </div>
-          <div class="saveDeal rightButtons" 
+          <div class="good-button rightButtons" 
             (click)="nextStep(5)">
             Next
           </div>
@@ -217,26 +275,43 @@
       </div>
 
 
-      <div class="stepLabel" (click)="nextStep(5)">
-        5. Redemption
+      <div class="stepLabel">
+        <div style="cursor: pointer" 
+          (click)="nextStep(5)">
+          5. Redemption
+        </div>
+        <div class="toolTip" 
+          (click)="openTips('Redemption',5)">
+          ?
+        </div>
       </div>
       <div class="step stepTwo" *ngIf="stepCount == 5">
-        <div class="dealHeader">How Will the user redeem the Coupost?</div>
+        <div class="dealHeader">How will the user redeem the Coupost?</div>
         <div class="buttons redeemButtons">
-          <div class="saveDeal campaignButtons leftButtons" 
+          <div class="saveDeal campaignButtons leftButtons tools" 
             (click)="redeemCode(false)" 
-            [ngClass]="{selectedButton: !redeemType}">
+            [ngClass]="{selectedButton: !redeemType}"
+            *ngIf="!onlineOnly">
             Redeem <br> Button
+            <span class="tooltiptext leftTool">
+              Cashier approves redemtion by clicking "Redeem" on user's phone.
+            </span>
           </div>
-          <div class="saveDeal campaignButtons" 
+          <div class="saveDeal campaignButtons tools" 
             (click)="redeemCode('unique');"
             [ngClass]="{selectedButton: redeemType == 'unique'}">
-            Unique <br> Code
+            Unique<br>Promo Code
+            <span class="tooltiptext">
+              User is emailed unique promo code after their post has been approved
+            </span>
           </div>
-          <div class="saveDeal campaignButtons rightButtons" 
+          <div class="saveDeal campaignButtons rightButtons tools" 
             (click)="redeemCode('universal')"
             [ngClass]="{selectedButton: redeemType == 'universal'}">
-            Universal <br> Code
+            Universal<br>Promo Code
+            <span class="tooltiptext rightTool">
+              User is emailed universal promo code after their post has been approved
+            </span>
           </div>
         </div>
         <div *ngIf="redeemType">
@@ -246,7 +321,7 @@
         </div>
 
         <div class="dealHeader">Will the code(s)/offer expire?</div>
-        <div class="buttons redeemButtons">
+        <div class="buttons expireButtons">
           <div class="saveDeal leftButtons"
             (click)="dealExpires = false" 
             [ngClass]="{selectedButton: dealExpires == false}">
@@ -258,11 +333,14 @@
             Yes
           </div>
         </div>
+        <div class="asterisk">
+          *After posting, the user will have up to 7 days to redeem Coupost
+        </div>
 
 
         <div class="dealHeader" 
           *ngIf="dealExpires">
-          When will it expire?
+          When will this Coupost expire?
         </div>
         <div *ngIf="dealExpires">
           <input type="date"
@@ -275,7 +353,7 @@
             (click)="stepCount = 4">
             Back
           </div>
-          <div class="saveDeal rightButtons" 
+          <div class="good-button rightButtons" 
             (click)="nextStep(6)">
             Next
           </div>
@@ -285,10 +363,12 @@
       <div class="stepLabel" (click)="nextStep(6)">
         6. Contract
       </div>
-      <div class="step stepTwo" 
+      <div class="step stepTwo contractStep" 
         *ngIf="stepCount == 6">
         <div class="smallHeader">
           Here is the contract according to the information you have filled out. Check over it, and when done, type your name below to sign the document.
+          <br>
+          <span>This contract will be sent to the email attached to your account upon completion</span>
         </div>
 
         <input type="text" 
@@ -299,8 +379,11 @@
           [(ngModel)]="role">
 
         <div class="smallHeader">
-          <span>In these situations, who do we contact?</span>
-          Our team does what it can to help users who are having problems redeeming their couposts. It is often a user error. But on occasion it's because the promo code isn't activated, the promo code gives a lower discount than advertised, an employee doesn't accept the coupost, etc.
+          <span>Redemption Issues:</span>
+          <br>
+          Our team does what it can to help users who are having problems redeeming their coupost. It is often a user error. But on occasion it's because the promo code isn't activated, the promo code gives a lower discount than advertised, an employee doesn't accept the coupost,manager wasn’t aware that coupost was being offered, etc.
+          <br>
+          <span>Who should our team contact in these situations?</span>
         </div>
 
         <input type="text" 
@@ -314,14 +397,14 @@
           [(ngModel)]="contactEmail">
 
         <div class="smallHeader">
-          *If our team is unable to resolve issues with the coupost's redemption, this contact will be emailed. <span>If no response is received after 3 workdays</span> from the time the first email was sent, you will be charged $25 for each user who wasn't able to redeem their coupost. <span>This amount is non-refundable.</span>
+          *If our team is unable to resolve issues with the coupost's redemption, this contact will be emailed. <span>If no response is received after 3 business days</span> from the time the first email was sent, you will be charged $25 for each user who wasn't able to redeem their coupost. <span>This amount is non-refundable.</span>
         </div>
         <div class="buttons">
             <div class="deleteDeal leftButtons" 
               (click)="stepCount = 5">
               Back
             </div>
-            <div class="saveDeal rightButtons" 
+            <div class="good-button rightButtons" 
               (click)="nextStep(7)">
               Next
             </div>
@@ -343,34 +426,22 @@
               (click)="stepCount = 6">
               Back
             </div>
-            <div class="saveDeal rightButtons" 
+            <div class="good-button rightButtons" 
               (click)="saveDeal()" 
               *ngIf="!newDealKey">
               Finish!
             </div>
-            <div class="saveDeal" 
+            <div class="good-button" 
               (click)="editDeal()" 
               *ngIf="newDealKey">
               Save
             </div>
         </div>
       </div>
-
-
-
-
     </div>
 
-    
-    <!-- <div class="buttons" 
-      *ngIf="(redeemType === false || codes[0].value)">
-      <div class="deleteDeal" (click)="stepCount = 2">Back</div>
-      <div class="saveDeal" (click)="saveDeal()" *ngIf="!newDealKey">Save</div>
-      <div class="saveDeal" (click)="editDeal()" *ngIf="newDealKey">Edit</div>
-    </div> -->
-
     <!-- Right Col -->
-    <div class="col-lg-8 text-center preview" *ngIf="stepCount == 7">
+    <div id="previewStuff" class="rightCol text-center preview" *ngIf="stepCount == 7">
       <div class="userSees">Summary:</div>
       <div class="summary">
         <div class="summaryStep">
@@ -392,16 +463,8 @@
       </div>
     </div>
 
-    <div class="col-lg-8 text-center preview" *ngIf="stepCount == 1">
+    <div id="previewStuff" class="rightCol text-center preview" *ngIf="stepCount == 1">
       <div class="userSees">Preview: <br> This is what the user sees</div>
-        <!-- <img *ngIf="previewImage" 
-          [src]="previewImage" 
-          id="uploadPreview" 
-          style="width: 100px; height: 100px;" />
-        <div *ngIf="!previewImage"
-          style="width: 100px; height: 100px;" >
-          Add your image
-        </div> -->
         <app-deal [previewImage]="previewImage"
           [businessName]="business.name"
           [percentage]="deal.dealPercentage"
@@ -410,7 +473,7 @@
         </app-deal>
     </div>
 
-    <div class="col-lg-8 text-center preview" *ngIf="stepCount == 6">
+    <div id="previewStuff" class="rightCol text-center preview" *ngIf="stepCount == 6">
       <div class="contract">
         <h4>
           <span>Couposts Merchant Agreement</span> 
@@ -465,6 +528,9 @@
           Coupost is redeemable at the following locations:
           <br>
           <br>
+          <div *ngIf="onlineOnly">
+            Online Only
+          </div>
           <div *ngFor="let location of business.address">
             {{location}}
           </div>
@@ -476,7 +542,7 @@
           {{getPrice()}}
           <br>
           <br>
-          Monthly Maximum Number of Couposts:
+          Maximum number of couposts that are offered in this campaign:
           <br>
           <br>
           {{deal.dealAmount}}
@@ -496,13 +562,13 @@
           The same person is able to post about Merchant and redeem Coupost:
           <br>
           <br>
-          2 times every month
+          Every other week
           <br>
           <br>
           Contact for Redemption Issues
           <br>
           <br>
-          Redemption Issues are defined as any issue that could have been prevented by Merchant. Examples of Redemption Issues may include not specifying which specific item(s) the provided promo code is intended to work for, supplying COUPOSTS with promo codes that are expired, not activated, or don’t work in some way, or the promo codes are for a deal or discount of lesser value than that advertised on Campaign.
+          Redemption Issues are defined as any issue that could have been prevented by Merchant. Examples of Redemption Issues may include not specifying which specific item(s) the provided promo code is intended to work for, supplying COUPOSTS with promo codes that are expired, not activated, don’t work as intended, or the promo codes are for a deal or discount of lesser value than that advertised on Campaign.
           <br>
           <br>
           If User has a problem redeeming coupost then COUPOSTS will reach out to the person deemed responsible by Merchant to deal with this problem. That person’s name and contact info are:
@@ -515,7 +581,13 @@
           Email: {{contactEmail}}
           <br>
           <br>
-          If after 3 business days COUPOSTS receives no response, Merchant will receive a $25 charge to their card on file for each User who notified us as having a problem. This amount is non-refundable.
+          If after 3 business days COUPOSTS receives no response from the time the first email was sent, Merchant will receive a $25 charge to their card on file for each User who notified us as having a problem. This amount is non-refundable.
+          <br>
+          <br>
+          If Merchant does not resolve the issue(s) for all of the Users who experienced difficulty redeeming their coupost within a period of 7 business days, Merchant’s account will be billed $25 for each User who wasn’t able to redeem coupost. This amount is non-refundable.
+          <br>
+          <br>
+          If Users consistently have issues with redeeming couposts, then COUPOSTS reserves the right to cancel Merchant’s current Campaign(s) and to not allow Merchant the ability to use COUPOSTS’ services.
           <br>
           <br>
           Business Information
@@ -562,9 +634,61 @@
       </div>
     </div>
 
+    <div id="previewStuff" 
+      class="rightCol text-center preview" 
+      *ngIf="stepCount == 5">
+      <div class="userSees">Preview: <br> This is what the user sees</div>
+      <div id="redeemPreview" class="dealWrap" *ngIf="stepCount == 5">
+        <app-deal-header 
+          [deal]="{
+            deal: {dealTitle: deal.dealTitle, dealPercentage: deal.dealPercentage}, 
+            business: {
+              photo: image, 
+              name: business.name, 
+              website: business.website, 
+              insta: business.insta
+            }
+          }"
+          [profile]="true"
+          [headerOff]="true">
+        </app-deal-header>
+    
+        <div *ngIf="!redeemType">
+          <div class="acceptDesc">
+            Show this to an employee at the front desk and they’ll take care of you!
+          </div>
+          <div class="approveWarn">
+            *Coupost will disappear after "Approve" button is clicked*
+          </div> 
+        </div>
+    
+        <div *ngIf="redeemType">
+          <div class="acceptDesc">
+            Send the Coupost to your email.
+          </div>
+          <div class="approveWarn">
+            *Coupost will disappear after "Email Code" button is clicked clicked*
+          </div> 
+        </div>
+      
+        <div *ngIf="!redeemType">
+          <button class="good-button bigButton">
+            Approve
+          </button>
+        </div>
+    
+        <div *ngIf="redeemType">
+          <button class="good-button bigButton">
+            Email Code
+          </button>
+        </div>
+      
+      </div>
+    </div>
 
-    <div class="col-lg-8 text-center preview" 
-      *ngIf="stepCount > 1 && stepCount < 6">
+
+    <div id="previewStuff" class="rightCol text-center preview" 
+      *ngIf="stepCount > 1 && stepCount < 6 && stepCount !== 5">
       <div class="userSees">Preview: <br> This is what the user sees</div>
       <div class="dealWrap">
         <app-deal-header 
@@ -578,31 +702,41 @@
             }
           }">
         </app-deal-header>
-        <!-- <div class="topDeal">
-          <div class="businessImage" 
-            [style.background-image]="image?'url('+image+')':''"></div>
-          <div class="businessInfo">
-            <div class="businessName">{{business.name}}</div>
-            <div class="dealName">{{deal.dealTitle}}</div>
-            <button class="dealButton">Visit Website</button>
-          </div>
-        </div> -->
         <div>
-          <app-carousel *ngIf="!dealImages.length"
-            [dealImages]="previewImages">
+          <div class="good-button big-button">Continue</div>
+          <app-carousel [dealImages]="previewImages">
           </app-carousel>
-          <app-carousel *ngIf="dealImages.length" 
-            [dealImages]="dealImages">
-          </app-carousel>
+          <div class="aboutHeaderLabel">Business Info:</div>
+          <div class="infoButtons" *ngIf="!headerOff">
+            <button class="good-button darkblue" 
+              *ngIf="business.website">
+              <div class="web buttonIcon"></div>
+              <span>
+                Website
+              </span>
+            </button>
+            <button class="good-button darkblue" 
+              *ngIf="business.insta">
+              <div class="insta buttonIcon"></div>
+              <span>
+                Instagram
+              </span>
+            </button>
+          </div>
           <div class="aboutHeader">
             <app-business-about-template 
               [about]="business.about">
             </app-business-about-template>
           </div>
+          <div>
+            <app-valid-locations [locations]="deal.locations">
+            </app-valid-locations>
+            <div *ngIf="expirationDate"
+              class="expiration">
+              *This deal expires {{expirationDate}}
+            </div>
+          </div>
         </div>
-        <!-- <div class="bottomDeal">
-
-        </div> -->
       </div>
     </div>
   </div>

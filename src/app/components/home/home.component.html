@@ -1,5 +1,16 @@
 <app-header [clearHeader]="true"></app-header>
-<app-user-signup [getStarted]="true"></app-user-signup>
+<app-user-signup [getStarted]="true" 
+  (loggedIn)="loggedIn()" 
+  [fromRedeem]="true">
+</app-user-signup>
+
+<app-user-demo (saved)="demoSaved()">
+</app-user-demo>
+<app-verify-insta-modal (saved)="instaVerified()"
+  [uid]="user.$key">
+</app-verify-insta-modal>
+
+
 <app-deal-modal></app-deal-modal>
 <div class="container-fluid homeWrap">
   <div class="mainImage">
@@ -10,15 +21,75 @@
       <!-- <input type="text" 
         placeholder="Business Name"
         class="inputSearch"> -->
-      <button class="good-button" (click)="getStarted()">Get Started</button>
-      <div class="underLine" (click)="goToSignup()">I'm a business</div>
+      <div class="buttonWrap">
+        <button class="good-button blue-back" 
+          (click)="getStarted()">
+          <!-- I'm a User -->
+          <div>
+            User Signup
+          </div>
+        </button>
+        <button class="good-button clear-back" 
+          (click)="goToSignup()">
+          <!-- I'm a Business -->
+          <div>
+            Business Signup
+          </div>
+        </button>
+      </div>
     </div>
   </div>
   <div class="row featuredBox">
     
-    <div *ngIf="!deals[0]" 
+    <!-- <div *ngIf="!deals[0]" 
       class="businessTitle">
       {{dealsLoading}}
+    </div> -->
+    <!-- <div *ngIf="loading != 'Loading...'">
+      {{loading}}
+    </div> -->
+    <!-- <div *ngIf="loading == 'Loading...'"> -->
+    <div *ngIf="!deals[0]" class="businessTitle">
+        <div class="spinO" 
+        [ngClass]="{spinOn: loadingProgress == 'L'}">
+        L
+      </div>
+      <div class="spinO" 
+        [ngClass]="{spinOn: loadingProgress == 'o'}">
+        o
+      </div>
+      <div class="spinO" 
+        [ngClass]="{spinOn: loadingProgress == 'a'}">
+        a
+      </div>
+      <div class="spinO" 
+        [ngClass]="{spinOn: loadingProgress == 'd'}">
+        d
+      </div>
+      <div class="spinO" 
+        [ngClass]="{spinOn: loadingProgress == 'i'}">
+        i
+      </div>
+      <div class="spinO" 
+        [ngClass]="{spinOn: loadingProgress == 'n'}">
+        n
+      </div>
+      <div class="spinO" 
+        [ngClass]="{spinOn: loadingProgress == 'g'}">
+        g
+      </div>
+      <div class="spinO" 
+        [ngClass]="{spinOn: loadingProgress == '.'}">
+        .
+      </div>
+      <div class="spinO" 
+        [ngClass]="{spinOn: loadingProgress == ','}">
+        .
+      </div>
+      <div class="spinO" 
+        [ngClass]="{spinOn: loadingProgress == '/'}">
+        .
+      </div>
     </div>
 
     <div *ngIf="deals[0]"

@@ -1,3 +1,4 @@
+@import '../../colors.scss';
 .modal-header{
     font: 25px sans-serif;
     padding: 10px 0 0 0;
@@ -6,19 +7,29 @@
     font: 20px sans-serif;
     text-align: center;
     margin: 10px;
+    color: $dark;
+}
+.info-sub-header{
+    font: 15px sans-serif;
+    text-align: center;
+    margin: 10px;
+    color: $dark;
 }
 .info{
     font: 17px sans-serif;
     margin: 5px;
+    color: $dark;
 }
 .textInput{
     width: 95%;
     resize: none;
     margin: 5px 2.5%;
+    color: $dark;
 }
 .checkboxInput{
     width: 20px;
     margin: 8px 0 8px 10px;
+    color: $dark;
 }
 .good-button{
     float: right;

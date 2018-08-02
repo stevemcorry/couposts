@@ -50,6 +50,8 @@ import { UserDemoComponent } from './modals/user-demo/user-demo.component';
 import { VerifyInstaModalComponent } from './modals/verify-insta-modal/verify-insta-modal.component';
 import { BusinessAboutTemplateComponent } from './templates/business-about-template/business-about-template.component';
 import { DealsFilter } from './filters/deals.filter';
+import { CoupostTipsComponent } from './modals/coupost-tips/coupost-tips.component';
+import { ValidLocationsComponent } from './templates/valid-locations/valid-locations.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +85,9 @@ import { DealsFilter } from './filters/deals.filter';
     BusinessFinishModalComponent,
     UserDemoComponent,
     VerifyInstaModalComponent,
-    BusinessAboutTemplateComponent
+    BusinessAboutTemplateComponent,
+    CoupostTipsComponent,
+    ValidLocationsComponent
   ],
   imports: [
     BrowserModule,

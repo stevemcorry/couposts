@@ -1,0 +1,21 @@
+@import '../../colors.scss';
+
+.redirectWrap{
+    margin-top: 80px;
+    color: $dark;
+    text-align: center;
+}
+h1{
+    color: $dark;
+}
+.spinO{
+    display: inline-block;
+    font: 28px sans-serif;
+}
+.spinOn{
+    transform: rotate(360deg);
+    transition: all .8s ease;
+}
+.red{
+    color: $red;
+}

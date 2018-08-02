@@ -49,7 +49,6 @@ export class UploadComponent{
       } else{
         setTimeout(()=>{
           this.checkDone()
-          this.currentUpload.progress = 0;
         },200)
       }
     }

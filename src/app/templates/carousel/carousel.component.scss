@@ -43,6 +43,30 @@
     top: calc(50% - 20px);
     transform: rotate(90deg)
 }
+.dots{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+}
+.dot{
+    height: 7px;
+    width: 7px;
+    min-height: 7px;
+    min-width: 7px;
+    margin: 2px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: $grey;
+    transition: all .3s ease;
+}
+.dotOn{
+    background-color: $dark;
+    height: 8px;
+    width: 8px;
+    min-height: 8px;
+    min-width: 8px;
+}
 @media screen and (max-width: 575px){
     .dealContainer{
         width: 325px;

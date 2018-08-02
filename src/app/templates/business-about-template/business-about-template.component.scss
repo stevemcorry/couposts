@@ -1,7 +1,12 @@
 @import '../../colors.scss';
+.about{
+    font: 17px sans-serif;
+    color: $dark;
+}
 .showMore{
     font: 14px sans-serif;
     color: $darkblue;
     text-align: right;
     margin-right: 8px;
+    cursor: pointer;
 }

@@ -5,12 +5,13 @@
       </div>
     </modal-header>
     <modal-body>
-      <div class="info-header">Do you have a website?</div>
+      <div class="info-header">What is your website?</div>
       <input type="text" 
         placeholder="website"
         class="textInput" 
         [(ngModel)]="website">
       <div class="info-header">What Industry are you in?</div>
+      <div class="info-sub-header">Select all that apply</div>
       <input type="checkbox" 
         name="ecommerce"
         value="ecommerce"
@@ -35,7 +36,7 @@
           name="activity"
           value="activity"
           class="checkboxInput"
-          [(ngModel)]="industry.activity"> Activity <br>
+          [(ngModel)]="industry.activity"> Entertainment <br>
       <button class="good-button" (click)="save()">Save and Continue</button>
     </modal-body>
   </modal>

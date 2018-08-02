@@ -3,6 +3,8 @@ import { MainService } from '../../services/main.service';
 import { UploadComponent } from '../../modals/upload/upload.component';
 // import { DealEditComponent } from '../../modals/deal-edit/deal-edit.component';
 
+import { NotificationsService } from 'angular2-notifications-lite';
+
 import { Router } from '@angular/router';
 import { EditDealsComponent } from 'app/components/edit-deals/edit-deals.component';
 import { BusinessService } from 'app/services/business.service';
@@ -63,12 +65,21 @@ export class BusinessProfileComponent implements OnInit {
   industryModalOn;
   locationModalOn;
   uploadModalOn;
+  coupostOpen;
+  overlay = false;
+  options = {
+    position: ["bottom", "right"],
+    timeOut: 5000,
+    lastOnBottom: true,
+    showProgressBar: false,
+  }
 
   constructor(
     public mainService: MainService,
     public dealsService: DealsService,
     public businessService: BusinessService,
     public router: Router,
+    private toastService: NotificationsService
   ) {
     this.url = router.url.split('/')
     this.url = this.url[this.url.length -1];
@@ -89,7 +100,15 @@ export class BusinessProfileComponent implements OnInit {
     })
     let profileSub = this.businessService.getBusinessProfile(this.url).subscribe(data=>{
       this.image = data.url;
+      !data.address ? data.address = [] : "";
       this.business = data;
+      data.about ? this.aboutModalOn = true : '';
+      if(data.address[0] || data.onlineOnly == true){
+        this.locationModalOn = true;
+      }
+      data.url ? this.uploadModalOn = true : '';
+      this.setCheckBusiness(data);
+
       if(this.uid === data.$key){
         this.editOn = true;
         //this.openDeal('');
@@ -98,7 +117,6 @@ export class BusinessProfileComponent implements OnInit {
     },error=>{
       console.log(error,'error')
     })
-    let listings;
     this.dealsService.getBusinessDeals(this.url).subscribe(res =>{
       this.deals = [];
       for(let deal of res){
@@ -112,28 +130,70 @@ export class BusinessProfileComponent implements OnInit {
         }
       }
       if(!this.deals[0]){
-        this.dealsLoading = "No couposts created yet! Click below to create a coupost!";
+        this.dealsLoading = "No couposts yet!";
       }
     });
   }
   log(x){
     console.log(x)
   }
-  checkBusiness(data){
-    console.log(data)
+  alerty(x){
+    let toast = this.toastService.error(x,'_', {
+      timeOut: 3000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true
+    });
+  }
+  notify(x){
+    let toast = this.toastService.bare(x,'_', {
+      timeOut: 3000,
+      showProgressBar: true,
+      clickToClose: true
+    });
+  }
+  setCheckBusiness(data){
+    console.log(data.address, data.onlineOnly,'checking')
     let industryCheck = 0;
     for(let i in data.industry){
       industryCheck++;
     }
     data.about ? this.aboutModalOn = true : '';
-    //data.website ? this.websiteModalOn = true : '';
+    data.website ? this.websiteModalOn = true : '';
     industryCheck ? this.industryModalOn = true : '';
-    data.address ? this.locationModalOn = true : '';
+    if(data.address[0] || data.onlineOnly == true){
+      this.locationModalOn = true;
+    }
+    data.url ? this.uploadModalOn = true : '';
+    if(!data.about){
+      this.overlay = true;
+      this.welcomeModal.open();
+      return false;
+    } else {
+      this.overlay = false;
+    }
+  }
+  checkBusiness(data){
+    let industryCheck = 0;
+    for(let i in data.industry){
+      industryCheck++;
+    }
+    data.about ? this.aboutModalOn = true : '';
+    data.website ? this.websiteModalOn = true : '';
+    industryCheck ? this.industryModalOn = true : '';
+    if(data.address){
+      if(data.address[0] || data.onlineOnly == true){
+        this.locationModalOn = true;
+      }
+    } else if(data.onlineOnly == true){
+      this.locationModalOn = true;
+    }
+    //data.address ? this.locationModalOn = true : '';
     data.url ? this.uploadModalOn = true : '';
     if(!data.about){
       this.welcomeModal.open();
       return false;
-    } 
+    }
     // else if(!data.website || !industryCheck){
     //   this.websiteModal.open();
     //   return false;
@@ -145,10 +205,12 @@ export class BusinessProfileComponent implements OnInit {
       this.uploadModal.open();
       return false;
     } else {
+      this.overlay = false;
       return true;
     }
   }
   aboutSaved(event){
+    console.log(this.locationModalOn,'modal on')
     if(event){
       this.business.about = event;
       this.saveEdit();
@@ -184,7 +246,6 @@ export class BusinessProfileComponent implements OnInit {
   }
   locationSaved(event){
     let obj = JSON.parse(event);
-    console.log(obj);
     if(obj == 'online'){
       this.business.onlineOnly = true;
       this.saveEdit();
@@ -192,9 +253,9 @@ export class BusinessProfileComponent implements OnInit {
       this.business.address = obj;
       this.saveEdit();
     }
-    // if(!this.uploadModalOn){
-    //   this.uploadModal.open();
-    // }
+    if(!this.uploadModalOn){
+      this.uploadModal.open();
+    }
   }
   uploadSaved(event){
     let profileSub = this.businessService.getBusinessProfile(this.url).subscribe(data=>{
@@ -211,8 +272,13 @@ export class BusinessProfileComponent implements OnInit {
         this.editOn = true;
       }
       profileSub.unsubscribe();
+      this.notify("Image saved!")
+      if(this.coupostOpen){
+        this.openDeal('');
+      }
     },error=>{
-      console.log(error,'error')
+      this.alerty("Image didn't save properly");
+      console.log(error,'error');
     })
   }
   finish(){
@@ -229,6 +295,7 @@ export class BusinessProfileComponent implements OnInit {
       address: this.business.address
     }
     this.businessService.editBusiness(this.url, this.business).then(res=>{
+      this.getProfile();
       this.edit = false;
     },err =>{
       console.log(err, 'er')
@@ -243,6 +310,7 @@ export class BusinessProfileComponent implements OnInit {
   }
   openUpload(){
     if(!this.editOn){return}
+    this.saveEdit();
     this.uploadComponent.open();
   }
   ngOnInit() {
@@ -252,6 +320,7 @@ export class BusinessProfileComponent implements OnInit {
     if(!this.editOn){return}
     if(this.checkBusiness(this.business)){
       this.editDeals.openDeal(x);
+      this.coupostOpen = false;
     }
     setTimeout(()=>{
       this.showEdit = true;

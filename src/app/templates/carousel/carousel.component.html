@@ -7,6 +7,12 @@
       class="modalDealImg" 
       *ngFor="let img of dealImages;">
   </div>
+  <div class="dots" *ngIf="dealImages[1]">
+    <div *ngFor="let img of dealImages; 
+      let i = index" 
+      class="dot"
+      [ngClass]="{dotOn: i == carouselCheck}"></div>
+  </div>
   <div class="leftArrow arrow"
     (click)="carouselLeft()"
     *ngIf="dealImages[1]">

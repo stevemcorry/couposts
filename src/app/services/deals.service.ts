@@ -78,9 +78,11 @@ export class DealsService {
   editDeal(deal, business, key){
     let dealObj: FirebaseObjectObservable<any>;
     dealObj = this.afData.object('deals/'+key+"/deal");
-    let businessObj: FirebaseObjectObservable<any>;
-    businessObj = this.afData.object('deals/'+key+"/business");
-    return businessObj.set(business);
+    return dealObj.set(deal).then(res=>{
+      let businessObj: FirebaseObjectObservable<any>;
+      businessObj = this.afData.object('deals/'+key+"/business");
+      return businessObj.set(business);
+    })
   }
   dealRedeem(key, deal, userKey, userDeal){
     console.log('dealRedeem')

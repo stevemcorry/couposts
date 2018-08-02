@@ -26,19 +26,19 @@ export class VerifyInstaModalComponent implements OnInit {
   }
 
   verifyInsta(){
-    //this.mainService.instaLogin();
+    this.mainService.instaLogin();
 
     //DELETE LATER
-    let user = {counts: {
-      followed_by: 250,
-      follows: 250,
-      media: 25
-    }}
-    this.mainService.updateUserInsta(user, this.uid).then(res=>{
-      console.log('saved Insta Data',res);
-      this.modal.close();
-      this.saved.emit();
-    })
+    // let user = {counts: {
+    //   followed_by: 250,
+    //   follows: 250,
+    //   media: 25
+    // }}
+    // this.mainService.updateUserInsta(user, this.uid).then(res=>{
+    //   console.log('saved Insta Data',res);
+    //   this.modal.close();
+    //   this.saved.emit();
+    // })
 
   }
 

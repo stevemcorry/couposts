@@ -24,6 +24,9 @@
     z-index: 1;
     padding: 0 15px;
 }
+.good-button{
+    min-width: 75px;
+}
 .cancelButton{
     position: absolute;
     top: 5px;
@@ -36,6 +39,16 @@
     height: 40px;
     width: 40px;
     cursor: pointer;
+}
+.previewButton{
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    z-index: 2;
+    cursor: pointer;
+    font: 16px sans-serif;
+    color: $darkblue;
+    display: none;
 }
 .userSees{
     font: 18px Poppins;
@@ -56,7 +69,15 @@
 }
 
 .leftCol{
-    //min-height: 100vh;
+    display: inline-block;
+    float: left;
+    width: 33%;
+    position: relative;
+}
+.rightCol{
+    display: inline-block;
+    float: right;
+    width: 66%;
 }
 
 
@@ -67,6 +88,21 @@
     padding: 10px;
     text-align: left;
     border-top: 1px solid $grey;
+    position: relative;
+}
+.toolTip{
+    background-color: $med;
+    border-radius: 50%;
+    font: 16px sans-serif;
+    color: white;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    top: 20px;
+    right: 10px;
+    line-height: 22px;
+    cursor: pointer;
 }
 .borderBottom{
     border-bottom: 1px solid $grey;
@@ -84,23 +120,42 @@
 }
 .dealHeader{
     font: 20px sans-serif;
-    color: $grey;
+    color: $dark;
     padding: 10px;
+    padding-bottom: 0px;
+    position: relative;
+    text-align: left;
+}
+.dealSubHeader{
+    font: 14px sans-serif;
+    color: $dark;
+    padding: 0 10px 0;
     padding-bottom: 0px;
     position: relative;
     text-align: left;
 }
 .smallHeader{
     font: 17px sans-serif;
-    color: $grey;
+    color: $dark;
     padding: 10px;
     padding-bottom: 0px;
     position: relative;
     text-align: left;
     span{
-        color: $dark;
+        font-weight: 900;
     }
 }
+// .smallHeader{
+//     font: 17px sans-serif;
+//     color: $grey;
+//     padding: 10px;
+//     padding-bottom: 0px;
+//     position: relative;
+//     text-align: left;
+//     span{
+//         color: $dark;
+//     }
+// }
 .percentage{
     font: 20px sans-serif;
     color: $dark;
@@ -254,7 +309,13 @@ input[type=date]{
     padding: 5px 8px;
     display: inline-block;
 }
-  
+.asterisk{
+    font: 13px sans-serif;
+    color: $grey;
+} 
+.blue{
+    color: $darkblue !important;
+}
 .buttons{
     margin-top: 20px;
     text-align: right;
@@ -267,12 +328,18 @@ input[type=date]{
     font-size: 20px;
     border-radius: 5px;
     width: fit-content;
-    padding: 5px 15px;
-    background-color: $lightblue;
-    color: white;
+    padding: 3px 15px 5px;
+    background-color: transparent;
+    border: 2px solid $lightblue;
+    //background-color: $lightblue;
+    color: $lightblue;
     margin: 10px 0;
     cursor: pointer;
     text-align: center;
+}
+.saveDeal:hover{
+    background-color: $lightblue;
+    color: white;
 }
 .cancelDeal{
     font-size: 20px;
@@ -297,7 +364,12 @@ input[type=date]{
 }
 .sameHeightButtons{
     height: 50px;
+    width: 169px;
     line-height: 40px;
+}
+.selectedButton{
+    background-color: $lightblue;
+    color: white;
 }
 .campaignButtons{
     height: 50px;
@@ -311,10 +383,13 @@ input[type=date]{
     float: left;
     margin: 10px 0% 10px 5%;
 }
-.selectedButton{
-    background-color: $darkblue;
-}
 .redeemButtons{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 8px;
+}
+.expireButtons{
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -341,6 +416,22 @@ input[type=date]{
     box-shadow: 0px 0px 10px lightgrey;
     background-color: white;
 
+}
+.acceptDesc{
+    color: $dark;
+    font: 22px sans-serif;
+    text-align: left;
+    margin: 8px;
+}
+.approveWarn{
+    color: red;
+    font: 17px sans-serif;
+    margin: 8px;
+}
+.bigButton{
+    width: calc(100% - 16px);
+    background-color: red;
+    margin: 20px 8px;
 }
 .topDeal{
     text-align: left;
@@ -369,6 +460,46 @@ input[type=date]{
     padding: 5px 10px;
     border: none;
     cursor: pointer;
+}
+#previewStuff{
+    .infoButtons{
+        margin: 9px auto;
+        width: 100%;
+        text-align: center;
+        .good-button{
+            float: none;
+        }
+    }
+    .buttonIcon{
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        height: 20px;
+        width: 20px;
+        min-height: 20px;
+        min-width: 20px;
+        display: inline-block;
+    }
+    .web{
+        background-image: url('../../../assets/Images/link.png');
+    }
+    .insta{
+        background-image: url('../../../assets/Images/insta.png');
+        transform: translateY(3px);
+    }
+    .darkblue{
+        background-color: $darkblue;
+    }
+    .aboutHeaderLabel{
+        text-align: center;
+        width: 100%;
+        font: 20px sans-serif;
+        color: $dark;
+    }
+    .big-button{
+        width: 95%;
+        margin: auto;
+    }
 }
 .businessImage{
     position: relative;
@@ -449,6 +580,9 @@ textarea{
 }
 .locationName{
     display: inline-block;
+    span{
+        color: $darkblue;
+    }
 }
 .checkbox{
     display: inline-block;
@@ -462,7 +596,8 @@ textarea{
     margin-right: 10px;
 }
 .checkOn{
-    background-color: $darkblue;
+    background-color: $lightblue;
+    border: 1px solid $lightblue;
 }
 
 //Contract
@@ -475,6 +610,14 @@ textarea{
     position: relative;
     box-shadow: 0px 0px 10px lightgrey;
     background-color: white;
+    h5, h4{
+        color: black;
+        span{
+            color: black;
+            font-size: 22px;
+            font-weight: 900;
+        }
+    }
 }
 h4{
     font: 18px sans-serif;
@@ -499,6 +642,70 @@ h5{
         color: $dark;
         font-size: 20px
     }
+}
+
+//tooltips
+.tools {
+    position: relative;
+    display: inline-block;
+    //border-bottom: 1px dotted black;
+}
+
+.tools .tooltiptext {
+    font: 16px sans-serif;
+    visibility: hidden;
+    width: 220px;
+    background-color: $notblack;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    border-radius: 6px;
+    line-height: 17px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: calc(50% - 110px);
+    // top: -5px;
+    // left: 105%;
+    opacity: 0;
+    transition: opacity .5s;
+    //transition: opacity .5s cubic-bezier(0.98, -0.59, 1, 0.14);
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tools:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+.tools .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    //bottom: 100%;  /* At the top of the tooltip */
+    left: 50%;
+    // right: 100%; /* To the left of the tooltip */
+    //left: 100%; /* To the right of the tooltip */
+    // top: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: $notblack transparent transparent transparent;
+}
+.tools .leftTool {
+    bottom: 125%;
+    left: 0;
+}
+.tools .leftTool::after {
+    left: 25%;
+}
+.tools .rightTool {
+    bottom: 125%;
+    left: inherit;
+    right: 0;
+}
+.tools .rightTool::after {
+    left: inherit;
+    right: 25%;
 }
 
 //summary
@@ -527,14 +734,46 @@ h5{
         text-align: left;
     }
 }
-
+@media screen and (max-width: 1381px){
+    .redeemButtons{
+        .leftButtons, .rightButtons{
+            margin: 10px 0;
+        }
+    }
+}
+@media screen and (max-width: 1243px){
+    .redeemButtons{
+        .saveDeal{
+            padding: 3px 3px 5px;
+        }
+    }
+}
+@media screen and (max-width: 1028px){
+    @media screen and (min-width: 991px){
+        .redeemButtons{
+            .saveDeal{
+                font-size: 19px;
+            }
+        }
+    }
+}
 @media screen and (max-width:991px){
-    @media screen and (min-width:550px){
+   // @media screen and (min-width:550px){
         .rightBorder{
             border: 1px solid $grey;
             width: 400px;
             margin: 0 auto 30px;
         }
+    //}
+    .previewButton{
+        display: block;
+    }
+    .leftCol, .rightCol{
+        float: none;
+        margin: auto;
+    }
+    .rightCol{
+        width: 100%;
     }
 }
 @media screen and (max-width:700px){
@@ -546,10 +785,21 @@ h5{
 @media screen and (max-width:550px){
 
     .rightBorder{
-        border-right: none;
+        //border-right: none;
         border-bottom: 1px solid $grey;
     }
 }
+@media screen and (max-width: 1135px){
+    .sameHeightButtons{
+        padding: 3px 5px;
+        width: 148px;
+    }
+}
+// @media screen and (max-width: 1200px){
+//     .noflexrow{
+//         display: flex;
+//     }
+// }
 
 #deal{
     display: inline-block;

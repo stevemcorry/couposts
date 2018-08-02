@@ -1,3 +1,91 @@
-<p>
-  redirect works!
-</p>
+<app-header></app-header>
+
+<div class="redirectWrap" *ngIf="finishedVerify == 'accepted'">
+  <h1>
+    Hello {{data.username}}!
+  </h1>
+
+  <br>
+  <h3>
+    Your instagram was successfully verified!
+  </h3>
+  <h3>
+    We do this to make sure you have over 200 followers
+  </h3>
+  <h3>
+    And to check the engagements on your most recent posts
+  </h3>
+  <h6 *ngIf="count">
+    You will be automatically redirected to your profile page in {{count}}
+  </h6>
+</div>
+<div class="redirectWrap" *ngIf="finishedVerify == 'followers'">
+  <h1>
+    Hello {{data.username}}!
+  </h1>
+  <h3>
+    Your instagram was successfully verified:
+  </h3>
+  <h3 class="red">
+    Unfortunately you must have at least 200 followers to use Couposts.
+  </h3>
+  <h6 *ngIf="count">
+    You will be automatically redirected to your profile page in {{count}}
+  </h6>
+</div>
+<div class="redirectWrap" *ngIf="finishedVerify == 'engagements'">
+  <h1>
+    Hello {{data.username}}!
+  </h1>
+  <h3>
+    Your instagram was successfully verified:
+  </h3>
+  <h3 class="red">
+    Unfortunately the engagements on your posts were too low to use Couposts.
+  </h3>
+  <h6 *ngIf="count">
+    You will be automatically redirected to your profile page in {{count}}
+  </h6>
+</div>
+<div class="redirectWrap" *ngIf="!finishedVerify">
+  <div class="spinO" 
+    [ngClass]="{spinOn: loadingProgress == 'L'}">
+    V
+  </div>
+  <div class="spinO" 
+    [ngClass]="{spinOn: loadingProgress == 'o'}">
+    e
+  </div>
+  <div class="spinO" 
+    [ngClass]="{spinOn: loadingProgress == 'a'}">
+    r
+  </div>
+  <div class="spinO" 
+    [ngClass]="{spinOn: loadingProgress == 'd'}">
+    i
+  </div>
+  <div class="spinO" 
+    [ngClass]="{spinOn: loadingProgress == 'i'}">
+    f
+  </div>
+  <div class="spinO" 
+    [ngClass]="{spinOn: loadingProgress == 'n'}">
+    y
+  </div>
+  <div class="spinO" 
+    [ngClass]="{spinOn: loadingProgress == 'g'}">
+    i
+  </div>
+  <div class="spinO" 
+    [ngClass]="{spinOn: loadingProgress == '.'}">
+    n
+  </div>
+  <div class="spinO" 
+    [ngClass]="{spinOn: loadingProgress == ','}">
+    g
+  </div>
+  <!-- <div class="spinO" 
+    [ngClass]="{spinOn: loadingProgress == '/'}">
+    .
+  </div> -->
+</div>

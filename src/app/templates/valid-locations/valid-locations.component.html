@@ -1,0 +1,19 @@
+<div>
+  <div *ngIf="locations" 
+    (click)="locationsOn = !locationsOn"
+    class="locationHeader">
+    <div *ngIf="checkLocations()">Click For Valid Locations</div>
+    <div *ngIf="!checkLocations()">Valid Locations</div>
+  </div>
+  <div *ngIf="!locations"
+    class="locationHeader">
+    Redeemable Online
+  </div>
+  <div *ngIf="locations" class="locations">
+    <div *ngFor="let location of locations" 
+      [hidden]="checkLocations()"
+      class="location">
+      {{location}}
+    </div>
+  </div>
+</div>

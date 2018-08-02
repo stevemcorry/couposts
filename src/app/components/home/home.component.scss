@@ -32,6 +32,35 @@
     width: 100%;
     top: 26%;
 }
+.buttonWrap{
+    height: 49px;
+    button{
+        width: 195px;
+        height: 45px;
+        margin: 0 20px;
+        border: 2px solid $lightblue;
+        position: relative;
+    }
+    button div{
+        position: absolute;
+        top: 8px;
+        right: 0;
+        width: 100%;
+        transition: all .5s ease;
+    }
+    button:hover div{
+        font-size: 22px;
+    }
+    .clear-back{
+        background-color: transparent;
+    }
+    // .clear-back:hover{
+    //     background-color: $lightblue;
+    // }
+    // .blue-back:hover{
+    //     background-color: transparent;
+    // }
+}
 .available{
     margin: 15px auto 10px;
     text-align: center;
@@ -40,6 +69,13 @@
     color: $dark;
     width: 250px;
     font: 25px sans-serif;
+}
+.spinO{
+    display: inline-block;
+    transition: all 1s ease;
+}
+.spinOn{
+    transform: rotate(360deg);
 }
 .good-button{
     margin-bottom: 10px;
@@ -96,6 +132,7 @@
     height: 21vw;
     background-color: white;
     margin: 3% 1% 0;
+    cursor: pointer;
 }
 @media screen and (max-width: 1038px){
     #deal{
@@ -151,4 +188,31 @@
     .underTitle{
         font-size: 24px;
     }
+
+.buttonWrap{
+    height: 39px;
+    button{
+        width: 155px;
+        height: 41px;
+        font: 17px sans-serif;
+        margin: 0 5px;
+        border: 2px solid $lightblue;
+        position: relative;
+    }
+    button div{
+        position: absolute;
+        top: 8px;
+        right: 0;
+        transition: all .5s ease;
+    }
+    button:hover div{
+        font-size: 18px;
+    }
+    // .clear-back:hover{
+    //     background-color: $lightblue;
+    // }
+    // .blue-back:hover{
+    //     background-color: transparent;
+    // }
+}
 }

@@ -17,6 +17,7 @@ app-deal-header{
     cursor: pointer;
 }
 .good-button{
+    text-align: center;
     padding: 8px 10px;
     background-color: $lightblue;
     color: white;
@@ -53,3 +54,21 @@ app-deal-header{
 .pac-container { 
     z-index: 100000; 
 }
+
+
+.simple-notification.bare {
+    background: #5b6871 !important;
+  }
+  
+  .simple-notification.bare .sn-title {
+  
+  }
+  
+  .simple-notification.bare .sn-content {
+  
+  }
+  
+  .simple-notification.bare .sn-progress-loader span {
+    background-color: #ffffff !important;
+    opacity: 0.5 !important;
+  }

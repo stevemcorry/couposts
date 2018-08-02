@@ -4,7 +4,7 @@
       [deal]="deal">
     </app-deal-header>
   </modal-header>
-  <div class="good-button big-button" (click)="next()">Claim Coupost</div>
+  <div class="good-button big-button" (click)="next()">Continue</div>
   <modal-body>
     <app-carousel [dealImages]="dealImages"></app-carousel>
     <div class="aboutHeaderLabel">Business Info:</div>
@@ -32,22 +32,7 @@
       </app-business-about-template>
     </div>
     <div>
-      <div *ngIf="deal.deal.locations" 
-        (click)="locationsOn = !locationsOn"
-        class="locationHeader">
-        Valid Locations
-      </div>
-      <div *ngIf="!deal.deal.locations"
-        class="locationHeader">
-        Redeemable Online
-      </div>
-      <div *ngIf="deal.deal.locations" class="locations">
-        <div *ngFor="let location of deal.deal.locations" 
-          [hidden]="!locationsOn"
-          class="location">
-          {{location}}
-        </div>
-      </div>
+      <app-valid-locations [locations]="deal.deal.locations"></app-valid-locations>
       <div *ngIf="deal.deal.expiration"
         class="expiration">
         *This deal expires {{deal.deal.expiration}}
@@ -62,7 +47,7 @@
       </button>
       <button (click)="next()" 
         class="good-button">
-        Claim
+        Continue
       </button>
     </div>
   </modal-footer>
@@ -103,7 +88,7 @@
         Step three:
       </div>
       <div class="stepInfo">
-          Click "Go to Instagram" and post! Once your post/story is verified (may take up to 12 hours), your Coupost will be available on your profile page.
+          Click "Claim Coupost" and post! Once your post/story is verified (may take up to 12 hours), your Coupost will be available on your profile page.
       </div>
         
     </modal-body>
@@ -113,7 +98,7 @@
           Back
         </div>
         <div (click)="redeem()" class="good-button">
-          Go to Instagram
+          Claim Coupost
         </div>
       </div>
     </modal-footer>
@@ -125,5 +110,6 @@
   [uid]="user.$key">
 </app-verify-insta-modal>
 <app-user-signup (loggedIn)="loggedIn()" 
-  [fromRedeem]="true">
+  [fromRedeem]="true"
+  [getStarted]="true">
 </app-user-signup>
